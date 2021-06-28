@@ -2,26 +2,26 @@ import React, {useEffect, useState} from 'react'
 import AudioVisualiser from './AudioVisualiser'
 
 
-const AudioAnalyser = ({ source, audioContext }) => {
+const AudioAnalyser = ({ audioContextSource, audioContext }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array());
-    const [dataArray, setDataArray] = useState(new Uint8Array());
+
     
     let analyser = audioContext.createAnalyser();
-    
+
     
     
     useEffect( () => {
-        setDataArray = new Uint8Array(analyser.frequencyBinCount) ;
-        source.connect(analyser);
+        setAudioData(new Uint8Array(analyser.frequencyBinCount)) ;
+        audioContextSource.connect(analyser);
         let rafId = requestAnimationFrame(tick);
     }, [])
 
     
     let tick = () => {   
-        analyser.getByteTimeDomainData(dataArray);
-        // console.log(dataArray)
-        setAudioData(dataArray)
+        analyser.getByteTimeDomainData(audioData);
+        // console.log(audioData)
+        setAudioData(audioData)
         let rafId = requestAnimationFrame(tick);
     }
 
