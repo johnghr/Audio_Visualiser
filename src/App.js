@@ -1,23 +1,49 @@
-import logo from './logo.svg';
+import React, {useState, useRef} from 'react';
+import AudioAnalyser from './components/AudioAnalyser';
 import './App.css';
 
 function App() {
+
+  const[source, setSource] = useState(null);
+  const[audio, setAudio] = useState(null);
+  const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)())
+  const audioContext = audioContextRef.current;
+
+  async function getMicrophone() {
+    let audio = await navigator.mediaDevices.getUserMedia(
+      {
+        audio: true,
+        video: false
+      }
+    )
+    setAudio(audio);
+    setSource(audioContext.createMediaStreamSource(audio));
+  }
+
+  function stopMicrophone() {
+    audio.getTracks().forEach(track => track.stop());
+    setAudio(null);
+  }
+
+  function toggleMicrophone() {
+    if(audio){
+      stopMicrophone();
+    } else {
+      getMicrophone();
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <div className="controls">
+        
+        <button onClick={toggleMicrophone}>
+          {audio ? 'Stop microphone' : 'Get microphone'}
+        </button>
+
+      </div>
+      {source ? <AudioAnalyser source={source} audioContext={audioContext} /> : ""}
     </div>
   );
 }
