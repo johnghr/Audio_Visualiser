@@ -5,14 +5,14 @@ import AudioVisualiser from './AudioVisualiser'
 const AudioAnalyser = ({ source, audioContext }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array());
-
+    const [dataArray, setDataArray] = useState(new Uint8Array());
     
     let analyser = audioContext.createAnalyser();
-    let dataArray;
+    
     
     
     useEffect( () => {
-        dataArray = new Uint8Array(analyser.frequencyBinCount) ;
+        setDataArray = new Uint8Array(analyser.frequencyBinCount) ;
         source.connect(analyser);
         let rafId = requestAnimationFrame(tick);
     }, [])
