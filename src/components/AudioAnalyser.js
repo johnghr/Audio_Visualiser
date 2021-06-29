@@ -2,27 +2,35 @@ import React, {useEffect, useState} from 'react'
 import AudioVisualiser from './AudioVisualiser'
 
 
-const AudioAnalyser = ({ audioContextSource, audioContext }) => {
+const AudioAnalyser = ({ analyser, audioContextSource  }) => {
 
-    const [audioData, setAudioData] = useState(new Uint8Array());
+    const [dataArray, setDataArray] = useState(new Uint8Array());
+    // const [audioData, setAudioData] = useState(new Uint8Array());
 
     
-    let analyser = audioContext.createAnalyser();
-
     
     
     useEffect( () => {
-        setAudioData(new Uint8Array(analyser.frequencyBinCount)) ;
+        // sets audio data to be a Uint8Array which is half as long as the analyser fftSize:
+        // determines the amount of data values available for visualisation
+        setDataArray(new Uint8Array(analyser.frequencyBinCount)) ;
+        // connect the audio analyser to the source of audio
         audioContextSource.connect(analyser);
-        let rafId = requestAnimationFrame(tick);
+        // set the request animation frame Id for use when app dismounts/cancels and calls 
+        // tick
+        requestAnimationFrame(tick);
+
     }, [])
 
     
-    let tick = () => {   
-        analyser.getByteTimeDomainData(audioData);
-        // console.log(audioData)
-        setAudioData(audioData)
-        let rafId = requestAnimationFrame(tick);
+    const tick = () => {
+        // copies wave form data into the dataArray which is passed in as an argument   
+        analyser.getByteTimeDomainData(dataArray)
+        // setDataArray([...dataArray]);
+        console.log("audio data:",dataArray)
+        // set AudioData to be data contained in dataArray so it can be passed down to
+        // visualiser as a prop
+        requestAnimationFrame(tick);
     }
 
 
@@ -33,7 +41,8 @@ const AudioAnalyser = ({ audioContextSource, audioContext }) => {
     // }
 
     return(
-        <AudioVisualiser audioData={audioData}/>
+        <AudioVisualiser audioData={dataArray}/>
+        // <p>Testing broken shit</p>
     )
 
 }

@@ -9,6 +9,7 @@ function App() {
   const[audioInput, setAudioInput] = useState(null);
   const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)())
   const audioContext = audioContextRef.current;
+  const analyser = audioContext.createAnalyser();
 
   async function getMicrophone() {
     let micAudio = await navigator.mediaDevices.getUserMedia(
@@ -44,7 +45,7 @@ function App() {
         </button>
 
       </div>
-      {audioContextSource ? <AudioAnalyser audioContextSource={audioContextSource} audioContext={audioContext} /> : ""}
+      {audioContextSource ? <AudioAnalyser analyser={analyser} audioContextSource={audioContextSource} audioContext={audioContext} /> : ""}
       <AudioPlayer></AudioPlayer>
     </div>
   );
