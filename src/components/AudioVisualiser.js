@@ -36,11 +36,11 @@ const AudioVisualiser = ({audioData}) => {
         
         render()
 
-        return () => {
+        return function cleanup() {
             cancelAnimationFrame(requestId)
         }
         
-    })
+    }, )
 
     return(
         <canvas 
