@@ -18,12 +18,7 @@ const AudioAnalyser = ({ analyser, audioContextSource  }) => {
         audioContextSource.connect(analyser);
         // set the request animation frame Id for use when app dismounts/cancels and calls 
         // tick
-        requestAnimationFrame(tick);
-
-    }, [])
-
-    
-    const tick = () => {
+        const tick = () => {
         // copies wave form data into the dataArray which is passed in as an argument   
         analyser.getByteTimeDomainData(dataArray)
         // setDataArray([...dataArray]);
@@ -32,6 +27,12 @@ const AudioAnalyser = ({ analyser, audioContextSource  }) => {
         // visualiser as a prop
         requestAnimationFrame(tick);
     }
+        requestAnimationFrame(tick);
+
+    }, [])
+
+    
+    
 
 
     // function componentWillUnmount() {
