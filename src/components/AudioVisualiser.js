@@ -1,5 +1,8 @@
 import React, {useRef, useEffect} from 'react';
 
+//let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
+//  const testWaveForm = testWaveFormRef.current;
+
 const AudioVisualiser = ({audioData}) => {
 
     const canvasRef = useRef();
@@ -12,13 +15,10 @@ const AudioVisualiser = ({audioData}) => {
         let x = 0;
         let sliceWidth = (width * 0.5) / audioData.length;
 
-        
-        
-        let requestId;
-
         const render = () => {
             context.lineWidth = 2;
             context.strokeStyle = '#000000';
+            // when not clearingRect waveform displays
             context.clearRect(0, 0, width, height);
             context.beginPath();
             context.moveTo(0, height / 2);
@@ -31,16 +31,12 @@ const AudioVisualiser = ({audioData}) => {
 
             context.lineTo(x, height / 2);
             context.stroke();
-            requestId = requestAnimationFrame(render);
+            
         }
         
         render()
-
-        return function cleanup() {
-            cancelAnimationFrame(requestId)
-        }
         
-    }, )
+    }, [audioData])
 
     return(
         <canvas 
