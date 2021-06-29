@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import AudioVisualiser from './AudioVisualiser'
 
 
- const AudioAnalyser = ({ audioInput }) => {
+ const AudioAnalyser = ({ audioInput, audioContext }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0))
     
@@ -18,13 +18,12 @@ import AudioVisualiser from './AudioVisualiser'
         // set the request animation frame Id for use when app dismounts/cancels and calls 
         // tick
         let rafId;
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+
         const analyser = audioContext.createAnalyser();
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         // const [dataArray, setDataArray] = useState(new Uint8Array());
         // const [audioData, setAudioData] = useState(new Uint8Array());
-        const source = audioContext.createMediaStreamSource(audioInput)
-        source.connect(analyser)
+        audioInput.connect(analyser)
         const tick = () => {
             // copies wave form data into the dataArray which is passed in as an argument   
             analyser.getByteTimeDomainData(dataArray)
