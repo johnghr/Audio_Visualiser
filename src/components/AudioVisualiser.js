@@ -10,7 +10,7 @@ const AudioVisualiser = ({audioData}) => {
         let width = canvas.width;
         let context = canvas.getContext('2d');
         let x = 0;
-        let sliceWidth = (width * 1.0) / audioData.length;
+        let sliceWidth = (width * 0.5) / audioData.length;
 
         
         
