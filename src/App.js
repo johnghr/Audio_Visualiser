@@ -1,15 +1,13 @@
-import React, {useState, useRef} from 'react';
-import AudioAnalyser from './components/AudioAnalyser';
+import React, {useState} from 'react';
+import AudioAnalyser from './components/AudioAnalyser'
 import AudioPlayer from './components/AudioPlayer'
 import './App.css';
 
 function App() {
 
-  const[audioContextSource, setAudioContextSource] = useState(null);
   const[audioInput, setAudioInput] = useState(null);
-  const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)())
-  const audioContext = audioContextRef.current;
-  const analyser = audioContext.createAnalyser();
+  // const[audioInput, setAudioInput] = useState(null);
+  
 
   async function getMicrophone() {
     let micAudio = await navigator.mediaDevices.getUserMedia(
@@ -18,8 +16,8 @@ function App() {
         video: false
       }
     )
+    // setAudioInput(micAudio);
     setAudioInput(micAudio);
-    setAudioContextSource(audioContext.createMediaStreamSource(micAudio));
   }
 
   function stopMicrophone() {
@@ -45,7 +43,7 @@ function App() {
         </button>
 
       </div>
-      {audioContextSource ? <AudioAnalyser analyser={analyser} audioContextSource={audioContextSource} audioContext={audioContext} /> : ""}
+      {audioInput ? <AudioAnalyser audioInput={audioInput} /> : ""}
       <AudioPlayer></AudioPlayer>
     </div>
   );
