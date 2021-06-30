@@ -5,7 +5,7 @@ const AudioPlayer = ({toggleTrack}) => {
 
     const handlePlay = (event) => {
         const eventTarget = event.target;
-        console.log("eventTarget",eventTarget)
+        console.log("eventTarget", event)
         toggleTrack(eventTarget);
     }    
 

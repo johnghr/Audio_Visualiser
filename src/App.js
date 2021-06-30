@@ -21,14 +21,6 @@ function App() {
     setMicrophoneInput(micAudio);
   }
 
-  function getTrack(event) {
-    if(trackInput){
-      stopTrack();
-    } else {
-      setTrackInput(event.target);
-    }
-  }
-
   function stopMicrophone() {
     microphoneInput.getTracks().forEach(track => track.stop());
     setMicrophoneInput(null);
@@ -71,7 +63,7 @@ function App() {
       </div>
       {microphoneInput ? <MicrophoneAnalyser microphoneInput={microphoneInput} /> : ""}
       {trackInput ? <TrackAnalyser trackInput={trackInput} /> : ""}
-      <AudioPlayer onPlay={toggleTrack}></AudioPlayer>
+      <AudioPlayer toggleTrack={toggleTrack}></AudioPlayer>
     </div>
   );
 }
