@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import AudioVisualiser from './WaveformVisualiser'
+import WaveformVisualiser from '../Visualisers/WaveformVisualiser'
 
 
- const TrackAnalyser = ({ trackInput }) => {
+ const MicAudioAnalyser = ({ microphoneInput }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0))
     
@@ -18,14 +18,14 @@ import AudioVisualiser from './WaveformVisualiser'
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
         // creates a source variable containing the media stream source
-        const source = audioContext.createMediaElementSource(trackInput)
+        const source = audioContext.createMediaStreamSource(microphoneInput)
         // connects the audio stream to the analyser node
-        source.connect(analyser).connect(audioContext.destination)
+        source.connect(analyser)
         const tick = () => {
             // copies wave form data into the dataArray which is passed in as an argument   
             analyser.getByteTimeDomainData(dataArray)
             // sets audioData to be the value of a copy of dataArray
-            // console.log("audio data:",dataArray)
+            console.log("audio data:",dataArray)
             setAudioData([...dataArray])
             // requests a re-render while calling tick in a recursive loop
             rafId = requestAnimationFrame(tick);
@@ -33,18 +33,16 @@ import AudioVisualiser from './WaveformVisualiser'
     
         rafId = requestAnimationFrame(tick);
 
-        
-
         return function cleanup() {
             cancelAnimationFrame(rafId);
         }
 
-    }, [trackInput])
+    }, [microphoneInput])
 
     return(
-        <AudioVisualiser audioData={audioData}/>
+        <WaveformVisualiser audioData={audioData}/>
     )
 
 }
 
-export default TrackAnalyser;
+export default MicAudioAnalyser;

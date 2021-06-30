@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import MicrophoneAnalyser from './components/MicrophoneAnalyser';
-import TrackAnalyser from './components/TrackAnalyser';
+import MicrophoneAnalyser from './components/Analysers/MicrophoneAnalyser';
+import TrackAnalyser from './components/Analysers/TrackAnalyser';
 import AudioPlayer from './components/AudioPlayer';
 import './App.css';
 
