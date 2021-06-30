@@ -20,22 +20,14 @@ function App() {
     setMicrophoneInput(micAudio);
   }
 
-  function getTrack(event) {
-    if(trackInput){
-      stopTrack();
-    } else {
-      setTrackInput(event.target);
-    }
-  }
-
   function stopMicrophone() {
     microphoneInput.getTracks().forEach(track => track.stop());
     setMicrophoneInput(null);
   }
 
   function stopTrack() {
-    trackInput.getTracks().forEach(track => track.stop());
-    setTrackInput(null);
+    trackInput.getTracks().stop()
+    // setTrackInput(null);
   }
 
   function toggleMicrophone() {
@@ -46,16 +38,15 @@ function App() {
     }
   }
 
-  function toggleTrack() {
+  function toggleTrack(track) {
     if (trackInput){
       stopTrack();
     } else {
-      getTrack();
+      console.log(track) 
+      setTrackInput(track);
+     
     }
   }
-  
-
-  
 
   return (
     <div className="App">
@@ -69,7 +60,7 @@ function App() {
       </div>
       {microphoneInput ? <MicrophoneAnalyser microphoneInput={microphoneInput} /> : ""}
       {trackInput ? <TrackAnalyser trackInput={trackInput} /> : ""}
-      <AudioPlayer onPlay={toggleTrack}></AudioPlayer>
+      <AudioPlayer toggleTrack={toggleTrack} trackInput={trackInput}></AudioPlayer>
     </div>
   );
 }

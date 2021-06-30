@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import AudioVisualiser from './AudioVisualiser'
+import AudioVisualiser from './WaveformVisualiser'
 
 
  const MicAudioAnalyser = ({ microphoneInput }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0))
-    
-    
-    
     
     useEffect( () => {
         // empty request animation frame Id
@@ -36,13 +33,11 @@ import AudioVisualiser from './AudioVisualiser'
     
         rafId = requestAnimationFrame(tick);
 
-        
-
         return function cleanup() {
             cancelAnimationFrame(rafId);
         }
 
-    }, [])
+    }, [microphoneInput])
 
     return(
         <AudioVisualiser audioData={audioData}/>
