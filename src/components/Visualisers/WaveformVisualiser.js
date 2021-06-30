@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const AudioVisualiser = ({audioData}) => {
+const WaveformVisualiser = ({audioData}) => {
 
     const canvasRef = useRef();
     
@@ -40,12 +40,13 @@ const AudioVisualiser = ({audioData}) => {
 
     return(
         <canvas 
-        width="300" 
-        height="300" 
-        ref={canvasRef}
+            className="canvas"
+            width="1024" 
+            height="1024" 
+            ref={canvasRef}
         />
     )
 
 }
 
-export default AudioVisualiser;
+export default WaveformVisualiser;
