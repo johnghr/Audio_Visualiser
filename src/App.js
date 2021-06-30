@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import AudioAnalyser from './components/Analysers/AudioAnalyser';
 import AudioPlayer from './components/AudioPlayer';
 import './App.css';
