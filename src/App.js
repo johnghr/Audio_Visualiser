@@ -3,6 +3,7 @@ import AudioAnalyser from './components/Analysers/AudioAnalyser';
 import AudioPlayer from './components/AudioPlayer';
 import './App.css';
 
+//your da sells the avon
 function App() {
   //mode can be 'off', 'track' or 'microphone'
   const initialAnalyserState = {input: null, mode: 'off'};
