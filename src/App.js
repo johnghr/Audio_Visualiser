@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import MicrophoneAnalyser from './components/Analysers/MicrophoneAnalyser';
 import TrackAnalyser from './components/Analysers/TrackAnalyser';
 import AudioPlayer from './components/AudioPlayer';
@@ -8,7 +8,9 @@ function App() {
 
   const[microphoneInput, setMicrophoneInput] = useState(null);
   const[trackInput, setTrackInput] = useState(null);
-  
+  const audioContextRef = useRef(new window.AudioContext() || window.webkitAudioContext)();
+  const audioContext = audioContextRef.current;
+  console.log(audioContext)
 
   async function getMicrophone() {
     let micAudio = await navigator.mediaDevices.getUserMedia(
