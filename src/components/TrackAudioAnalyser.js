@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import AudioVisualiser from './AudioVisualiser'
 
 
- const AudioAnalyser = ({ audioInput, audioContext }) => {
+ const MicAudioAnalyser = ({ audioInput }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0))
     
@@ -18,20 +18,20 @@ import AudioVisualiser from './AudioVisualiser'
         // set the request animation frame Id for use when app dismounts/cancels and calls 
         // tick
         let rafId;
-
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
         const analyser = audioContext.createAnalyser();
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         // const [dataArray, setDataArray] = useState(new Uint8Array());
         // const [audioData, setAudioData] = useState(new Uint8Array());
-        audioInput.connect(analyser)
+    
+        
         const tick = () => {
             // copies wave form data into the dataArray which is passed in as an argument   
             analyser.getByteTimeDomainData(dataArray)
-            // setDataArray([...dataArray]);
+            // sets audioData to be the value of dataArray
             console.log("audio data:",dataArray)
             setAudioData([...dataArray])
-            // set AudioData to be data contained in dataArray so it can be passed down to
-            // visualiser as a prop
+            // requests a re-render while calling tick recursively
             rafId = requestAnimationFrame(tick);
         }
     
@@ -43,7 +43,7 @@ import AudioVisualiser from './AudioVisualiser'
             cancelAnimationFrame(rafId);
         }
 
-    }, [])
+    }, [audioInput])
 
     
     
@@ -61,4 +61,4 @@ import AudioVisualiser from './AudioVisualiser'
 
 }
 
-export default AudioAnalyser;
+export default MicAudioAnalyser;

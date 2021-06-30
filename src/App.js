@@ -1,13 +1,12 @@
-import React, {useState, useRef} from 'react';
-import AudioAnalyser from './components/AudioAnalyser'
+import React, {useState} from 'react';
+import AudioAnalyser from './components/MicAudioAnalyser'
 import AudioPlayer from './components/AudioPlayer'
 import './App.css';
 
 function App() {
 
   const[audioInput, setAudioInput] = useState(null);
-  const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)())
-  const audioContext = audioContextRef.current;
+  // const[audioInput, setAudioInput] = useState(null);
   
 
   async function getMicrophone() {
@@ -17,8 +16,8 @@ function App() {
         video: false
       }
     )
-    const streamSource = audioContext.createMediaStreamSource(micAudio);
-    setAudioInput(streamSource);
+    // setAudioInput(micAudio);
+    setAudioInput(micAudio);
   }
 
   function stopTracks() {
@@ -38,8 +37,7 @@ function App() {
     if(audioInput){
       stopTracks();
     } else {
-      const elementSource = audioContext.createMediaElementSource(event.target)
-      setAudioInput(elementSource);
+      setAudioInput(event.target);
     }
   }
 
