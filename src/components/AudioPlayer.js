@@ -1,15 +1,9 @@
 import React from 'react';
 import song from './song.mp3'
 
-const AudioPlayer = ({toggleTrack}) => {
+const AudioPlayer = () => {
 
-    const handlePlay = (event) => {
-        const eventTarget = event.target;
-        console.log("eventTarget",eventTarget)
-        toggleTrack(eventTarget);
-    }    
-
-    return <audio onPlaying={handlePlay} controls src={song}/>
+    return <audio controls src={song}/>
 
 }
 

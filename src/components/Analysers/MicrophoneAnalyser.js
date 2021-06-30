@@ -1,18 +1,17 @@
-import React, {useEffect, useState} from 'react'
-import WaveformVisualiser from '../Visualisers/WaveformVisualiser'
-
+import React, {useEffect, useState} from 'react';
+import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
 
  const MicAudioAnalyser = ({ microphoneInput }) => {
 
-    const [audioData, setAudioData] = useState(new Uint8Array(0))
-    
+    const [audioData, setAudioData] = useState(new Uint8Array(0));
+    // creates an audio context
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // creates analyser node
+    const analyser = audioContext.createAnalyser();
+
     useEffect( () => {
         // empty request animation frame Id
-        let rafId;
-        // creates an audio context
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-        // creates analyser node
-        const analyser = audioContext.createAnalyser();
+        let rafId; 
         // Creates a data Array which is half the length of the fftSize
         // it takes in unsigned integers  
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
@@ -40,7 +39,11 @@ import WaveformVisualiser from '../Visualisers/WaveformVisualiser'
     }, [microphoneInput])
 
     return(
-        <WaveformVisualiser audioData={audioData}/>
+        <div>
+            <WaveformVisualiser audioData={audioData}/>
+            {/* <FrequencyVisualiser audioData={audioData} analyser={analyser}/>  */}
+        </div>
+        
     )
 
 }
