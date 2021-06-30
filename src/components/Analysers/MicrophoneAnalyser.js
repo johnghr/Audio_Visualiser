@@ -4,22 +4,24 @@ import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
  const MicAudioAnalyser = ({ microphoneInput }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0));
-    // creates an audio context
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    // creates analyser node
-    const analyser = audioContext.createAnalyser();
+    
 
     useEffect( () => {
         // empty request animation frame Id
         let rafId; 
+        
+        // creates an audio context
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // creates analyser node
+        const analyser = audioContext.createAnalyser();
         // Creates a data Array which is half the length of the fftSize
         // it takes in unsigned integers  
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
-        
         // creates a source variable containing the media stream source
         const source = audioContext.createMediaStreamSource(microphoneInput)
         // connects the audio stream to the analyser node
         source.connect(analyser)
+
         const tick = () => {
             // copies wave form data into the dataArray which is passed in as an argument   
             analyser.getByteTimeDomainData(dataArray)

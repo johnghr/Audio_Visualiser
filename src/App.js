@@ -17,6 +17,7 @@ function App() {
         video: false
       }
     )
+    console.log("micAudio:", micAudio)
     setMicrophoneInput(micAudio);
   }
 
@@ -46,11 +47,12 @@ function App() {
     }
   }
 
-  function toggleTrack() {
+  function toggleTrack(track) {
     if (trackInput){
       stopTrack();
     } else {
-      getTrack();
+      console.log(track) 
+      setTrackInput(track);
     }
   }
   

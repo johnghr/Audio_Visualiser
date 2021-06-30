@@ -9,7 +9,7 @@ const AudioPlayer = ({toggleTrack}) => {
         toggleTrack(eventTarget);
     }    
 
-    return <audio onPlaying={handlePlay} controls src={song}/>
+    return <audio onPlay={handlePlay} controls src={song}/>
 
 }
 
