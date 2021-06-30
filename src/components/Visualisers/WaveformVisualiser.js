@@ -14,10 +14,11 @@ const WaveformVisualiser = ({audioData}) => {
         let context = canvas.getContext('2d');
         let x = 0;
         let sliceWidth = (width * 0.5) / audioData.length;
+        let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
 
         const render = () => {
             context.lineWidth = 2;
-            context.strokeStyle = '#000000';
+            context.strokeStyle = randomColour;
             // when not clearingRect waveform displays
             context.clearRect(0, 0, width, height);
             context.beginPath();
@@ -41,8 +42,8 @@ const WaveformVisualiser = ({audioData}) => {
     return(
         <canvas 
             className="canvas"
-            width="1024" 
-            height="1024" 
+            width="6000" 
+            height="600" 
             ref={canvasRef}
         />
     )
