@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import AudioVisualiser from './AudioVisualiser'
 
 
- const MicAudioAnalyser = ({ audioInput }) => {
+ const MicAudioAnalyser = ({ microphoneInput }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0))
     
@@ -21,7 +21,7 @@ import AudioVisualiser from './AudioVisualiser'
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
         // creates a source variable containing the media stream source
-        const source = audioContext.createMediaStreamSource(audioInput)
+        const source = audioContext.createMediaStreamSource(microphoneInput)
         // connects the audio stream to the analyser node
         source.connect(analyser)
         const tick = () => {
