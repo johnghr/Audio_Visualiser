@@ -1,16 +1,14 @@
 import React, {useState, useRef} from 'react';
-import MicrophoneAnalyser from './components/Analysers/MicrophoneAnalyser';
-import TrackAnalyser from './components/Analysers/TrackAnalyser';
+import AudioAnalyser from './components/Analysers/AudioAnalyser';
 import AudioPlayer from './components/AudioPlayer';
 import './App.css';
 
 function App() {
+  //mode can be 'off', 'track' or 'microphone'
+  const initialAnalyserState = {input: null, mode: 'off'};
+  const[analyserState, setAnalyserState] = useState(initialAnalyserState);
 
-  const[microphoneInput, setMicrophoneInput] = useState(null);
-  const[trackInput, setTrackInput] = useState(null);
-  const audioContextRef = useRef(new window.AudioContext() || window.webkitAudioContext)();
-  const audioContext = audioContextRef.current;
-  console.log(audioContext)
+  const resetAnalyser = () => setAnalyserState(initialAnalyserState);
 
   async function getMicrophone() {
     let micAudio = await navigator.mediaDevices.getUserMedia(
@@ -19,22 +17,24 @@ function App() {
         video: false
       }
     )
-    console.log("micAudio:", micAudio)
-    setMicrophoneInput(micAudio);
+    setAnalyserState({
+      input: micAudio,
+      mode: "microphone"
+    });
   }
 
   function stopMicrophone() {
-    microphoneInput.getTracks().forEach(track => track.stop());
-    setMicrophoneInput(null);
+    analyserState.input.getTracks().forEach(track => track.stop());
+    resetAnalyser();
   }
 
   function stopTrack() {
-    trackInput.getTracks().forEach(track => track.stop());
-    setTrackInput(null);
+    analyserState.input.getTracks().forEach(track => track.stop());
+    resetAnalyser();
   }
 
   function toggleMicrophone() {
-    if (microphoneInput){
+    if (analyserState.mode  === 'microphone'){
       stopMicrophone();
     } else {
       getMicrophone();
@@ -42,12 +42,15 @@ function App() {
   }
 
   function toggleTrack(track) {
-    if (trackInput){
+    if (analyserState.mode  === 'track'){
       stopTrack();
     } else {
-      console.log(track) 
-      setTrackInput(track);
+      setAnalyserState({
+        input: track,
+        mode: "track"
+      });
     }
+    
   }
   
 
@@ -59,12 +62,13 @@ function App() {
       <div className="controls">
         
         <button onClick={toggleMicrophone}>
-          {microphoneInput ? 'Stop microphone' : 'Get microphone'}
+          {analyserState.mode === 'microphone' ? 'Stop microphone' : 'Get microphone'}
         </button>
 
       </div>
-      {microphoneInput ? <MicrophoneAnalyser microphoneInput={microphoneInput} /> : ""}
-      {trackInput ? <TrackAnalyser trackInput={trackInput} /> : ""}
+
+      {analyserState.input ? <AudioAnalyser input={analyserState.input} mode={analyserState.mode}/> : ""}
+
       <AudioPlayer toggleTrack={toggleTrack}></AudioPlayer>
     </div>
   );
