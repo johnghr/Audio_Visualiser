@@ -40,9 +40,10 @@ const AudioVisualiser = ({audioData}) => {
 
     return(
         <canvas 
-        width="300" 
-        height="300" 
-        ref={canvasRef}
+            className="canvas"
+            width="1024" 
+            height="1024" 
+            ref={canvasRef}
         />
     )
 

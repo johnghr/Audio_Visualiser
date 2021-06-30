@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import AudioAnalyser from './components/MicAudioAnalyser'
-import AudioPlayer from './components/AudioPlayer'
+import MicrophoneAnalyser from './components/MicrophoneAnalyser';
+import TrackAnalyser from './components/TrackAnalyser';
+import AudioPlayer from './components/AudioPlayer';
 import './App.css';
 
 function App() {
 
-  const[audioInput, setAudioInput] = useState(null);
-  // const[audioInput, setAudioInput] = useState(null);
+  const[microphoneInput, setMicrophoneInput] = useState(null);
+  const[trackInput, setTrackInput] = useState(null);
   
 
   async function getMicrophone() {
@@ -16,30 +17,43 @@ function App() {
         video: false
       }
     )
-    // setAudioInput(micAudio);
-    setAudioInput(micAudio);
+    setMicrophoneInput(micAudio);
   }
 
-  function stopTracks() {
-    audioInput.getTracks().forEach(track => track.stop());
-    setAudioInput(null);
+  function getTrack(event) {
+    if(trackInput){
+      stopTrack();
+    } else {
+      setTrackInput(event.target);
+    }
+  }
+
+  function stopMicrophone() {
+    microphoneInput.getTracks().forEach(track => track.stop());
+    setMicrophoneInput(null);
+  }
+
+  function stopTrack() {
+    trackInput.getTracks().forEach(track => track.stop());
+    setTrackInput(null);
   }
 
   function toggleMicrophone() {
-    if(audioInput){
-      stopTracks();
+    if (microphoneInput){
+      stopMicrophone();
     } else {
       getMicrophone();
     }
   }
 
-  function getAudioTrack(event) {
-    if(audioInput){
-      stopTracks();
+  function toggleTrack() {
+    if (trackInput){
+      stopTrack();
     } else {
-      setAudioInput(event.target);
+      getTrack();
     }
   }
+  
 
   
 
@@ -49,12 +63,13 @@ function App() {
       <div className="controls">
         
         <button onClick={toggleMicrophone}>
-          {audioInput ? 'Stop microphone' : 'Get microphone'}
+          {microphoneInput ? 'Stop microphone' : 'Get microphone'}
         </button>
 
       </div>
-      {audioInput ? <AudioAnalyser audioInput={audioInput} /> : ""}
-      <AudioPlayer onPlay={getAudioTrack}></AudioPlayer>
+      {microphoneInput ? <MicrophoneAnalyser microphoneInput={microphoneInput} /> : ""}
+      {trackInput ? <TrackAnalyser trackInput={trackInput} /> : ""}
+      <AudioPlayer onPlay={toggleTrack}></AudioPlayer>
     </div>
   );
 }

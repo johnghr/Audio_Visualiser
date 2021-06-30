@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import AudioVisualiser from './AudioVisualiser'
 
 
- const AudioAnalyser = ({ audioInput }) => {
+ const MicAudioAnalyser = ({ audioInput }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0))
     
@@ -50,4 +50,4 @@ import AudioVisualiser from './AudioVisualiser'
 
 }
 
-export default AudioAnalyser;
+export default MicAudioAnalyser;
