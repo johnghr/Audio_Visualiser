@@ -72,8 +72,10 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
             audioRef.current.play();
             setIsPlaying(true);
             startTimer()
+            toggleTrack(audioRef.current)
         } else {
             isReady.current = true;
+            toggleTrack(audioRef.current)
         }
     }, [trackIndex])
 
@@ -104,13 +106,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
             setIsPlaying(true);
         }
         startTimer();
-    }
-
-    const handlePlay = (event) => {
-            const eventTarget = event.target;
-            console.log("eventTarget", event)
-            toggleTrack(eventTarget);
-    }    
+    }   
 
     return(
         
@@ -122,6 +118,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
                     onPrevClick={toPrevTrack}
                     onNextClick={toNextTrack}
                     onPlayPauseClick={setIsPlaying}
+                    onPlay={toggleTrack}
                 />
                 <input 
                     type="range"
