@@ -28,6 +28,10 @@ const AudioAnalyser = ({ mode, input }) => {
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
         }
+
+        if(mode === "off"){
+            source.disconnect(audioContext.destination)
+        }
         
         const tick = () => {
             // copies wave form data into the dataArray which is passed in as an argument   

@@ -30,6 +30,7 @@ function App() {
   }
 
   function stopTrack() {
+    console.log("input",analyserState.input)
     analyserState.input.getTracks().forEach(track => track.stop());
     resetAnalyser();
   }
