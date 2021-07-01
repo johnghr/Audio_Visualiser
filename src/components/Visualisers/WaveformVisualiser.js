@@ -16,11 +16,17 @@ const WaveformVisualiser = ({audioData}) => {
         let sliceWidth = (width * 0.5) / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
 
+        const clearRectangle = () => {
+            context.clearRect(0, 0, width, height);
+        }
+
+        setInterval(clearRectangle, 30000)
+
         const render = () => {
             context.lineWidth = 2;
             context.strokeStyle = randomColour;
             // when not clearingRect waveform displays
-            // context.clearRect(0, 0, width, height);
+            
             context.beginPath();
             context.moveTo(0, height / 2);
 
