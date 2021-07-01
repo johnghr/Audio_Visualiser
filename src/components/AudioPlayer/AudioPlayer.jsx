@@ -13,6 +13,9 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
     const isReady = useRef(false);
 
     const { duration } = audioRef.current;
+    const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
+    const trackStyling = `-webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+`;
 
     const toPrevTrack = () => {
         // if trackIndex minus 1 is less than zero, set track index to the last track
@@ -88,6 +91,21 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         }, [1000])
     }
 
+    const onScrub = (value) => {
+        // clear any timers already running
+        clearInterval(intervalRef.current);
+        audioRef.current.currentTime = value;
+        setTrackProgress(audioRef.current.currentTime);
+    }
+
+    const onScrubEnd = () => {
+        // if not playing then start
+        if (!isPlaying) {
+            setIsPlaying(true);
+        }
+        startTimer();
+    }
+
     const handlePlay = (event) => {
             const eventTarget = event.target;
             console.log("eventTarget", event)
@@ -104,6 +122,18 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
                     onPrevClick={toPrevTrack}
                     onNextClick={toNextTrack}
                     onPlayPauseClick={setIsPlaying}
+                />
+                <input 
+                    type="range"
+                    value={trackProgress}
+                    step="1"
+                    min="0"
+                    max={duration ? duration : `${duration}`}
+                    className="progress"
+                    onChange={(e) => onScrub(e.target.value)}
+                    onMouseUp={onScrubEnd}
+                    onKeyUp={onScrubEnd}
+                    style={{ background: trackStyling}}
                 />
             </div>
         </div>

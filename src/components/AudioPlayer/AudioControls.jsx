@@ -11,41 +11,41 @@ const AudioControls = ({
     onNextClick
 }) => (
     <div className="audio-controls">
-    <button
-      type="button"
-      className="prev"
-      aria-label="Previous"
-      onClick={onPrevClick}
-    >
-      Prev {/* <Prev /> */}
-    </button>
-    {isPlaying ? (
-      <button
-        type="button"
-        className="pause"
-        onClick={() => onPlayPauseClick(false)}
-        aria-label="Pause"
-      >
-        Pause {/* <Pause /> */}
-      </button>
-    ) : (
-      <button
-        type="button"
-        className="play"
-        onClick={() => onPlayPauseClick(true)}
-        aria-label="Play"
-      >
-        Play {/* <Play /> */}
-      </button>
-    )}
-    <button
-      type="button"
-      className="next"
-      aria-label="Next"
-      onClick={onNextClick}
-    >
-      Next {/* <Next /> */}
-    </button>
+        <button
+            type="button"
+            className="prev"
+            aria-label="Previous"
+            onClick={onPrevClick}
+        >
+        Prev {/* <Prev /> */}
+        </button>
+        {isPlaying ? (
+        <button
+            type="button"
+            className="pause"
+            onClick={() => onPlayPauseClick(false)}
+            aria-label="Pause"
+        >
+            Pause {/* <Pause /> */}
+        </button>
+        ) : (
+        <button
+            type="button"
+            className="play"
+            onClick={() => onPlayPauseClick(true)}
+            aria-label="Play"
+        >
+            Play {/* <Play /> */}
+        </button>
+        )}
+        <button
+            type="button"
+            className="next"
+            aria-label="Next"
+            onClick={onNextClick}
+            >
+            Next {/* <Next /> */}
+        </button>
   </div>
 )
 
