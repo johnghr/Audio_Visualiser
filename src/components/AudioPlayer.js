@@ -10,12 +10,6 @@ const AudioPlayer = ({toggleTrack}) => {
         toggleTrack(eventTarget);
     }    
 
-    const trackList = [song, song_8]
-
-    const handleTrackChange = () => (
-        
-    ) 
-
     return(
         <div>
             <audio onPlay={handlePlay} controls >
