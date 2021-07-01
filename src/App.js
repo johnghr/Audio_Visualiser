@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import AudioAnalyser from './components/Analysers/AudioAnalyser';
-import AudioPlayer from './components/AudioPlayer';
+import Tracks from './static/audio/Tracks'
 import './App.css';
 
 //your da sells the avon
@@ -52,10 +52,7 @@ function App() {
         mode: "track"
       });
     }
-    
   }
-  
-
   
 
   return (
@@ -71,7 +68,7 @@ function App() {
 
       {analyserState.input ? <AudioAnalyser input={analyserState.input} mode={analyserState.mode}/> : ""}
 
-      <AudioPlayer toggleTrack={toggleTrack}></AudioPlayer>
+      <Tracks toggleTrack={toggleTrack}></Tracks>
     </div>
   );
 }
