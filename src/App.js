@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import AudioAnalyser from './components/Analysers/AudioAnalyser';
-import Tracks from './components/AudioPlayer/Tracks'
+import {tracks} from './components/AudioPlayer/tracks'
+import AudioPlayer from './components/AudioPlayer/AudioPlayer'
 import './App.css';
+
 
 //your da sells the avon
 function App() {
@@ -29,9 +31,8 @@ function App() {
     resetAnalyser();
   }
 
-  function stopTrack() {
-    console.log("input",analyserState.input)
-    analyserState.input.getTracks().forEach(track => track.stop());
+  function onPauseTrack() {
+    console.log("onPauseTrack hit")
     resetAnalyser();
   }
 
@@ -43,17 +44,13 @@ function App() {
     }
   }
 
-  function toggleTrack(track) {
-    if (analyserState.mode  === 'track'){
-      stopTrack();
-    } else {
-      setAnalyserState({
-        input: track,
-        mode: "track"
-      });
-    }
+  const onChangeTrack = (track) => {
+    console.log('on change track', track);
+    setAnalyserState({
+      input: track,
+      mode: "track"
+    })
   }
-  
 
   return (
     <div className="App">
@@ -68,7 +65,7 @@ function App() {
 
       {analyserState.input ? <AudioAnalyser input={analyserState.input} mode={analyserState.mode}/> : ""}
 
-      <Tracks toggleTrack={toggleTrack}></Tracks>
+      <AudioPlayer tracks={tracks} onChangeTrack={onChangeTrack} onPauseTrack={onPauseTrack}></AudioPlayer>
     </div>
   );
 }

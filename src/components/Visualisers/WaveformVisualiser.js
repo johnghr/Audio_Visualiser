@@ -7,6 +7,16 @@ const WaveformVisualiser = ({audioData}) => {
 
     const canvasRef = useRef();
     
+    //clear the canvas every 30 seconds
+    // useEffect(() => {
+        
+    //     const clearCanvas = () => {
+    //         context.clearRect(0, 0, width, height);
+    //     }
+    //     setInterval(clearCanvas, 30000)
+
+    // },[])
+
     useEffect(() => {
         let canvas = canvasRef.current;
         let height = canvas.height;
@@ -15,12 +25,9 @@ const WaveformVisualiser = ({audioData}) => {
         let x = 0;
         let sliceWidth = (width * 0.5) / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
-
-        const clearRectangle = () => {
-            context.clearRect(0, 0, width, height);
-        }
-
-        setInterval(clearRectangle, 30000)
+        
+        
+        
 
         const render = () => {
             context.lineWidth = 2;

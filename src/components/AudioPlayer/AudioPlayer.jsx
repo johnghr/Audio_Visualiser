@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import AudioControls from './AudioControls.jsx';
 
-const AudioPlayer = ({ tracks, toggleTrack }) => {
+const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
 
     // index of track being played
     const [trackIndex, setTrackIndex] = useState(0);
@@ -47,19 +47,22 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         // when isPlaying changes:
         // if isPlaying state is false, play the track in audio tag 
         if(isPlaying) {
+            // update track for analyser
+            
             audioRef.current.play();
+            console.log('setting track')
+            onChangeTrack(audioRef.current)
             startTimer();
-            // connect the current track to analyser
-            toggleTrack(audioRef.current)
         } else {
             // otherwise clear the intervalRef and pause the track in audio tag
+            console.log('pause track')
             clearInterval(intervalRef.current)
             audioRef.current.pause();
+            // onPauseTrack();
         }
     },[isPlaying])
 
     useEffect(() => {
-
         // pause and clean up on unmount / clear any setInterval timers
 
         return () => {
@@ -81,6 +84,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         setTrackProgress(audioRef.current.currentTime);
 
         if (isReady.current) {
+      
             audioRef.current.play();
             setIsPlaying(true);
             startTimer()
@@ -102,6 +106,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
             }
         }, [1000])
     }
+
 
     const onScrub = (value) => {
         // clear any timers already running
