@@ -29,10 +29,7 @@ const AudioAnalyser = ({ mode, input }) => {
         if(mode === "track"){
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);
-        }else if (mode === "paused"){
-
-        } 
-        else {
+        } else {
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
         }
@@ -51,9 +48,11 @@ const AudioAnalyser = ({ mode, input }) => {
         return function cleanup() {
             console.log("disconnect analyser")
             if(mode === "track"){
+                console.log("mode is track")
                 source.disconnect(analyser);
                 setAnalyserDisconnected(true)
             } else {
+                console.log("mode is not track")
                 source.disconnect()
             }
             cancelAnimationFrame(rafId);

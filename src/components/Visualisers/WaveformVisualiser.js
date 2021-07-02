@@ -57,7 +57,7 @@ const WaveformVisualiser = ({audioData, analyserDisconnected}) => {
     return(
         <canvas 
             className="canvas"
-            width="5100" 
+            width="3072" 
             height="900" 
             ref={canvasRef}
         />
