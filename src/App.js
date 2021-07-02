@@ -10,6 +10,7 @@ function App() {
   //mode can be 'off', 'track' or 'microphone'
   const initialAnalyserState = {input: null, mode: 'off'};
   const[analyserState, setAnalyserState] = useState(initialAnalyserState);
+  const[visualiserType, setVisualiserType] = useState("Waveform")
 
   const resetAnalyser = () => setAnalyserState(initialAnalyserState);
 
@@ -52,6 +53,9 @@ function App() {
     })
   }
 
+  const toggleVisualiser = () => 
+    setVisualiserType(visualiserType === "Waveform" ? "Frequency" : "Waveform");
+
   return (
     <div className="App">
       
@@ -61,9 +65,18 @@ function App() {
           {analyserState.mode === 'microphone' ? 'Stop microphone' : 'Get microphone'}
         </button>
 
+        <button onClick={toggleVisualiser}>
+          {visualiserType === "Waveform" ? "Frequency" : "Waveform"}
+        </button>
+
       </div>
 
-      {analyserState.input ? <AudioAnalyser input={analyserState.input} mode={analyserState.mode}/> : ""}
+      {analyserState.input &&
+        <AudioAnalyser 
+            input={analyserState.input} 
+            mode={analyserState.mode} 
+            visualiserType={visualiserType}
+        />}
 
       <AudioPlayer tracks={tracks} onChangeTrack={onChangeTrack} onPauseTrack={onPauseTrack}></AudioPlayer>
     </div>

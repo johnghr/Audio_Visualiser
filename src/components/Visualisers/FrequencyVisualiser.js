@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const FrequencyVisualiser = ({audioData, analyser}) => {
+const FrequencyVisualiser = ({audioData, analyser, setAnalyserDisconnected, analyserDisconnected}) => {
 
     const canvasRef = useRef();
     
