@@ -3,20 +3,26 @@ import AudioControls from './AudioControls.jsx';
 
 const AudioPlayer = ({ tracks, toggleTrack }) => {
 
+    // index of track being played
     const [trackIndex, setTrackIndex] = useState(0);
+    // current progress of track being played
     const [trackProgress, setTrackProgress] = useState(0);
+    // wether or not track is being played
     const [isPlaying, setIsPlaying] = useState(false);
+    // current title and source equal the current track index
     const {title, audioSrc} = tracks[trackIndex];
     
+    // stores Audio element plus audio source in a ref
     const audioRef = useRef(new Audio(audioSrc));
+    
     const intervalRef = useRef();
     const isReady = useRef(false);
 
     const { duration } = audioRef.current;
     const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
-    const trackStyling = `-webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-`;
+    const trackStyling = `-webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))`;
 
+    // PREV -  handles previous track click
     const toPrevTrack = () => {
         // if trackIndex minus 1 is less than zero, set track index to the last track
         if (trackIndex - 1 < 0){
@@ -26,6 +32,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         }
     }
     
+    // NEXT - handles next track click
     const toNextTrack = () => {
         // if trackIndex is less than tracks length go to next track, otherwise go to first track
         if (trackIndex < tracks.length -1){
@@ -35,12 +42,17 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         }
     }
     
+    // PLAY
     useEffect(() => {
-        // when isPlaying state changes, call play() or stop() according to isPlaying value
+        // when isPlaying changes:
+        // if isPlaying state is false, play the track in audio tag 
         if(isPlaying) {
             audioRef.current.play();
             startTimer();
+            // connect the current track to analyser
+            toggleTrack(audioRef.current)
         } else {
+            // otherwise clear the intervalRef and pause the track in audio tag
             clearInterval(intervalRef.current)
             audioRef.current.pause();
         }
@@ -57,6 +69,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
 
     }, [])
 
+    // NEXT track
     useEffect(() => {
         
         // runs when trackIndex is updated, allowing current track to be paused while
@@ -64,7 +77,6 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         // setting new track to play
 
         audioRef.current.pause()
-
         audioRef.current = new Audio(audioSrc);
         setTrackProgress(audioRef.current.currentTime);
 
@@ -72,10 +84,8 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
             audioRef.current.play();
             setIsPlaying(true);
             startTimer()
-            toggleTrack(audioRef.current)
         } else {
             isReady.current = true;
-            toggleTrack(audioRef.current)
         }
     }, [trackIndex])
 
@@ -83,7 +93,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
         // clear any timers already running
         clearInterval(intervalRef.current);
 
-        // check track every second, if so go to next track, otherwise update track progress
+        // check track every second, if ended go to next track, otherwise update track progress
         intervalRef.current = setInterval(() => {
             if (audioRef.current.ended) {
                 toNextTrack();
@@ -101,7 +111,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
     }
 
     const onScrubEnd = () => {
-        // if not playing then start
+        // if isPlayings value is false then set it to true
         if (!isPlaying) {
             setIsPlaying(true);
         }
@@ -118,7 +128,7 @@ const AudioPlayer = ({ tracks, toggleTrack }) => {
                     onPrevClick={toPrevTrack}
                     onNextClick={toNextTrack}
                     onPlayPauseClick={setIsPlaying}
-                    onPlay={toggleTrack}
+                    // onPlay={toggleTrack}
                 />
                 <input 
                     type="range"

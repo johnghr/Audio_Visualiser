@@ -9,14 +9,14 @@ const AudioControls = ({
         onPlayPauseClick,
         onPrevClick,
         onNextClick,
-        toggleTrack
+        // toggleTrack
     }) => {
 
-        const handlePlay = (event) => {
-            const eventTarget = event.target;
-            console.log("eventTarget", event)
-            toggleTrack(eventTarget);
-        } 
+        // const handlePlay = (event) => {
+        //     const eventTarget = event.target;
+        //     console.log("eventTarget", event)
+        //     toggleTrack(eventTarget);
+        // } 
 
         return(
             <div className="audio-controls">
@@ -33,9 +33,7 @@ const AudioControls = ({
                     type="button"
                     className="pause"
                     onClick={() => onPlayPauseClick(false)}
-                    // onPlay={handlePlay}
                     aria-label="Pause"
-                    onPlay={handlePlay}
                 >
                     Pause {/* <Pause /> */}
                 </button>
@@ -45,7 +43,6 @@ const AudioControls = ({
                     className="play"
                     onClick={() => onPlayPauseClick(true)}
                     aria-label="Play"
-                    onPlay={handlePlay}
                 >
                     Play {/* <Play /> */}
                 </button>
@@ -55,7 +52,7 @@ const AudioControls = ({
                     className="next"
                     aria-label="Next"
                     onClick={onNextClick}
-                    >
+                >
                     Next {/* <Next /> */}
                 </button>
             </div>

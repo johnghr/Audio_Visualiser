@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import AudioAnalyser from './components/Analysers/AudioAnalyser';
-import Tracks from './static/audio/Tracks'
+import Tracks from './components/AudioPlayer/Tracks'
 import './App.css';
 
 //your da sells the avon

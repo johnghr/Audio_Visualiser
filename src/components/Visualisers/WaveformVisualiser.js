@@ -48,7 +48,7 @@ const WaveformVisualiser = ({audioData}) => {
     return(
         <canvas 
             className="canvas"
-            width="2048git log" 
+            width="5100" 
             height="900" 
             ref={canvasRef}
         />

@@ -6,9 +6,9 @@ const AudioAnalyser = ({ mode, input }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0));
         
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        // creates analyser node
-        const analyser = audioContext.createAnalyser();
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // creates analyser node
+    const analyser = audioContext.createAnalyser();
 
     useEffect( () => {
         // empty request animation frame Id
@@ -27,10 +27,6 @@ const AudioAnalyser = ({ mode, input }) => {
         } else {
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
-        }
-
-        if(mode === "off"){
-            source.disconnect(audioContext.destination)
         }
         
         const tick = () => {
