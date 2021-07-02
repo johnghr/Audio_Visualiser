@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const WaveformVisualiser = ({audioData}) => {
+const WaveformVisualiser = ({audioData, analyserDisconnected}) => {
 
     const canvasRef = useRef();
     
@@ -26,7 +26,9 @@ const WaveformVisualiser = ({audioData}) => {
         let sliceWidth = (width * 0.5) / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         
-        
+        if(analyserDisconnected){
+            context.clearRect(0, 0, width, height);
+        }
         
 
         const render = () => {

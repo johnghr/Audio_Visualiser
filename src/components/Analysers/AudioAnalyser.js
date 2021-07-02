@@ -12,6 +12,7 @@ const AudioAnalyser = ({ mode, input }) => {
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
+    const [analyserDisconnected, setAnalyserDisconnected] = useState(false)
     
     useEffect( () => {
         console.log('analyser input', input)
@@ -28,7 +29,10 @@ const AudioAnalyser = ({ mode, input }) => {
         if(mode === "track"){
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);
-        } else {
+        }else if (mode === "paused"){
+
+        } 
+        else {
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
         }
@@ -45,8 +49,10 @@ const AudioAnalyser = ({ mode, input }) => {
         rafId = requestAnimationFrame(tick);
 
         return function cleanup() {
+            console.log("disconnect analyser")
             if(mode === "track"){
                 source.disconnect(analyser);
+                setAnalyserDisconnected(true)
             } else {
                 source.disconnect()
             }
@@ -58,7 +64,7 @@ const AudioAnalyser = ({ mode, input }) => {
 
     return(
         <div>
-            <WaveformVisualiser audioData={audioData}/>
+            <WaveformVisualiser audioData={audioData} analyserDisconnected={analyserDisconnected}/>
             {/* <FrequencyVisualiser audioData={audioData} analyser={analyser}/>  */}
         </div>
         
