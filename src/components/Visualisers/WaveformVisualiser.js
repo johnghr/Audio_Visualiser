@@ -3,10 +3,20 @@ import React, {useRef, useEffect} from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const WaveformVisualiser = ({audioData}) => {
+const WaveformVisualiser = ({audioData, setAnalyserDisconnected, analyserDisconnected}) => {
 
     const canvasRef = useRef();
     
+    //clear the canvas every 30 seconds
+    // useEffect(() => {
+        
+    //     const clearCanvas = () => {
+    //         context.clearRect(0, 0, width, height);
+    //     }
+    //     setInterval(clearCanvas, 30000)
+
+    // },[])
+
     useEffect(() => {
         let canvas = canvasRef.current;
         let height = canvas.height;
@@ -15,12 +25,13 @@ const WaveformVisualiser = ({audioData}) => {
         let x = 0;
         let sliceWidth = (width * 0.5) / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
-
-        const clearRectangle = () => {
+        
+        // if the analyser has been disconnected clear the canvas and reset analyserDisconnected to false
+        if(analyserDisconnected){
             context.clearRect(0, 0, width, height);
+            setAnalyserDisconnected(false)
         }
-
-        setInterval(clearRectangle, 30000)
+        
 
         const render = () => {
             context.lineWidth = 2;
@@ -48,7 +59,7 @@ const WaveformVisualiser = ({audioData}) => {
     return(
         <canvas 
             className="canvas"
-            width="2048git log" 
+            width="3072" 
             height="900" 
             ref={canvasRef}
         />
