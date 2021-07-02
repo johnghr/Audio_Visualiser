@@ -1,38 +1,70 @@
-.App {
-  text-align: center;
+:root {
+  --white: #fff;
+  --active-color: #00aeb0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+	font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  background: var(--active-color);
+	transition: background 0.4s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.audio-player {
+  max-width: 350px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  color: var(--white);
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.audio-controls {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  width:  75%;
+  margin: 0 auto 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.audio-controls .prev svg,
+.audio-controls .next svg {
+  width: 35px;
+  height: 35px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.audio-controls .play svg,
+.audio-controls .pause svg {
+  height: 40px;
+  width: 40px;
 }
+
+.audio-controls path {
+  fill: var(--white);
+}
+
+input[type=range] {
+	height: 5px;
+	-webkit-appearance: none;
+	width: 100%;
+	margin-bottom: 10px;
+	border-radius: 8px;
+	background: #3b7677;
+	transition: background 0.2s ease;
+	cursor: pointer;
+}
+
