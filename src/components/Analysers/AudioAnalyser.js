@@ -63,7 +63,11 @@ const AudioAnalyser = ({ mode, input }) => {
 
     return(
         <div>
-            <WaveformVisualiser audioData={audioData} analyserDisconnected={analyserDisconnected}/>
+            <WaveformVisualiser 
+                audioData={audioData} 
+                analyserDisconnected={analyserDisconnected} 
+                setAnalyserDisconnected={setAnalyserDisconnected}
+            />
             {/* <FrequencyVisualiser audioData={audioData} analyser={analyser}/>  */}
         </div>
         
