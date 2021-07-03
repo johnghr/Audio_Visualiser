@@ -5,9 +5,12 @@ import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 const AudioAnalyser = ({ mode, input, visualiserType }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0));
-        
+    
+    // creates an audio context and stores it in ref    
     const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)());
+    // sets audioContext to be the current ref of audioContext 
     const audioContext = audioContextRef.current;
+    
     const sourceRef = useRef(null);
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
@@ -19,7 +22,7 @@ const AudioAnalyser = ({ mode, input, visualiserType }) => {
         // empty request animation frame Id
         let rafId; 
         
-        // creates an audio context
+        
         
         // Creates a data Array which is half the length of the fftSize;
         // it takes in unsigned integers  

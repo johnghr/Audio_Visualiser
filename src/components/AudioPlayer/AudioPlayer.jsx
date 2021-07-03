@@ -19,8 +19,8 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
     const isReady = useRef(false);
 
     const { duration } = audioRef.current;
-    const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
-    const trackStyling = `-webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))`;
+    // const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
+    // const trackStyling = `-webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))`;
 
     // PREV -  handles previous track click
     const toPrevTrack = () => {
@@ -96,10 +96,12 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
         // clear any timers already running
         clearInterval(intervalRef.current);
 
-        // check track every second, if ended go to next track, otherwise update track progress
+        // check track every second, if ended reset the player, otherwise update track progress
         intervalRef.current = setInterval(() => {
             if (audioRef.current.ended) {
-                toNextTrack();
+                setTrackProgress(0);
+                setIsPlaying(false);
+                console.log("player reset:", audioRef.current)
             } else {
                 setTrackProgress(audioRef.current.currentTime);
             }
@@ -144,7 +146,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
                     onChange={(e) => onScrub(e.target.value)}
                     onMouseUp={onScrubEnd}
                     onKeyUp={onScrubEnd}
-                    style={{ background: trackStyling}}
+                    // style={{ background: trackStyling}}
                 />
             </div>
         </div>
