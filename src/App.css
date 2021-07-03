@@ -68,3 +68,9 @@ input[type=range] {
 	cursor: pointer;
 }
 
+.canvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+

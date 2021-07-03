@@ -33,10 +33,9 @@ const WaveformVisualiser = ({audioData, setAnalyserDisconnected, analyserDisconn
         }
         
 
-        const render = () => {
+        const renderWaveform = () => {
             context.lineWidth = 2;
             context.strokeStyle = randomColour;
-            // when not clearingRect waveform displays
             
             context.beginPath();
             context.moveTo(0, height / 2);
@@ -46,21 +45,22 @@ const WaveformVisualiser = ({audioData, setAnalyserDisconnected, analyserDisconn
                 context.lineTo(x, y);
                 x += sliceWidth;
             }
-
+            // console.log("Audio-data:", audioData)
             context.lineTo(x, height / 2);
             context.stroke();
             
         }
         
-        render()
+        renderWaveform()
         
+
     }, [audioData])
 
     return(
         <canvas 
             className="canvas"
-            width="3072" 
-            height="900" 
+            width="1024" 
+            height="700" 
             ref={canvasRef}
         />
     )
