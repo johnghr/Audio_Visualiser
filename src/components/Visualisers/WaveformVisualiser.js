@@ -23,9 +23,9 @@ const WaveformVisualiser = ({audioData, setAnalyserDisconnected, analyserDisconn
         let width = canvas.width;
         let context = canvas.getContext('2d');
         let x = 0;
-        let sliceWidth = (width * 0.5) / audioData.length;
+        let sliceWidth = width  / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
-        
+        context.fillRect(0, 0, canvas.width, canvas.height)
         // if the analyser has been disconnected clear the canvas and reset analyserDisconnected to false
         if(analyserDisconnected){
             context.clearRect(0, 0, width, height);
@@ -59,8 +59,8 @@ const WaveformVisualiser = ({audioData, setAnalyserDisconnected, analyserDisconn
     return(
         <canvas 
             className="canvas"
-            width="1024" 
-            height="700" 
+            width="900" 
+            height="550" 
             ref={canvasRef}
         />
     )

@@ -50,7 +50,7 @@ const FrequencyVisualiser = ({ audioData, analyser }) => {
 
     return (
         <canvas
-            className="canvas"
+            className="frequency-canvas"
             width="700"
             height="700"
             ref={canvasRef}
