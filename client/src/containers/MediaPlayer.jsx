@@ -4,9 +4,10 @@ import {tracks} from '../components/AudioPlayer/tracks'
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer'
 
 function MediaPlayer() {
-  //mode can be 'off', 'track' or 'microphone'
+  // state to be passed down for analyser: track or mic input and mode:'track', 'mic' and off
   const initialAnalyserState = {input: null, mode: 'off'};
   const[analyserState, setAnalyserState] = useState(initialAnalyserState);
+  const[background, setBackground] = useState("Clear")
   const[visualiserType, setVisualiserType] = useState("Waveform")
 
   const resetAnalyser = () => setAnalyserState(initialAnalyserState);
@@ -50,9 +51,14 @@ function MediaPlayer() {
     })
   }
 
-  const toggleVisualiser = () => 
+  const toggleVisualiser = () => {
     setVisualiserType(visualiserType === "Waveform" ? "Frequency" : "Waveform");
+  }
 
+  const toggleBackground = () => {
+    setBackground(background === "Clear" ? "Black" : "Clear")
+  }
+  
   return (
     <div className="App">
       
@@ -66,6 +72,10 @@ function MediaPlayer() {
           {visualiserType === "Waveform" ? "Frequency" : "Waveform"}
         </button>
 
+        <button onClick={toggleBackground}>
+          {background === "Clear" ? "Black" : "Clear"}
+        </button>
+
       </div>
 
       {analyserState.input &&
@@ -73,6 +83,7 @@ function MediaPlayer() {
             input={analyserState.input} 
             mode={analyserState.mode} 
             visualiserType={visualiserType}
+            background={background}
         />}
 
       <AudioPlayer tracks={tracks} onChangeTrack={onChangeTrack} onPauseTrack={onPauseTrack}></AudioPlayer>

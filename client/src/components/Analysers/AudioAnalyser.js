@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
-const AudioAnalyser = ({ mode, input, visualiserType }) => {
+const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0));
     
@@ -71,11 +71,13 @@ const AudioAnalyser = ({ mode, input, visualiserType }) => {
                 audioData={audioData} 
                 analyserDisconnected={analyserDisconnected} 
                 setAnalyserDisconnected={setAnalyserDisconnected}
+                background={background}
             /> :
             <FrequencyVisualiser 
                 audioData={audioData} 
                 analyser={analyser}
                 setAnalyserDisconnected={setAnalyserDisconnected}
+                background={background}
             /> 
             }
         </div>
