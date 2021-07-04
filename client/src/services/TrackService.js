@@ -1,23 +1,18 @@
-// const baseUrl = 'http://localhost:5000/tracks';
+const baseUrl = 'http://localhost:5000/upload';
 
-// export const getTracks = () => {
-//     return(fetch(baseUrl))
-//         .then(res => res.json())
-// }
+export const getUploads = () => {
+    return(fetch(baseUrl))
+        .then(res => res.json())
+}
 
-// export function uploadSuccess({data}) {
-//     return {
-//         type: 'UPLOAD_DOCUMENT_SUCCESS',
-//         data
-//     };
-// }
-
-// export function uploadFail(error) {
-//     return {
-//         type: 'UPLOAD_DOCUMENT_FAIL',
-//         error
-//     }
-// }
+export const postUpload = (payload) => {
+    return fetch(baseUrl, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+}
 
 // export async function uploadDocumentRequest() {
 //     const path = `file://${}`
