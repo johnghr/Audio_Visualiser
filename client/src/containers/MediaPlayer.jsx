@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import AudioAnalyser from '../components/Analysers/AudioAnalyser';
 import {tracks} from '../components/AudioPlayer/tracks'
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer'
-
+import UploadForm from '../components/TrackMenu/UploadForm';
 
 function MediaPlayer() {
   //mode can be 'off', 'track' or 'microphone'
@@ -77,6 +77,7 @@ function MediaPlayer() {
         />}
 
       <AudioPlayer tracks={tracks} onChangeTrack={onChangeTrack} onPauseTrack={onPauseTrack}></AudioPlayer>
+      <UploadForm></UploadForm>
     </div>
   );
 }
