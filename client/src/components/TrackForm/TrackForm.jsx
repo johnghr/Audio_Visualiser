@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const TrackForm = () => {
 
+    const [selectedFile, setSelectedFile] = useState(null)
+
+    const onChangeHandler = (event) => {
+        setSelectedFile(event.target.files[0]);
+    }
 
     return(
         <form action="/uploadfile" encType="multipart/form-data" methods="POST">

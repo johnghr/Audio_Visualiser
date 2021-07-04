@@ -1,9 +1,9 @@
-const baseUrl = 'http://localhost:5000/tracks';
+// const baseUrl = 'http://localhost:5000/tracks';
 
-export const getTracks = () => {
-    return(fetch(baseUrl))
-        .then(res => res.json())
-}
+// export const getTracks = () => {
+//     return(fetch(baseUrl))
+//         .then(res => res.json())
+// }
 
 // export function uploadSuccess({data}) {
 //     return {
