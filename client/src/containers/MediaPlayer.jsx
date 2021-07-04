@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import AudioAnalyser from './components/Analysers/AudioAnalyser';
-import {tracks} from './components/AudioPlayer/tracks'
-import AudioPlayer from './components/AudioPlayer/AudioPlayer'
+import AudioAnalyser from '../components/Analysers/AudioAnalyser';
+import {tracks} from '../components/AudioPlayer/tracks'
+import AudioPlayer from '../components/AudioPlayer/AudioPlayer'
 import './App.css';
 
 
@@ -82,4 +82,4 @@ function MediaPlayer() {
   );
 }
 
-export default App;
+export default MediaPlayer;
