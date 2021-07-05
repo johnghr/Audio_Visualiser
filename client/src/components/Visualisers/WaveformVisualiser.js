@@ -31,8 +31,9 @@ const WaveformVisualiser = ({
         let sliceWidth = width / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Black"){
-            context.fillRect(0, 0, canvas.width, canvas.height)
+            context.fillRect(0, 0,width, height)
         }
+        
         // if the analyser has been disconnected clear the canvas and reset analyserDisconnected to false
         if(analyserDisconnected){
             context.clearRect(0, 0, width, height);

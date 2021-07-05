@@ -10,26 +10,26 @@ app.use(cors());
 const multer = require('multer');
 
 // cb is abreviation for call back
-const fileStorageEngine = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + "--" + file.originalname)
-    }
-})
-
-const upload = multer({storage: fileStorageEngine})
-
-app.post('/single', upload.single('track'),(req, res) => {
-    console.log("file hit server",req.file)
-    res.send("Single file upload success")
-})
-
-
-// app.get('/', function(req, res){
-//     res.json({message: 'Hello World'});
+// const fileStorageEngine = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, './uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, Date.now() + "--" + file.originalname)
+//     }
 // })
+
+// const upload = multer({storage: fileStorageEngine})
+
+// app.post('/single', upload.single('track'),(req, res) => {
+//     console.log("file hit server",req.file)
+//     res.send("Single file upload success")
+// })
+
+
+app.get('/', function(req, res){
+    res.json({message: 'Hello World'});
+})
 
 
 // app.post('/upload', upload.single('track'), function (req, res){

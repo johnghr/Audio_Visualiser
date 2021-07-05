@@ -10,9 +10,11 @@ function App() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('http:localhost:5000')
-    .then(res => res.text())
-    .then(text => console.log(text))
+    fetch("http://localhost:5000", {
+    headers: {'Content-Type': 'application/json'}
+  })
+    .then(res => res.json())
+    .then(data => setMessage(data.message))
   
   }, [])
 
