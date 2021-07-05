@@ -1,13 +1,13 @@
 // initialise express
 const express = require('express');
 const app = express();
+// require fileSystem
 const fs = require('fs');
-const bodyParser = require('body-parser')
-app.use(bodyParser.json())
+
 const cors = require('cors');
 app.use(cors());
 // allows multi-part form data
-// const multer = require('multer');
+const multer = require('multer');
 
 app.post('/upload', (req, res) => {
     if(req.files.file === null){
@@ -27,21 +27,21 @@ app.post('/upload', (req, res) => {
 })
 
 // cb is abreviation for call back
-// const fileStorageEngine = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, './uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + "--" + file.originalname)
-//     }
-// })
+const fileStorageEngine = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "--" + file.originalname)
+    }
+})
 
-// const upload = multer({storage: fileStorageEngine})
+const upload = multer({storage: fileStorageEngine})
 
-// app.post('/upload', upload.single('track'),(req, res) => {
-//     console.log("file hit server",req.file)
-//     res.send("Single file upload success")
-// })
+app.post('/upload', upload.single('track'),(req, res) => {
+    console.log("file hit server",req.file)
+    res.send("Single file upload success")
+})
 
 
 app.get('/', function(req, res){
