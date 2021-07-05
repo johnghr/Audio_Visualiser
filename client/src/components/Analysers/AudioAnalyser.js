@@ -17,25 +17,25 @@ const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
     const analyser = analyserRef.current;
     const [analyserDisconnected, setAnalyserDisconnected] = useState(false)
     
+
+
     useEffect( () => {
         console.log('analyser input', input)
         // empty request animation frame Id
         let rafId; 
-        
-        
-        
+         
         // Creates a data Array which is half the length of the fftSize;
         // it takes in unsigned integers  
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
-        // connects the audio stream to the analyser node
-
+        // connects the audio stream to the analyser node using the relevant method depending on input
         if(mode === "track"){
-            source = audioContext.createMediaElementSource(input);
-            source.connect(analyser).connect(audioContext.destination);
-        } else {
-            source = audioContext.createMediaStreamSource(input);
-            source.connect(analyser);
-        }
+                    source = audioContext.createMediaElementSource(input);
+                    source.connect(analyser).connect(audioContext.destination);
+                } else {
+                    source = audioContext.createMediaStreamSource(input);
+                    source.connect(analyser);
+                }
+        
         
         const tick = () => {
             // copies wave form data into the dataArray which is passed in as an argument   
