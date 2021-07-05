@@ -90,7 +90,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
         } else {
             isReady.current = true;
         }
-    }, [trackIndex, audioSrc])
+    }, [trackIndex])
 
     const startTimer = () => {
         // clear any timers already running

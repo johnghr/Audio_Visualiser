@@ -3,11 +3,18 @@ const express = require('express');
 const app = express();
 // require fileSystem
 const fs = require('fs');
-
+const bodyParser = require('body-parser')
 const cors = require('cors');
 app.use(cors());
 // allows multi-part form data
 const multer = require('multer');
+
+
+fs.chmod('/uploads', '755', function(err){
+    if(err){
+        //do soemthing with error
+    }
+});
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -17,10 +24,14 @@ const fileStorageEngine = multer.diskStorage({
         cb(null, Date.now() + "--" + file.originalname)
     }
 })
-
-const upload = multer({storage: fileStorageEngine})
+ const upload = multer({storage: fileStorageEngine})
 
 app.post('/upload', upload.single('track'), (req, res) => {
+    if(req.file) {
+        console.log('I\'m wearing clothes my lord')
+    } else {
+        console.log('Im not wearing any clothes my lord')
+    }
     console.log(req.body)
     console.log(req.file)
     res.json(req.body)
