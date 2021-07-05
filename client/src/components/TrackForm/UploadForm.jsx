@@ -7,6 +7,7 @@ const UploadForm = () => {
         const formData = new FormData(e.currentTarget);
         const config = {
             method: 'POST',
+            // body not data
             body: formData,
         }
             
@@ -14,8 +15,6 @@ const UploadForm = () => {
             .then((res) => res.json())
             .then(data => console.log(data))
             .catch((err) => (console.log("error",err)));
-        // const { fileName, filePath} = res.formData;
-        // setUploadedFile({ fileName, filePath });
     }
 
     return(

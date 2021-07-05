@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const WaveformVisualiser = ({
+const ExperimentalVisualiser = ({
     audioData, 
     setAnalyserDisconnected, 
     analyserDisconnected,
@@ -12,8 +12,7 @@ const WaveformVisualiser = ({
 
     const canvasRef = useRef();
     
-
-    //clear the canvas every 30 seconds
+    // clear the canvas every 30 seconds
     // useEffect(() => {
         
     //     const clearCanvas = () => {
@@ -24,7 +23,6 @@ const WaveformVisualiser = ({
     // },[])
 
     useEffect(() => {
-        
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;
@@ -44,8 +42,9 @@ const WaveformVisualiser = ({
             setAnalyserDisconnected(false)
         }
         
+        const particles = [];
 
-        const renderWaveform = () => {
+        const renderParticles = () => {
             
             if(background === "Black"){
                 context.fillRect(0, 0,width, height)
@@ -53,26 +52,25 @@ const WaveformVisualiser = ({
                 context.fillStyle = '#000000'
             }
             
-            context.lineWidth = 2;
-            context.strokeStyle = randomColour;
-            
-            context.beginPath();
-            context.moveTo(0, height / 2);
-
-            for(const item of audioData) {
-                const y = (item / 255.0) * height;
-                context.lineTo(x, y);
-                x += sliceWidth;
+            const particle = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                xvel: Math.random(),
+                yvel: Math.random(),
+                size: 7
             }
-            // console.log("Audio-data:", audioData)
-            context.lineTo(x, height / 2);
-            context.stroke();
-            
+            particles.push(particle)
+
+            for (let i = 0; i < particles.length; i++){
+                let p = particles[i];
+                context.fillStyle = randomColour;
+                context.fillRect(p.x, p.y, p.size, p.size)
+            }
         }
         
-        renderWaveform()
+        renderParticles()
         
-       
+
     }, [audioData, background])
 
     return(
@@ -86,4 +84,4 @@ const WaveformVisualiser = ({
 
 }
 
-export default WaveformVisualiser;
+export default ExperimentalVisualiser;

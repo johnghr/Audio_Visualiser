@@ -8,7 +8,7 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
     const canvasRef = useRef();
 
     useEffect(() => {
-
+        
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;

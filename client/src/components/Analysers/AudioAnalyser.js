@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
+import ExperimentalVisualiser from '../Visualisers/WaveformVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
 const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
@@ -67,7 +67,7 @@ const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
     return(
         <div>
             {visualiserType === "Waveform" ? 
-            <WaveformVisualiser 
+            <ExperimentalVisualiser 
                 audioData={audioData} 
                 analyserDisconnected={analyserDisconnected} 
                 setAnalyserDisconnected={setAnalyserDisconnected}

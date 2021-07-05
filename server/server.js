@@ -8,12 +8,9 @@ app.use(cors());
 // allows multi-part form data
 const multer = require('multer');
 
-
-// fs.chmod('/uploads', '755', function(err){
-//     if(err){
-//         //do soemthing with error
-//     }
-// });
+app.get('/', function(req, res){
+    res.json({message: 'Hello World'});
+})
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -32,9 +29,7 @@ app.post('/upload', upload.single('track'), (req, res) => {
     res.json(req.body)
 })
 
+app.use(express.static('uploads'))
 
-app.get('/', function(req, res){
-    res.json({message: 'Hello World'});
-})
 
 app.listen(5000, () => console.log('Server started on port 5000'))
