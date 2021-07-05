@@ -32,6 +32,8 @@ const WaveformVisualiser = ({
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Black"){
             context.fillRect(0, 0,width, height)
+        } else {
+            context.fillStyle = '#000000'
         }
         
         // if the analyser has been disconnected clear the canvas and reset analyserDisconnected to false
@@ -42,6 +44,13 @@ const WaveformVisualiser = ({
         
 
         const renderWaveform = () => {
+            
+            if(background === "Black"){
+                context.fillRect(0, 0,width, height)
+            } else {
+                context.fillStyle = '#000000'
+            }
+            
             context.lineWidth = 2;
             context.strokeStyle = randomColour;
             
@@ -62,7 +71,7 @@ const WaveformVisualiser = ({
         renderWaveform()
         
 
-    }, [audioData])
+    }, [audioData, background])
 
     return(
         <canvas 

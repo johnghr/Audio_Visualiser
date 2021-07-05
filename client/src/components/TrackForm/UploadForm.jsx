@@ -30,10 +30,11 @@ const UploadForm = ({addUpload}) => {
         
         try {
 
-            const res = fetch(baseUrl, formData, {
+            const res = await fetch(baseUrl, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                }
+                },
+                body: formData
             })
 
             console.log("fetch sent")

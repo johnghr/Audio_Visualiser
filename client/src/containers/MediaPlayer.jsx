@@ -44,7 +44,7 @@ function MediaPlayer() {
   }
 
   const onChangeTrack = (track) => {
-    console.log('on change track', track);
+    // console.log('on change track', track);
     setAnalyserState({
       input: track,
       mode: "track"

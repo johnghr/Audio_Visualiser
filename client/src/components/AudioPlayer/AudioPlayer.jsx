@@ -45,12 +45,12 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
     // PLAY
     useEffect(() => {
         // when isPlaying changes:
-        // if isPlaying state is false, play the track in audio tag 
+        // if isPlaying is true, play the track in audio tag 
         if(isPlaying) {
             // update track for analyser
             
             audioRef.current.play();
-            console.log('setting track')
+            // console.log('setting track')
             onChangeTrack(audioRef.current)
             startTimer();
         } else {
@@ -60,7 +60,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
             audioRef.current.pause();
             // onPauseTrack();
         }
-    },[isPlaying])
+    },[isPlaying, onChangeTrack])
 
     useEffect(() => {
         // pause and clean up on unmount / clear any setInterval timers
@@ -90,7 +90,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
         } else {
             isReady.current = true;
         }
-    }, [trackIndex])
+    }, [trackIndex, audioSrc])
 
     const startTimer = () => {
         // clear any timers already running
