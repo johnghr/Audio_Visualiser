@@ -60,7 +60,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
             audioRef.current.pause();
             // onPauseTrack();
         }
-    },[isPlaying, onChangeTrack])
+    },[isPlaying])
 
     useEffect(() => {
         // pause and clean up on unmount / clear any setInterval timers

@@ -2,39 +2,34 @@ import MediaPlayer from './containers/MediaPlayer';
 import React, {useEffect, useState} from 'react';
 import './App.css';
 // import { getUploads } from './services/TrackService';
-import UploadForm from './components/TrackForm/UploadForm'
+import UploadForm from './components/TrackInterface/UploadForm'
+import TrackList from './components/TrackInterface/TrackList'
 
+const baseUrl = 'http://localhost:5000/';
 
 function App() {
- 
-  const [message, setMessage] = useState('')
+
+  const [trackUploads, setTrackUploads] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:5000")
-    .then(res => res.json())
-    .then(data => setMessage(data.message))
-  
+    
+    fetch(baseUrl)
+      .then(res => res.json())
+      .then(data => setTrackUploads(data))
+
   }, [])
-
-  const [tracks, setTracks] = useState([]);
-
+   
   // useEffect(() => {
-  //   getUploads().then((allUploads) => {
-  //     setTracks(allUploads)
-  //   })
-  // }, [])
 
-  const addUpload = (upload) => {
-    const temp = tracks.map( t => t);
-    temp.push(upload)
-    setTracks(temp)
-  }
+  //   console.log(tracks)
+
+  // },[tracks])
 
   return (
     <div>
       <MediaPlayer></MediaPlayer>
-      <UploadForm addUpload={addUpload}></UploadForm>
-      <p>The message is: {message}</p>
+      <UploadForm trackUploads={trackUploads} setTrackUploads={setTrackUploads}></UploadForm>
+      <TrackList trackUploads={trackUploads}></TrackList>
     </div>
   );
 }

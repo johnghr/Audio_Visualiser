@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
+import ExperimentalVisualiser from '../Visualisers/WaveformVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
 const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
@@ -29,12 +29,12 @@ const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         // connects the audio stream to the analyser node using the relevant method depending on input
         if(mode === "track"){
-                    source = audioContext.createMediaElementSource(input);
-                    source.connect(analyser).connect(audioContext.destination);
-                } else {
-                    source = audioContext.createMediaStreamSource(input);
-                    source.connect(analyser);
-                }
+            source = audioContext.createMediaElementSource(input);
+            source.connect(analyser).connect(audioContext.destination);
+        } else {
+            source = audioContext.createMediaStreamSource(input);
+            source.connect(analyser);
+        }
         
         
         const tick = () => {
@@ -67,7 +67,7 @@ const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
     return(
         <div>
             {visualiserType === "Waveform" ? 
-            <WaveformVisualiser 
+            <ExperimentalVisualiser 
                 audioData={audioData} 
                 analyserDisconnected={analyserDisconnected} 
                 setAnalyserDisconnected={setAnalyserDisconnected}
@@ -78,8 +78,7 @@ const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
                 analyser={analyser}
                 setAnalyserDisconnected={setAnalyserDisconnected}
                 background={background}
-            /> 
-            }
+            /> }
         </div>
         
     )

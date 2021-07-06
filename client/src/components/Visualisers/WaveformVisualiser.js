@@ -12,6 +12,7 @@ const WaveformVisualiser = ({
 
     const canvasRef = useRef();
     
+
     //clear the canvas every 30 seconds
     // useEffect(() => {
         
@@ -23,6 +24,7 @@ const WaveformVisualiser = ({
     // },[])
 
     useEffect(() => {
+        
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;
@@ -31,7 +33,7 @@ const WaveformVisualiser = ({
         let sliceWidth = width / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Black"){
-            context.fillRect(0, 0,width, height)
+            context.fillRect(0, 0, width, height)
         } else {
             context.fillStyle = '#000000'
         }
@@ -42,7 +44,6 @@ const WaveformVisualiser = ({
             setAnalyserDisconnected(false)
         }
         
-
         const renderWaveform = () => {
             
             if(background === "Black"){
@@ -70,7 +71,7 @@ const WaveformVisualiser = ({
         
         renderWaveform()
         
-
+       
     }, [audioData, background])
 
     return(
