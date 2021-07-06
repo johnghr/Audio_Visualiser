@@ -29,11 +29,8 @@ app.get('/', (req, res) => {
         } catch (err) {
             return console.log('Unable to scan directory: ' + err);
         }
-    })
-    
-     
+    })  
 })
-
 
 // sets the destination for file on storage or sets name and assigns to default location
 const fileStorageEngine = multer.diskStorage({
@@ -41,7 +38,7 @@ const fileStorageEngine = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: (req, file, cb) => {
-        cb(null,file.originalname)
+        cb(null, file.originalname.split(' ').join('-'))
     }
 })
 
@@ -54,6 +51,6 @@ app.post('/upload', upload.single('track'), (req, res) => {
     res.json(req.body)
 })
 
-// app.use('/', express.static('uploads/'))
+app.use('/uploads/', express.static('uploads/'))
 
 app.listen(5000, () => console.log('Server started on port 5000'))

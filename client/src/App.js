@@ -9,7 +9,6 @@ const baseUrl = 'http://localhost:5000/';
 
 function App() {
 
-
   const [trackUploads, setTrackUploads] = useState([])
 
   useEffect(() => {
@@ -18,7 +17,7 @@ function App() {
       .then(res => res.json())
       .then(data => setTrackUploads(data))
 
-  }, [trackUploads])
+  }, [])
    
   // useEffect(() => {
 
