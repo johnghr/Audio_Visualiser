@@ -10,6 +10,7 @@ const baseUrl = 'http://localhost:5000/';
 function App() {
 
   const [trackUploads, setTrackUploads] = useState([])
+  const [selectedTrack, setSelectedTrack] = useState("")
 
   useEffect(() => {
     
@@ -27,9 +28,10 @@ function App() {
 
   return (
     <div>
-      <MediaPlayer></MediaPlayer>
+      <MediaPlayer selectedTrack={selectedTrack}></MediaPlayer>
       <UploadForm trackUploads={trackUploads} setTrackUploads={setTrackUploads}></UploadForm>
-      <TrackList trackUploads={trackUploads}></TrackList>
+      <TrackList setSelectedTrack={setSelectedTrack} trackUploads={trackUploads}></TrackList>
+      {/* <audio controls src={`http://localhost:5000/uploads/${selectedTrack}`}></audio> */}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import AudioControls from './AudioControls.jsx';
 
-const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
+const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack, selectedTrack }) => {
 
     // index of track being played
     const [trackIndex, setTrackIndex] = useState(0);
@@ -12,8 +12,11 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
     // current title and source equal the current track index
     const {title, audioSrc} = tracks[trackIndex];
     
+    console.log('selectedTrack:', selectedTrack)
+    const src = `http://localhost:5000/uploads/${selectedTrack}`;
+    console.log('src',src)
     // stores Audio element plus audio source in a ref
-    const audioRef = useRef(new Audio(audioSrc));
+    const audioRef = useRef(new Audio(src));
     
     const intervalRef = useRef();
     const isReady = useRef(false);
@@ -30,11 +33,11 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
         } else {
             setTrackIndex(trackIndex - 1);
         }
-    }
-    
-    // NEXT - handles next track click
+     }       
+            
+    // NEXT  - handles next track click
     const toNextTrack = () => {
-        // if trackIndex is less than tracks length go to next track, otherwise go to first track
+                // if trackIndex is less than tracks length go to next track, otherwise go to first track
         if (trackIndex < tracks.length -1){
             setTrackIndex(trackIndex + 1);
         } else {
@@ -60,7 +63,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
             audioRef.current.pause();
             // onPauseTrack();
         }
-    },[isPlaying])
+    },[])
 
     useEffect(() => {
         // pause and clean up on unmount / clear any setInterval timers
@@ -78,9 +81,10 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack }) => {
         // runs when trackIndex is updated, allowing current track to be paused while
         // updating the value of audioRef to new source, resetting the progress state and 
         // setting new track to play
-
+ 
+           
         audioRef.current.pause()
-        audioRef.current = new Audio(audioSrc);
+        audioRef.current = new Audio(`http://localhost:5000/uploads/${selectedTrack}`); 
         setTrackProgress(audioRef.current.currentTime);
 
         if (isReady.current) {

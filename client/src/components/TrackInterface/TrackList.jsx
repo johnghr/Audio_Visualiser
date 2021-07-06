@@ -1,10 +1,10 @@
 import React from 'react';
 import Track from './Track'
 
-const TrackList = ({trackUploads}) => {
+const TrackList = ({trackUploads, setSelectedTrack}) => {
 
     const trackList = trackUploads.map((track, index) => {
-        return <Track track={track} key={index}></Track>
+        return <Track track={track} key={index} setSelectedTrack={setSelectedTrack}></Track>
     })
 
     return (

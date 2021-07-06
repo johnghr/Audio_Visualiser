@@ -13,9 +13,8 @@ const UploadForm = ({setTrackUploads, trackUploads}) => {
             
         fetch(baseUrl, config)
             .then((res) => res.json())
-            .then(data => console.log(data))
-            .catch((err) => (console.log("error",err)))
             .then(savedTrack => setTrackUploads([...trackUploads, savedTrack]))
+            .catch((err) => (console.log("error", err)))
     }
 
     return(

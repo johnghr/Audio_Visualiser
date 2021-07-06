@@ -3,7 +3,7 @@ import AudioAnalyser from '../components/Analysers/AudioAnalyser';
 import {tracks} from '../components/AudioPlayer/tracks'
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer'
 
-function MediaPlayer() {
+function MediaPlayer({selectedTrack}) {
   // state to be passed down for analyser: track or mic input and mode:'track', 'mic' and off
   const initialAnalyserState = {input: null, mode: 'off'};
   const[analyserState, setAnalyserState] = useState(initialAnalyserState);
@@ -86,7 +86,13 @@ function MediaPlayer() {
             background={background}
         />}
 
-      <AudioPlayer tracks={tracks} onChangeTrack={onChangeTrack} onPauseTrack={onPauseTrack}></AudioPlayer>
+      <AudioPlayer 
+        tracks={tracks} 
+        onChangeTrack={onChangeTrack} 
+        onPauseTrack={onPauseTrack}
+        selectedTrack={selectedTrack} 
+      /> 
+    
     </div>
   );
 }

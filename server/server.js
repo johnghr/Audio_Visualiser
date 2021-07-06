@@ -16,7 +16,6 @@ const path = require('path');
 const directoryPath = path.join(__dirname, 'uploads')
 
 
-
 app.get('/', (req, res) => {
     fs.readdir(directoryPath, function (err, files) {
         //handling error
@@ -45,10 +44,7 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({storage: fileStorageEngine})
 
 app.post('/upload', upload.single('track'), (req, res) => {
-
-    console.log(req.body)
-    console.log(req.file)
-    res.json(req.body)
+    res.json(req.file.filename)
 })
 
 app.use('/uploads/', express.static('uploads/'))
