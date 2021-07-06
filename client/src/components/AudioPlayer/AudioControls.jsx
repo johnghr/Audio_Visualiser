@@ -1,22 +1,12 @@
 import React from 'react';
-// import { ReactComponent as Play } from './assets/play.svg';
-// import { ReactComponent as Pause } from './assets/pause.svg';
-// import { ReactComponent as Next } from './assets/next.svg';
-// import { ReactComponent as Prev } from './assets/prev.svg';
 
 const AudioControls = ({
         isPlaying,
         onPlayPauseClick,
         onPrevClick,
         onNextClick,
-        // toggleTrack
-    }) => {
 
-        // const handlePlay = (event) => {
-        //     const eventTarget = event.target;
-        //     console.log("eventTarget", event)
-        //     toggleTrack(eventTarget);
-        // } 
+    }) => {
 
         return(
             <div className="audio-controls">

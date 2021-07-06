@@ -83,7 +83,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack, selectedTrack }) => 
  
            
         audioRef.current.pause()
-        audioRef.current = new Audio(`http://localhost:5000/uploads/${selectedTrack}`); 
+        audioRef.current = new Audio(audioSrc); 
         setTrackProgress(audioRef.current.currentTime);
 
         if (isReady.current) {
