@@ -12,11 +12,11 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack, selectedTrack }) => 
     // current title and source equal the current track index
     const {title, audioSrc} = tracks[trackIndex];
     
-    console.log('selectedTrack:', selectedTrack)
-    const src = `http://localhost:5000/uploads/${selectedTrack}`;
-    console.log('src',src)
+    // console.log('selectedTrack:', selectedTrack)
+    // const src = `http://localhost:5000/uploads/${selectedTrack}`;
+    // console.log('src',src)
     // stores Audio element plus audio source in a ref
-    const audioRef = useRef(new Audio(src));
+    const audioRef = useRef(new Audio(audioSrc));
     
     const intervalRef = useRef();
     const isReady = useRef(false);
@@ -51,7 +51,6 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack, selectedTrack }) => 
         // if isPlaying is true, play the track in audio tag 
         if(isPlaying) {
             // update track for analyser
-            
             audioRef.current.play();
             // console.log('setting track')
             onChangeTrack(audioRef.current)
@@ -63,7 +62,7 @@ const AudioPlayer = ({ tracks, onChangeTrack, onPauseTrack, selectedTrack }) => 
             audioRef.current.pause();
             // onPauseTrack();
         }
-    },[])
+    },[isPlaying])
 
     useEffect(() => {
         // pause and clean up on unmount / clear any setInterval timers

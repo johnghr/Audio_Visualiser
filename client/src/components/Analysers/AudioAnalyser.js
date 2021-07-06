@@ -2,14 +2,11 @@ import React, {useEffect, useState, useRef} from 'react';
 import ExperimentalVisualiser from '../Visualisers/WaveformVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
-const AudioAnalyser = ({ mode, input, visualiserType, background }) => {
+const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0));
     
-    // creates an audio context and stores it in ref    
-    const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)());
-    // sets audioContext to be the current ref of audioContext 
-    const audioContext = audioContextRef.current;
+    
     
     const sourceRef = useRef(null);
     let source = sourceRef.current;
