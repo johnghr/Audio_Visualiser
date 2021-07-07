@@ -32,9 +32,9 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         
         
         const tick = () => {
-            // copies wave form data into the dataArray which is passed in as an argument   
+            // copies wave form data into the dataArray which is passed in as the argument   
             analyser.getByteTimeDomainData(dataArray)
-            // sets audioData to be the value of a copy of dataArray
+            // sets audioData to be the value of a copy of dataArray - * spread operator required to force a re-render *
             setAudioData([...dataArray])
             // requests a re-render while calling tick in a recursive loop
             rafId = requestAnimationFrame(tick);

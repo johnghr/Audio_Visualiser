@@ -10,6 +10,7 @@ const WaveformVisualiser = ({
     background
 }) => {
 
+    // creates a useRef for the canvas
     const canvasRef = useRef();
     
 
@@ -25,9 +26,11 @@ const WaveformVisualiser = ({
 
     useEffect(() => {
         
+        // sets canvas to be the current property of canvasRef
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;
+        // sets the canvas context to be 2d
         let context = canvas.getContext('2d');
         let x = 0;
         let sliceWidth = width / audioData.length;

@@ -2,9 +2,11 @@ import React from 'react';
 
 const Track = ({track, setSelectedTrackIndex, index}) => {
 
+    // set selected track index to be the index of the clicked track list item
     const handleClick = (event) => {
-        console.log("stop poking me", event.target);
+        
         setSelectedTrackIndex(index);
+
     }
 
     return(

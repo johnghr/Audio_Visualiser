@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import AudioAnalyser from '../components/Analyser/AudioAnalyser';
-import AudioPlayerTwo from '../components/AudioPlayer/AudioPlayer';
+import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 
 const MediaPlayer = ({
   selectedTrackIndex,
@@ -57,7 +57,8 @@ const MediaPlayer = ({
     }
   }
 
-  // when track is played in AudioPlayer
+  // when track is played in AudioPlayer, onChangeTrack sets the audio tag and its src
+  // as the input of setAnalyserState, while setting mode to track
   const onChangeTrack = (track) => {
     // console.log('on change track', track);
     setAnalyserState({
@@ -66,10 +67,12 @@ const MediaPlayer = ({
     })
   }
 
+  // toggles the visualiserType state between Waveform and Frequency
   const toggleVisualiser = () => {
     setVisualiserType(visualiserType === "Waveform" ? "Frequency" : "Waveform");
   }
 
+  // toggles the visualiser background state between Black and Clear
   const toggleBackground = () => {
     setBackground(background === "Clear" ? "Black" : "Clear")
   }
@@ -79,20 +82,24 @@ const MediaPlayer = ({
       
       <div className="controls">
         
+        {/* if analyserState mode is set to microphone, display Stop microphone, if it is not, display get microphone */}
         <button onClick={toggleMicrophone}>
           {analyserState.mode === 'microphone' ? 'Stop microphone' : 'Get microphone'}
         </button>
 
+        {/* if visualiserType is set to Waveform, display Frequency, if it is not, display Waveform */}
         <button onClick={toggleVisualiser}>
           {visualiserType === "Waveform" ? "Frequency" : "Waveform"}
         </button>
 
+        {/* if background is set to Clear, display Black, if it is not, display Clear */}
         <button onClick={toggleBackground}>
           {background === "Clear" ? "Black" : "Clear"}
         </button>
 
       </div>
 
+      {/* if there is an input in analyserState, render the AudioAnalyser */}
       {analyserState.input &&
         <AudioAnalyser 
             input={analyserState.input} 
@@ -102,7 +109,8 @@ const MediaPlayer = ({
             audioContext={audioContext}
         />}
 
-      <AudioPlayerTwo 
+      
+      <AudioPlayer 
         selectedTrackIndex={selectedTrackIndex}
         setSelectedTrackIndex={setSelectedTrackIndex}
         trackUploads={trackUploads} 
