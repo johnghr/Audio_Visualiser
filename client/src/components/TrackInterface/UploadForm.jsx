@@ -1,7 +1,11 @@
 import React from 'react';
 const baseUrl = 'http://localhost:5000/upload';
 
-const UploadForm = ({setTrackUploads, trackUploads}) => {
+const UploadForm = ({
+    setTrackUploads, 
+    trackUploads,
+    setTrackIndex
+}) => {
 
     const onSubmit = event => {
         event.preventDefault();

@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Track = ({track, setSelectedTrack}) => {
+const Track = ({track, setSelectedTrackIndex, index}) => {
 
     const handleClick = (event) => {
-        console.log("stop poking me", event.target.textContent);
-        setSelectedTrack(event.target.textContent);
-        
+        console.log("stop poking me", event.target);
+        setSelectedTrackIndex(index);
     }
 
     return(

@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
 import AudioAnalyser from '../components/Analysers/AudioAnalyser';
-import {tracks} from '../components/AudioPlayer/tracks'
-import AudioPlayer from '../components/AudioPlayer/AudioPlayer'
+import AudioPlayerTwo from '../components/AudioPlayer/AudioPlayerTwo';
 
-function MediaPlayer({selectedTrack, audioContext}) {
+const MediaPlayer = ({
+  selectedTrackIndex,
+  setSelectedTrackIndex, 
+  audioContext,
+  trackUploads,
+  setTrackUploads
+}) => {
   // state to be passed down for analyser: track or mic input and mode:'track', 'mic' and off
   const initialAnalyserState = {input: null, mode: 'off'};
   const[analyserState, setAnalyserState] = useState(initialAnalyserState);
@@ -87,12 +92,20 @@ function MediaPlayer({selectedTrack, audioContext}) {
             audioContext={audioContext}
         />}
 
-      <AudioPlayer 
+      {/* <AudioPlayer 
         tracks={tracks} 
         onChangeTrack={onChangeTrack} 
         onPauseTrack={onPauseTrack}
         selectedTrack={selectedTrack} 
-      /> 
+      /> */}
+
+      <AudioPlayerTwo 
+        selectedTrackIndex={selectedTrackIndex}
+        setSelectedTrackIndex={setSelectedTrackIndex}
+        trackUploads={trackUploads} 
+        setTrackUploads={setTrackUploads}
+        onChangeTrack={onChangeTrack}
+      />
     
     </div>
   );
