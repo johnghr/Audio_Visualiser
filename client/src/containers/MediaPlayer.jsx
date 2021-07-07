@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import AudioAnalyser from '../components/Analysers/AudioAnalyser';
-import AudioPlayerTwo from '../components/AudioPlayer/AudioPlayerTwo';
+import AudioAnalyser from '../components/Analyser/AudioAnalyser';
+import AudioPlayerTwo from '../components/AudioPlayer/AudioPlayer';
 
 const MediaPlayer = ({
   selectedTrackIndex,
@@ -9,14 +9,19 @@ const MediaPlayer = ({
   trackUploads,
   setTrackUploads
 }) => {
-  // state to be passed down for analyser: track or mic input and mode:'track', 'mic' and off
-  const initialAnalyserState = {input: null, mode: 'off'};
-  const[analyserState, setAnalyserState] = useState(initialAnalyserState);
-  const[background, setBackground] = useState("Clear")
-  const[visualiserType, setVisualiserType] = useState("Waveform")
 
+  // an initial analyserState for resetting analyser
+  const initialAnalyserState = {input: null, mode: 'off'};
+  // state to be passed down for analyser: track or mic input and mode:'track', 'mic' and off
+  const[analyserState, setAnalyserState] = useState(initialAnalyserState);
+  // background state to be passed down to visualiser canvases to set background
+  const[background, setBackground] = useState("Clear")
+  // type state to be passed down to visualiser canvases to determine which visualiser is rendered
+  const[visualiserType, setVisualiserType] = useState("Waveform")
+  // does what it says on the tin
   const resetAnalyser = () => setAnalyserState(initialAnalyserState);
 
+  // fetch permission to use microphone and set the feed as the input for the analyser
   async function getMicrophone() {
     let micAudio = await navigator.mediaDevices.getUserMedia(
       {
@@ -30,24 +35,29 @@ const MediaPlayer = ({
     });
   }
 
+  // loop through all mic tracks and stop them, reset the analyser
   function stopMicrophone() {
     analyserState.input.getTracks().forEach(track => track.stop());
     resetAnalyser();
   }
 
-  function onPauseTrack() {
-    console.log("onPauseTrack hit")
-    resetAnalyser();
-  }
+  // function onPauseTrack() {
+  //   console.log("onPauseTrack hit")
+  //   resetAnalyser();
+  // }
 
+  
+  // check if analyserState mode has been set to microphone - if so stop microphone
   function toggleMicrophone() {
     if (analyserState.mode  === 'microphone'){
       stopMicrophone();
     } else {
+      // otherwise, get permission to use microphone
       getMicrophone();
     }
   }
 
+  // when track is played in AudioPlayer
   const onChangeTrack = (track) => {
     // console.log('on change track', track);
     setAnalyserState({
@@ -91,13 +101,6 @@ const MediaPlayer = ({
             background={background}
             audioContext={audioContext}
         />}
-
-      {/* <AudioPlayer 
-        tracks={tracks} 
-        onChangeTrack={onChangeTrack} 
-        onPauseTrack={onPauseTrack}
-        selectedTrack={selectedTrack} 
-      /> */}
 
       <AudioPlayerTwo 
         selectedTrackIndex={selectedTrackIndex}
