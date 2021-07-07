@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import AudioAnalyser from '../components/Analyser/AudioAnalyser';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import '../App.css';
 
 const MediaPlayer = ({
   selectedTrackIndex,
@@ -100,7 +101,9 @@ const MediaPlayer = ({
       </div>
 
       {/* if there is an input in analyserState, render the AudioAnalyser */}
-      {analyserState.input &&
+      <div className="visualiser-container">
+        {analyserState.input &&
+        
         <AudioAnalyser 
             input={analyserState.input} 
             mode={analyserState.mode} 
@@ -108,7 +111,7 @@ const MediaPlayer = ({
             background={background}
             audioContext={audioContext}
         />}
-
+      </div>
       
       <AudioPlayer 
         selectedTrackIndex={selectedTrackIndex}

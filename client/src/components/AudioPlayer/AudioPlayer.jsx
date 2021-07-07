@@ -41,12 +41,11 @@ const AudioPlayerTwo = ({
 
     return (
         
-        <div>
+        <div className="audio-player-container">
             {/* src is the base url plus the trackUpload name stored at the current trackIndex */}
-            <audio className="audio-player" crossorigin="anonymous" onPlay={handlePlay} controls src={`http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`}></audio>
-            <button onClick={toPreviousTrack}>Prev</button>
-            {/* <button onClick={onPlayPause}>Play</button> */}
-            <button onClick={toNextTrack}>Next</button>
+            <button onClick={toPreviousTrack}><svg className="control-icon"><use href="#prev-icon"/></svg></button>
+            <audio className="audio-player" crossOrigin="anonymous" onPlay={handlePlay} controls src={`http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`}></audio>
+            <button onClick={toNextTrack}><svg className="control-icon"><use href="#next-icon"/></svg></button>
         </div>
         
     )

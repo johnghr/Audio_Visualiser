@@ -30,7 +30,22 @@ function App() {
 
   return (
     
-    <div>
+    <div className="app-container">
+      
+      <div className="sidebar">
+       
+        <TrackList 
+          setSelectedTrackIndex={setSelectedTrackIndex} 
+          trackUploads={trackUploads}
+          selectedTrackIndex={selectedTrackIndex}
+        />
+
+        <UploadForm 
+          trackUploads={trackUploads} 
+          setTrackUploads={setTrackUploads} 
+        />
+
+      </div>
 
       <MediaPlayer 
         selectedTrackIndex={selectedTrackIndex}
@@ -40,16 +55,9 @@ function App() {
         setTrackUploads={setTrackUploads}>
       </MediaPlayer>
 
-      <UploadForm 
-        trackUploads={trackUploads} 
-        setTrackUploads={setTrackUploads} 
-      >
-      </UploadForm>
+      
 
-      <TrackList 
-        setSelectedTrackIndex={setSelectedTrackIndex} 
-        trackUploads={trackUploads}
-      />
+      
       
       
     </div>

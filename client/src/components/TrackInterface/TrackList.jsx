@@ -1,15 +1,15 @@
 import React from 'react';
 import Track from './Track'
 
-const TrackList = ({trackUploads, setSelectedTrackIndex}) => {
+const TrackList = ({trackUploads, selectedTrackIndex, setSelectedTrackIndex}) => {
 
     // map trackUploads into individual tracks while assigning an index to each track
     const trackList = trackUploads.map((track, index) => {
-        return <Track track={track} key={index} index={index} setSelectedTrackIndex={setSelectedTrackIndex}></Track>
+        return <Track track={track} key={index} index={index} selectedTrackIndex={selectedTrackIndex} setSelectedTrackIndex={setSelectedTrackIndex}></Track>
     })
 
     return (
-        <ul>
+        <ul className="track-list">
             {trackList}
         </ul>
     )
