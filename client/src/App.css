@@ -73,9 +73,39 @@ button {
   background-color: #f6eabb;
 }
 
-.controls {
+.toggle-controls {
   display: flex;
   justify-content: flex-end;
+}
+
+#mic-toggle {
+  border-radius: px;
+  background-color: #ffe26f;
+  margin: 2px;
+}
+
+#mic-toggle:hover {
+  background-color: #f6eabb;
+}
+
+#background-toggle {
+  border-radius: 2px;
+  background-color: #ffe26f;
+  margin: 2px;
+}
+
+#background-toggle:hover {
+  background-color: #f6eabb;
+}
+
+#visualiser-toggle {
+  border-radius: 2px;
+  background-color: #ffe26f;
+  margin: 2px;
+}
+
+#visualiser-toggle:hover {
+  background-color: #f6eabb;
 }
 
 .track-list {
