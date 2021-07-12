@@ -4,7 +4,7 @@ const Track = ({track, selectedTrackIndex, setSelectedTrackIndex, index}) => {
 
     // set selected track index to be the index of the clicked track list item
     const handleClick = (event) => setSelectedTrackIndex(index)
-        console.log("selectedTracjIndex", selectedTrackIndex)
+    
     return(
        <li 
         className={selectedTrackIndex === index ? "playing" : ""} 

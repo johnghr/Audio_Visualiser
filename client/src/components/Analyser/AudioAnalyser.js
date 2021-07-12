@@ -13,7 +13,6 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
     const [analyserDisconnected, setAnalyserDisconnected] = useState(false)
 
     useEffect( () => {
-        console.log('analyser input', input)
         // empty request animation frame Id
         let rafId; 
          
@@ -21,9 +20,10 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         // which takes in unsigned 8 byte integers  
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         // connects the audio stream to the analyser node using the relevant method depending on input
-        if(mode === "track"){
+        if(mode === "track"){ 
+            console.log("I'm playing a track")
             source = audioContext.createMediaElementSource(input);
-            source.connect(analyser).connect(audioContext.destination);
+            source.connect(analyser).connect(audioContext.destination);    
         } else {
             // creating audioStream for mic input
             source = audioContext.createMediaStreamSource(input);
@@ -44,17 +44,19 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         rafId = requestAnimationFrame(tick);
 
         return function cleanup() {
-            console.log("disconnect analyser")
+            console.log("here be cleanup")
             if(mode === "track"){
-                console.log("mode is track")
+                console.log("disconnecting here")
                 source.disconnect(analyser);
                 setAnalyserDisconnected(true)
+                console.log(source)
+                
             } else {
-                console.log("mode is not track")
+                console.log("or here")
                 source.disconnect()
+                console.log(source)
             }
             cancelAnimationFrame(rafId);
-            console.log('clean up on aisle 3')   
         }
 
     }, [mode, input])

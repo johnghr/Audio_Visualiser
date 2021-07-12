@@ -30,12 +30,9 @@ const AudioPlayerTwo = ({
         }
     }
 
-    // const onPlayPause = () => {
-    //     console.log("no the now")
-    // }
-
     // when the track is played, set the analyser input to be the playing track
     const handlePlay = (event) => {
+        console.log(event.target,"event target")
         onChangeTrack(event.target)
     }
 

@@ -19,7 +19,7 @@ function App() {
   const audioContext = audioContextRef.current;
 
   useEffect(() => {
-    // when the app is started retrieve data from the server
+    // when the app has started retrieve data from the server
     fetch(baseUrl)
       // turn the response into json
       .then(res => res.json())
@@ -54,11 +54,6 @@ function App() {
         trackUploads={trackUploads} 
         setTrackUploads={setTrackUploads}>
       </MediaPlayer>
-
-      
-
-      
-      
       
     </div>
   );

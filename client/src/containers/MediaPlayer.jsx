@@ -61,7 +61,6 @@ const MediaPlayer = ({
   // when track is played in AudioPlayer, onChangeTrack sets the audio tag and its src
   // as the input of setAnalyserState, while setting mode to track
   const onChangeTrack = (track) => {
-    // console.log('on change track', track);
     setAnalyserState({
       input: track,
       mode: "track"
