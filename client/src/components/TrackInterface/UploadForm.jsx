@@ -22,7 +22,7 @@ const UploadForm = ({
          // receive response from the server   
          fetch(baseUrl, config)
              // response to json
-             .then((res) => res.json())
+             .then(res => res.json())
              // set trackUploads to be a new array containing previous entries plus new submitted track
              .then(savedTrack => setTrackUploads([...trackUploads, savedTrack]))
              // catch any errors

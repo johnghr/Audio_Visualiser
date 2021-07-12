@@ -10,9 +10,6 @@ const createRouter = function(collection) {
     })
     
     router.post('/upload', upload.single('track'), (req, res) => {
-
-        console.log(req.body)
-        console.log(req.file)
         res.json(req.body)
     })
 

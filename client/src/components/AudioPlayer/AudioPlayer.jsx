@@ -5,7 +5,8 @@ const AudioPlayerTwo = ({
     selectedTrackIndex,
     setSelectedTrackIndex,
     onChangeTrack,
-    trackUploads
+    trackUploads,
+    setAnalyserState
 }) => {
 
     // handles previous track click
@@ -30,13 +31,17 @@ const AudioPlayerTwo = ({
         }
     }
 
-    // const onPlayPause = () => {
-    //     console.log("no the now")
-    // }
-
     // when the track is played, set the analyser input to be the playing track
     const handlePlay = (event) => {
+        console.log(event.target,"event target")
         onChangeTrack(event.target)
+    }
+
+    const handlePause = (event) => {
+        setAnalyserState({
+            input: null,
+            mode: "off"
+        })
     }
 
     return (
@@ -44,7 +49,7 @@ const AudioPlayerTwo = ({
         <div className="audio-player-container">
             {/* src is the base url plus the trackUpload name stored at the current trackIndex */}
             <button onClick={toPreviousTrack}><svg className="control-icon"><use href="#prev-icon"/></svg></button>
-            <audio className="audio-player" crossOrigin="anonymous" onPlay={handlePlay} controls src={`http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`}></audio>
+            <audio className="audio-player" crossOrigin="anonymous" onPlay={handlePlay} onPause={handlePause} controls src={`http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`}></audio>
             <button onClick={toNextTrack}><svg className="control-icon"><use href="#next-icon"/></svg></button>
         </div>
         

@@ -37,16 +37,17 @@ const fileStorageEngine = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname.split(' ').join('-'))
+        cb(null, file.originalname)
     }
 })
 
 const upload = multer({storage: fileStorageEngine})
 
 app.post('/upload', upload.single('track'), (req, res) => {
+    console.log("incoming file", req.file)
     res.json(req.file.filename)
 })
 
-app.use('/uploads/', express.static('uploads/'))
+app.use('/uploads', express.static('uploads'))
 
 app.listen(5000, () => console.log('Server started on port 5000'))

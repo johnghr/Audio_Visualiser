@@ -41,18 +41,17 @@ const MediaPlayer = ({
     analyserState.input.getTracks().forEach(track => track.stop());
     resetAnalyser();
   }
-
-  // function onPauseTrack() {
-  //   console.log("onPauseTrack hit")
-  //   resetAnalyser();
-  // }
-
   
   // check if analyserState mode has been set to microphone - if so stop microphone
   function toggleMicrophone() {
-    if (analyserState.mode  === 'microphone'){
+    if (analyserState.mode  === "microphone"){
       stopMicrophone();
     } else {
+      // check if the last media type was track, if so pause audio player and reset analyser
+      if(analyserState.mode === "track"){
+        analyserState.input.pause()
+        resetAnalyser();
+      }
       // otherwise, get permission to use microphone
       getMicrophone();
     }
@@ -61,7 +60,6 @@ const MediaPlayer = ({
   // when track is played in AudioPlayer, onChangeTrack sets the audio tag and its src
   // as the input of setAnalyserState, while setting mode to track
   const onChangeTrack = (track) => {
-    // console.log('on change track', track);
     setAnalyserState({
       input: track,
       mode: "track"
@@ -81,20 +79,20 @@ const MediaPlayer = ({
   return (
     <div className="App">
       
-      <div className="controls">
+      <div className="toggle-controls">
         
         {/* if analyserState mode is set to microphone, display Stop microphone, if it is not, display get microphone */}
-        <button onClick={toggleMicrophone}>
+        <button id="mic-toggle" onClick={toggleMicrophone}>
           {analyserState.mode === 'microphone' ? 'Stop microphone' : 'Get microphone'}
         </button>
 
         {/* if visualiserType is set to Waveform, display Frequency, if it is not, display Waveform */}
-        <button onClick={toggleVisualiser}>
+        <button id="visualiser-toggle" onClick={toggleVisualiser}>
           {visualiserType === "Waveform" ? "Frequency" : "Waveform"}
         </button>
 
         {/* if background is set to Clear, display Black, if it is not, display Clear */}
-        <button onClick={toggleBackground}>
+        <button id="background-toggle" onClick={toggleBackground}>
           {background === "Clear" ? "Black" : "Clear"}
         </button>
 
@@ -105,11 +103,11 @@ const MediaPlayer = ({
         {analyserState.input &&
         
         <AudioAnalyser 
-            input={analyserState.input} 
-            mode={analyserState.mode} 
-            visualiserType={visualiserType}
-            background={background}
-            audioContext={audioContext}
+          input={analyserState.input} 
+          mode={analyserState.mode} 
+          visualiserType={visualiserType}
+          background={background}
+          audioContext={audioContext}
         />}
       </div>
       
@@ -119,6 +117,7 @@ const MediaPlayer = ({
         trackUploads={trackUploads} 
         setTrackUploads={setTrackUploads}
         onChangeTrack={onChangeTrack}
+        setAnalyserState={setAnalyserState}
       />
     
     </div>

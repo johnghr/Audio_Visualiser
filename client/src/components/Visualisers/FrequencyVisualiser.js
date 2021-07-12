@@ -17,10 +17,8 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
 
         // a quarter of the fft size default
         analyser.fftSize = 256;
-        console.log(analyser)
         //bufferLength equals half the fftSize i.e. 128
         let bufferLength = analyser.frequencyBinCount;
-        console.log("buffer length", bufferLength);
         // let dataArray = new Uint8Array(bufferLength);
 
         context.clearRect(0, 0, width, height);
@@ -31,7 +29,7 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
             } else {
                 context.fillStyle = '#000000'
             }
-            
+
             context.fillRect(0, 0, width, height);
 
             let barWidth = (width / bufferLength) * 2.5;

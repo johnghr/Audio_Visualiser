@@ -10,10 +10,8 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
-    const [analyserDisconnected, setAnalyserDisconnected] = useState(false)
 
     useEffect( () => {
-        console.log('analyser input', input)
         // empty request animation frame Id
         let rafId; 
          
@@ -21,9 +19,9 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         // which takes in unsigned 8 byte integers  
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         // connects the audio stream to the analyser node using the relevant method depending on input
-        if(mode === "track"){
+        if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
-            source.connect(analyser).connect(audioContext.destination);
+            source.connect(analyser).connect(audioContext.destination);    
         } else {
             // creating audioStream for mic input
             source = audioContext.createMediaStreamSource(input);
@@ -44,17 +42,12 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         rafId = requestAnimationFrame(tick);
 
         return function cleanup() {
-            console.log("disconnect analyser")
             if(mode === "track"){
-                console.log("mode is track")
                 source.disconnect(analyser);
-                setAnalyserDisconnected(true)
             } else {
-                console.log("mode is not track")
                 source.disconnect()
             }
             cancelAnimationFrame(rafId);
-            console.log('clean up on aisle 3')   
         }
 
     }, [mode, input])
@@ -65,14 +58,12 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
             {visualiserType === "Waveform" ? 
             <WaveformVisualiser 
                 audioData={audioData} 
-                analyserDisconnected={analyserDisconnected} 
-                setAnalyserDisconnected={setAnalyserDisconnected}
                 background={background}
+                analyser={analyser}
             /> :
             <FrequencyVisualiser 
                 audioData={audioData} 
                 analyser={analyser}
-                setAnalyserDisconnected={setAnalyserDisconnected}
                 background={background}
             /> }
         </>

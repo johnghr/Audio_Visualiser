@@ -3,9 +3,8 @@ import React, {useRef, useEffect} from 'react';
 
 const WaveformVisualiser = ({
     audioData, 
-    setAnalyserDisconnected, 
-    analyserDisconnected,
-    background
+    background,
+    analyser
 }) => {
 
     // creates a useRef for the canvas
@@ -22,10 +21,11 @@ const WaveformVisualiser = ({
         // horizontal axis
         let x = 0;
         // each audio sample is represented by a sliceWidth - the width of the 
-        // canvas divided by the length the length of the dataArray (1024 samples)
+        // canvas divided by the length of the dataArray (1024 samples)
+        
+        analyser.fftSize = 2048
+
         let sliceWidth = width / audioData.length;
-        console.log("audio data length:",audioData.length)
-        // make the pretty colours
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Clear"){
             context.fillStyle = '#00aeb0';   
@@ -33,13 +33,6 @@ const WaveformVisualiser = ({
             context.fillStyle = '#000000'
         }
 
-        // if the analyser has been disconnected clear the canvas and 
-        // reset analyserDisconnected to false
-        if(analyserDisconnected){
-            context.clearRect(0, 0, width, height);
-            setAnalyserDisconnected(false)
-        }
-        
         const renderWaveform = () => {
             
             if(background === "Black"){
@@ -59,7 +52,7 @@ const WaveformVisualiser = ({
                 context.lineTo(x, y);
                 x += sliceWidth;
             }
-            // console.log("Audio-data:", audioData)
+            
             context.lineTo(x, height / 2);
             context.stroke();
             
@@ -67,6 +60,10 @@ const WaveformVisualiser = ({
         
         renderWaveform()
         
+        return function cleanup() {
+            context.fillStyle = "#00aeb0"
+            context.fillRect(0, 0,width, height)
+        }
        
     }, [audioData, background])
 
