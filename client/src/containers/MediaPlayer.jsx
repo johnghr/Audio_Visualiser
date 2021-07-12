@@ -118,6 +118,7 @@ const MediaPlayer = ({
         trackUploads={trackUploads} 
         setTrackUploads={setTrackUploads}
         onChangeTrack={onChangeTrack}
+        setAnalyserState={setAnalyserState}
       />
     
     </div>

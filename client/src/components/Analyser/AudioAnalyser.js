@@ -10,7 +10,6 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
-    const [analyserDisconnected, setAnalyserDisconnected] = useState(false)
 
     useEffect( () => {
         // empty request animation frame Id
@@ -36,7 +35,6 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
             // sets audioData to be the value of a copy of dataArray - 
             // * spread operator required to force a re-render *
             setAudioData([...dataArray])
-            console.log(audioData)
             // requests a re-render while calling tick in a recursive loop
             rafId = requestAnimationFrame(tick);
         }
@@ -44,17 +42,10 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         rafId = requestAnimationFrame(tick);
 
         return function cleanup() {
-            console.log("here be cleanup")
             if(mode === "track"){
-                console.log("disconnecting here")
                 source.disconnect(analyser);
-                setAnalyserDisconnected(true)
-                console.log(source)
-                
             } else {
-                console.log("or here")
                 source.disconnect()
-                console.log(source)
             }
             cancelAnimationFrame(rafId);
         }
@@ -67,15 +58,12 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
             {visualiserType === "Waveform" ? 
             <WaveformVisualiser 
                 audioData={audioData} 
-                analyserDisconnected={analyserDisconnected} 
-                setAnalyserDisconnected={setAnalyserDisconnected}
                 background={background}
                 analyser={analyser}
             /> :
             <FrequencyVisualiser 
                 audioData={audioData} 
                 analyser={analyser}
-                setAnalyserDisconnected={setAnalyserDisconnected}
                 background={background}
             /> }
         </>

@@ -3,8 +3,6 @@ import React, {useRef, useEffect} from 'react';
 
 const WaveformVisualiser = ({
     audioData, 
-    setAnalyserDisconnected, 
-    analyserDisconnected,
     background,
     analyser
 }) => {
@@ -35,13 +33,6 @@ const WaveformVisualiser = ({
             context.fillStyle = '#000000'
         }
 
-        // if the analyser has been disconnected clear the canvas and 
-        // reset analyserDisconnected to false
-        if(analyserDisconnected){
-            context.clearRect(0, 0, width, height);
-            setAnalyserDisconnected(false)
-        }
-        
         const renderWaveform = () => {
             
             if(background === "Black"){

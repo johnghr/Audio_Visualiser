@@ -5,8 +5,6 @@ import React, {useRef, useEffect} from 'react';
 
 const ExperimentalVisualiser = ({
     audioData, 
-    setAnalyserDisconnected, 
-    analyserDisconnected,
     background
 }) => {
 
@@ -34,12 +32,6 @@ const ExperimentalVisualiser = ({
             context.fillRect(0, 0,width, height)
         } else {
             context.fillStyle = '#000000'
-        }
-        
-        // if the analyser has been disconnected clear the canvas and reset analyserDisconnected to false
-        if(analyserDisconnected){
-            context.clearRect(0, 0, width, height);
-            setAnalyserDisconnected(false)
         }
         
         const particles = [];
