@@ -50,9 +50,13 @@ const MediaPlayer = ({
   
   // check if analyserState mode has been set to microphone - if so stop microphone
   function toggleMicrophone() {
-    if (analyserState.mode  === 'microphone'){
+    if (analyserState.mode  === "microphone"){
       stopMicrophone();
     } else {
+      if(analyserState.mode === "track"){
+        analyserState.input.pause()
+        resetAnalyser();
+      }
       // otherwise, get permission to use microphone
       getMicrophone();
     }
@@ -104,11 +108,11 @@ const MediaPlayer = ({
         {analyserState.input &&
         
         <AudioAnalyser 
-            input={analyserState.input} 
-            mode={analyserState.mode} 
-            visualiserType={visualiserType}
-            background={background}
-            audioContext={audioContext}
+          input={analyserState.input} 
+          mode={analyserState.mode} 
+          visualiserType={visualiserType}
+          background={background}
+          audioContext={audioContext}
         />}
       </div>
       
