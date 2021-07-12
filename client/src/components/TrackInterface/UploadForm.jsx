@@ -1,29 +1,50 @@
-import React from 'react';
+import React, {useRef} from 'react';
 const baseUrl = 'http://localhost:5000/upload';
 
-const UploadForm = ({setTrackUploads, trackUploads}) => {
+const UploadForm = ({
+    setTrackUploads, 
+    trackUploads,
+    setTrackIndex
+}) => {
 
-    const onSubmit = event => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const config = {
-            method: 'POST',
-            body: formData,
-        }
-            
-        fetch(baseUrl, config)
-            .then((res) => res.json())
-            .then(data => console.log(data))
-            .catch((err) => (console.log("error",err)))
-            .then(savedTrack => setTrackUploads([...trackUploads, savedTrack]))
-    }
+    const formRef = useRef(null);
+
+    const onChooseFile = (event) => {
+         // prevent page refresh
+         event.preventDefault();
+         // create a new instance of FormData while passing in the user file input
+         const formData = new FormData(formRef.current);
+         // configuration for post request - * must exclude Content-Type *
+         const config = {
+             method: 'POST',
+             body: formData,
+         }
+         // receive response from the server   
+         fetch(baseUrl, config)
+             // response to json
+             .then(res => res.json())
+             // set trackUploads to be a new array containing previous entries plus new submitted track
+             .then(savedTrack => setTrackUploads([...trackUploads, savedTrack]))
+             // catch any errors
+             .catch((err) => (console.log("error", err)))
+    } 
 
     return(
         
         <div>
-           <form onSubmit={onSubmit} encType="multipart/form-data">
-                <input type="file" name="track" />
-                <input type="submit" value="Upload"/>
+            {/* * encType required to handle sending audio to server * */}
+           <form ref={formRef} encType="multipart/form-data">
+                <label className="file-upload-label" htmlFor="file-upload-input">
+                    Add Track +
+                    <input 
+                        className="file-upload-input" 
+                        id="file-upload-input" 
+                        onChange={onChooseFile} 
+                        type="file" 
+                        name="track" 
+                    />
+                </label>
+                
             </form> 
         </div>
     )
