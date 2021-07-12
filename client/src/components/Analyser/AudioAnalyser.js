@@ -21,7 +21,6 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         // connects the audio stream to the analyser node using the relevant method depending on input
         if(mode === "track"){ 
-            console.log("I'm playing a track")
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);    
         } else {
@@ -37,6 +36,7 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
             // sets audioData to be the value of a copy of dataArray - 
             // * spread operator required to force a re-render *
             setAudioData([...dataArray])
+            console.log(audioData)
             // requests a re-render while calling tick in a recursive loop
             rafId = requestAnimationFrame(tick);
         }
@@ -70,6 +70,7 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
                 analyserDisconnected={analyserDisconnected} 
                 setAnalyserDisconnected={setAnalyserDisconnected}
                 background={background}
+                analyser={analyser}
             /> :
             <FrequencyVisualiser 
                 audioData={audioData} 

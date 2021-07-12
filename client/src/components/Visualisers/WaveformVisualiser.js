@@ -5,7 +5,8 @@ const WaveformVisualiser = ({
     audioData, 
     setAnalyserDisconnected, 
     analyserDisconnected,
-    background
+    background,
+    analyser
 }) => {
 
     // creates a useRef for the canvas
@@ -23,6 +24,9 @@ const WaveformVisualiser = ({
         let x = 0;
         // each audio sample is represented by a sliceWidth - the width of the 
         // canvas divided by the length of the dataArray (1024 samples)
+        
+        analyser.fftSize = 1024
+
         let sliceWidth = width / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Clear"){
@@ -65,6 +69,10 @@ const WaveformVisualiser = ({
         
         renderWaveform()
         
+        return function cleanup() {
+            context.fillStyle = "#00aeb0"
+            context.fillRect(0, 0,width, height)
+        }
        
     }, [audioData, background])
 

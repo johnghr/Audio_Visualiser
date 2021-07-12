@@ -29,7 +29,7 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
             } else {
                 context.fillStyle = '#000000'
             }
-            
+
             context.fillRect(0, 0, width, height);
 
             let barWidth = (width / bufferLength) * 2.5;
