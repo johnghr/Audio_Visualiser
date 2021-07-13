@@ -1,6 +1,6 @@
 # Audio_Visualiser
 
-This web app allows a user to use their microphone or upload a track to visualise the audio using Waveform and Frequency graphs. 
+<!-- This web app allows a user to use their microphone or upload a track to visualise the audio using Waveform and Frequency graphs. 
 It is my final project for the CodeClan Professional Software Development course. The app consists of a front-end made using React 
 state hooks, Web Audio API and Canvas. The back-end consists of a lightweight server made using Node and Express, and Multer is 
 used to store files locally.
@@ -18,4 +18,4 @@ To run this application:
  - npm install -D cor
 6.Enter npm run server:dev to start the server
 
-* I strongly advise using this application in Firefox as certian Web Audio Api features break in other browsers *
+* I strongly advise using this application in Firefox as certian Web Audio Api features break in other browsers * -->
