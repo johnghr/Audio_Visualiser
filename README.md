@@ -18,3 +18,4 @@ To run this application:
  - npm install -D cor
 6.Enter npm run server:dev to start the server
 
+* I strongly advise using this application in Firefox as certian Web Audio Api features break in other browsers *
