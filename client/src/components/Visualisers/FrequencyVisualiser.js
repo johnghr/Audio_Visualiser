@@ -35,10 +35,10 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
 
             for (var i = 0; i < bufferLength; i++) {
                 // the height of a bar equals the current audio sample value halved
-                barHeight = audioData[i] * 2;
+                barHeight = audioData[i] * 2.75;
                 const red = i * barHeight/20;
                 const green = i * 4;
-                const blue = barHeight/4;
+                const blue = barHeight/2;
                 context.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')';
                 // context.fillStyle = 'red';
                 context.fillRect(x, height - barHeight / 2, barWidth, barHeight)

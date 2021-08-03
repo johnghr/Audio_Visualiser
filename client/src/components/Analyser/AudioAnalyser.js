@@ -50,11 +50,11 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
 
             requestAnimationFrame(tick)
         } else {
-            analyser.fftSize = 128
+            analyser.fftSize = 512;
             
             const tick = () => {
             // copies wave form data into the dataArray which is passed in as the argument   
-            let dataArray = new Uint8Array(analyser.frequencyBinCount)
+            let dataArray = new Uint8Array(analyser.fftSize)
             analyser.getByteFrequencyData(dataArray)
             // sets audioData to be the value of a copy of dataArray - 
             // * spread operator required to force a re-render *
