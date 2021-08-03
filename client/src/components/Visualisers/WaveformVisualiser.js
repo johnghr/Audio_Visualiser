@@ -23,8 +23,6 @@ const WaveformVisualiser = ({
         // each audio sample is represented by a sliceWidth - the width of the 
         // canvas divided by the length of the dataArray (1024 samples)
         
-        analyser.fftSize = 2048
-
         let sliceWidth = width / audioData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Clear"){
