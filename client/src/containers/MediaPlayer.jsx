@@ -20,13 +20,19 @@ const MediaPlayer = ({
   // type state to be passed down to visualiser canvases to determine which visualiser is rendered
   const visualisers = ["Waveform", "Frequency", "Experimental"]
   const [visualiserIndex, setVisualiserIndex] = useState(0)
-  const [currentVisualiser, setCurrentVisualiser] = useState("waveform")
+  const [currentVisualiser, setCurrentVisualiser] = useState(visualisers[0])
+  const [displayedVisualiserIndex, setDisplayedVisualiserIndex] = useState(1)
+  const [displayedVisualiser, setDisplayedVisualiser] = useState(visualisers[displayedVisualiserIndex])
   // does what it says on the tin
   const resetAnalyser = () => setAnalyserState(initialAnalyserState);
 
-  useEffect(() => {
-    setCurrentVisualiser(visualisers[visualiserIndex])
-  },[currentVisualiser, visualiserIndex, visualisers])
+
+    console.log("initial currentVisualiser",currentVisualiser)
+
+
+
+    console.log("initial displayedVisualiser", displayedVisualiser)
+ 
 
   // fetch permission to use microphone and set the feed as the input for the analyser
   async function getMicrophone() {
@@ -72,16 +78,29 @@ const MediaPlayer = ({
     })
   }
 
-  // toggles the visualiserType state between Waveform and Frequency
+  // toggles the visualiserType state between Waveform, Frequency and experimental
   const toggleVisualiser = () => {
     
-    if (visualisers.indexOf(currentVisualiser) < 2){
+    if (visualiserIndex < visualisers.length -1){
         setVisualiserIndex(visualiserIndex + 1)
-        setCurrentVisualiser(visualisers[visualiserIndex])   
+        setCurrentVisualiser(visualisers[visualiserIndex])
+        console.log("currentVisualiser",currentVisualiser)
     } else {
         setVisualiserIndex(0);
         setCurrentVisualiser(visualisers[visualiserIndex])
+        console.log("visualiser reset", currentVisualiser)        
     }
+
+    if (displayedVisualiserIndex < 2) {
+        setDisplayedVisualiserIndex(displayedVisualiserIndex + 1)
+        setDisplayedVisualiser(visualisers[displayedVisualiserIndex])
+        console.log("displayed visualiser", displayedVisualiser)
+    } else {
+        setDisplayedVisualiserIndex(0)
+        setDisplayedVisualiser(visualisers[displayedVisualiserIndex])
+        console.log("displayed visualiser reset",displayedVisualiser)
+    } 
+
   }
 
   // toggles the visualiser background state between Black and Clear
@@ -101,7 +120,7 @@ const MediaPlayer = ({
 
         {/* if visualiserType is set to Waveform, display Frequency, if it is not, display Waveform */}
         <button id="visualiser-toggle" onClick={toggleVisualiser}>
-          {currentVisualiser}
+          {displayedVisualiser}
         </button>
 
         {/* if background is set to Clear, display Black, if it is not, display Clear */}

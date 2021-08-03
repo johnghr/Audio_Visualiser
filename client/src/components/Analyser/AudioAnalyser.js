@@ -3,7 +3,7 @@ import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
 import ExperimentalVisualiser from '../Visualisers/ExperimentalVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
-const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }) => {
+const AudioAnalyser = ({ mode, input, currentVisualiser, background, audioContext }) => {
 
     const [audioData, setAudioData] = useState(new Uint8Array(0));
     
@@ -35,9 +35,9 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
     }, [mode, input])
 
     useEffect(() => {
-        if (visualiserType === "Waveform"){
+        if (currentVisualiser === "Waveform"){
             analyser.fftSize = 1024
-            let dataArray = new Uint8Array(analyser.frequencyBinCount)
+            dataArray = new Uint8Array(analyser.frequencyBinCount)
             const tick = () => {
             // copies wave form data into the dataArray which is passed in as the argument   
             analyser.getByteTimeDomainData(dataArray)
@@ -46,8 +46,7 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
             setAudioData([...dataArray])
             // requests a re-render while calling tick in a recursive loop
             rafId = requestAnimationFrame(tick);
-        }
-
+            }
             requestAnimationFrame(tick)
         } else {
             analyser.fftSize = 512;
@@ -69,26 +68,33 @@ const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }
         return function cleanup() {
             cancelAnimationFrame(rafId);
         }
-    }, [visualiserType])
+    }, [currentVisualiser])
 
     return(
         // render either WaveformVisualiser or FrequencyVisualiser depending on state of visualiserType 
         <>
-            {visualiserType === "Waveform" ? 
+            {currentVisualiser === "Waveform" &&
             <WaveformVisualiser 
                 audioData={audioData} 
                 background={background}
                 analyser={analyser}
-            /> :
-            <FrequencyVisualiser 
+            />}
+
+            {currentVisualiser === "Frequency" &&
+            <FrequencyVisualiser
                 audioData={audioData} 
                 analyser={analyser}
                 background={background}
-            /> }
-        </>
-        
+            />}  
+            
+            {currentVisualiser === "Experimental" &&
+            <ExperimentalVisualiser 
+                audioData={audioData} 
+                analyser={analyser}
+                background={background}
+            />}
+        </>  
     )
-
 }
 
 export default AudioAnalyser;
