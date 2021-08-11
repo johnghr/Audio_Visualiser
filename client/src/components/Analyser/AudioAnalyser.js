@@ -3,98 +3,131 @@ import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
 import ExperimentalVisualiser from '../Visualisers/ExperimentalVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
-const AudioAnalyser = ({ mode, input, currentVisualiser, background, audioContext }) => {
+const AudioAnalyser = ({ 
+    mode, 
+    input, 
+    currentVisualiser, 
+    background, 
+    audioContext 
+}) => {
 
-    const [audioData, setAudioData] = useState(new Uint8Array(0));
+    const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
+    const [waveformData, setWaveformData] = useState(new Uint8Array(0));
+    const [reducedFrequencyData, setReducedFrequencyData] = useState(0);
     
-    const sourceRef = useRef(null);
+    let sourceRef = useRef(null);
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
-    // empty request animation frame Id
+    let audioData;
     let rafId;  
-    // Creates a data Array which is half the length of the fftSize;
-    // which takes in unsigned 8 byte integers  
-    let dataArray;
 
     useEffect(() => {    
-        // connects the audio stream to the analyser node using the relevant method depending on input
         if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);    
         } else {
-            // creating audioStream for mic input
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
         }
 
         return function cleanup() {
+            console.log("analyser disconnected")
             source.disconnect(analyser)
             cancelAnimationFrame(rafId);
         }
+
     }, [mode, input])
+
+    const waveformTick = () => {
+        analyser.fftSize = 1024
+        audioData = new Uint8Array(analyser.fftSize);
+        analyser.getByteTimeDomainData(audioData);
+        setWaveformData([...audioData])
+        console.log("waveformData")
+        if(currentVisualiser === "Waveform"){
+          rafId = requestAnimationFrame(waveformTick);  
+        }
+        
+    }
+
+    const frequencyTick = () => {
+        analyser.fftSize = 512
+        let bufferLength = analyser.frequencyBinCount
+        audioData = new Uint8Array(bufferLength);
+        analyser.getByteFrequencyData(audioData);
+        setFrequencyData([...audioData])
+        console.log("frequencyData")
+        let reduceData = audioData.reduce((accum, currentValue) => accum += currentValue)
+        setReducedFrequencyData(reduceData);
+        if(currentVisualiser !== "Waveform"){
+           rafId = requestAnimationFrame(frequencyTick); 
+        }
+        
+    }
 
     useEffect(() => {
         if (currentVisualiser === "Waveform"){
-            analyser.fftSize = 1024
-            dataArray = new Uint8Array(analyser.frequencyBinCount)
-            const tick = () => {
-            // copies wave form data into the dataArray which is passed in as the argument   
-            analyser.getByteTimeDomainData(dataArray)
-            // sets audioData to be the value of a copy of dataArray - 
-            // * spread operator required to force a re-render *
-            setAudioData([...dataArray])
-            // requests a re-render while calling tick in a recursive loop
-            rafId = requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick)
+           requestAnimationFrame(waveformTick); 
         } else {
-            analyser.fftSize = 512;
-            
-            const tick = () => {
-            // copies wave form data into the dataArray which is passed in as the argument   
-            let dataArray = new Uint8Array(analyser.fftSize)
-            analyser.getByteFrequencyData(dataArray)
-            // sets audioData to be the value of a copy of dataArray - 
-            // * spread operator required to force a re-render *
-            setAudioData([...dataArray])
-            console.log(dataArray)
-            // requests a re-render while calling tick in a recursive loop
-            rafId = requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick)
+            requestAnimationFrame(frequencyTick)
         }
-
+        
         return function cleanup() {
+            console.log("clean up di mess pls")
             cancelAnimationFrame(rafId);
         }
-    }, [currentVisualiser])
+
+    })
+
+    // const tick = () => {
+    //     if (currentVisualiser === "Waveform"){
+    //         analyser.fftSize = 1024
+    //         let waveformData = new Uint8Array(analyser.fftSize);
+    //         analyser.getByteTimeDomainData(waveformData);
+    //         setAudioData([...waveformData])
+    //         console.log("waveformData")
+    //     } else {
+    //         analyser.fftSize = 512
+    //         let bufferLength = analyser.frequencyBinCount
+    //         let frequencyData = new Uint8Array(bufferLength);
+    //         analyser.getByteFrequencyData(frequencyData);
+    //         setAudioData([...frequencyData])
+    //         console.log("frequencyData")
+    //         let reduceData = frequencyData.reduce((accum, currentValue) => accum += currentValue)
+    //         setReducedData(reduceData);
+            
+    //     }
+
+    //     rafId = requestAnimationFrame(tick);
+    // }
 
     return(
-        // render either WaveformVisualiser or FrequencyVisualiser depending on state of visualiserType 
         <>
             {currentVisualiser === "Waveform" &&
             <WaveformVisualiser 
-                audioData={audioData} 
+                waveformData={waveformData} 
                 background={background}
                 analyser={analyser}
             />}
 
             {currentVisualiser === "Frequency" &&
             <FrequencyVisualiser
-                audioData={audioData} 
+                frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
             />}  
             
             {currentVisualiser === "Experimental" &&
             <ExperimentalVisualiser 
-                audioData={audioData} 
+                frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
+                reducedData={reducedFrequencyData}
             />}
         </>  
     )
+
 }
 
 export default AudioAnalyser;

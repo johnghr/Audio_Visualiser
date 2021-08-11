@@ -3,7 +3,11 @@ import React, { useRef, useEffect } from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const FrequencyVisualiser = ({ audioData, analyser, background }) => {
+const FrequencyVisualiser = ({ 
+    frequencyData, 
+    analyser, 
+    background 
+}) => {
 
     const canvasRef = useRef();
 
@@ -35,7 +39,7 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
 
             for (var i = 0; i < bufferLength; i++) {
                 // the height of a bar equals the current audio sample value halved
-                barHeight = audioData[i] * 2.75;
+                barHeight = frequencyData[i] * 2.75;
                 const red = i * barHeight/20;
                 const green = i * 4;
                 const blue = barHeight/2;
@@ -49,7 +53,11 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
 
         render()
 
-    }, [audioData]);
+        return function cleanup(){
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+    });
 
     return (
         <canvas
