@@ -10,17 +10,31 @@ const AudioAnalyser = ({
     background, 
     audioContext 
 }) => {
+    const counterRef = useRef(0);
 
+    //we should only be setting the value of a single piece of state per animation frame otherwise the components will force itself to unnecessarily re-render
     const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
     const [waveformData, setWaveformData] = useState(new Uint8Array(0));
-    const [reducedFrequencyData, setReducedFrequencyData] = useState(0);
-    
+
+    const reducedFrequencyDataRef = useRef(0);
+    const reducedFrequencyData = reducedFrequencyDataRef.current;
+
     let sourceRef = useRef(null);
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
     let rafId;  
+
+    //This effect was used to find out how many times the main render effect was happening
+    //it helped discover that set two pieces of state in frequency tick caused runaways re-renders causing the browser to run out of memory
+    // useEffect(() =>{
+    //     setInterval(() => {
+    //         console.log(
+    //             'effect called ' + counterRef.current + 'times per second'   
+    //         ) 
+    //     counterRef.current = 0;}, 1000)
+    // },[])
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -54,16 +68,17 @@ const AudioAnalyser = ({
         let bufferLength = analyser.frequencyBinCount
         audioData = new Uint8Array(bufferLength);
         analyser.getByteFrequencyData(audioData);
+       
         setFrequencyData([...audioData])
         let reduceData = audioData.reduce((accum, currentValue) => accum += currentValue)
-        setReducedFrequencyData(reduceData);
+        reducedFrequencyDataRef.current = reduceData
         if(currentVisualiser !== "Waveform"){
            rafId = requestAnimationFrame(frequencyTick); 
-        }
-        
+        }    
     }
 
     useEffect(() => {
+        //counterRef.current++;
         if (currentVisualiser === "Waveform"){
            requestAnimationFrame(waveformTick); 
         } else {
