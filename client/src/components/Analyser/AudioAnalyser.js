@@ -32,7 +32,6 @@ const AudioAnalyser = ({
         }
 
         return function cleanup() {
-            console.log("analyser disconnected")
             source.disconnect(analyser)
             cancelAnimationFrame(rafId);
         }
@@ -44,7 +43,6 @@ const AudioAnalyser = ({
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        console.log("waveformData")
         if(currentVisualiser === "Waveform"){
           rafId = requestAnimationFrame(waveformTick);  
         }
@@ -57,7 +55,6 @@ const AudioAnalyser = ({
         audioData = new Uint8Array(bufferLength);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
-        console.log("frequencyData")
         let reduceData = audioData.reduce((accum, currentValue) => accum += currentValue)
         setReducedFrequencyData(reduceData);
         if(currentVisualiser !== "Waveform"){
@@ -74,7 +71,6 @@ const AudioAnalyser = ({
         }
         
         return function cleanup() {
-            console.log("clean up di mess pls")
             cancelAnimationFrame(rafId);
         }
 
