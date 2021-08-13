@@ -79,7 +79,7 @@ const AudioAnalyser = ({
             cancelAnimationFrame(rafId);
         }
 
-    }, [currentVisualiser])
+    }, [visualiserIndex])
 
     return(
         <>
