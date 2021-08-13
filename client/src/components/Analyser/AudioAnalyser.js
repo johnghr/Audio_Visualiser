@@ -26,16 +26,6 @@ const AudioAnalyser = ({
     let audioData;
     let rafId;  
 
-    //This effect was used to find out how many times the main render effect was happening
-    //it helped discover that set two pieces of state in frequency tick caused runaways re-renders causing the browser to run out of memory
-    // useEffect(() =>{
-    //     setInterval(() => {
-    //         console.log(
-    //             'effect called ' + counterRef.current + 'times per second'   
-    //         ) 
-    //     counterRef.current = 0;}, 1000)
-    // },[])
-
     useEffect(() => {    
         if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
@@ -63,7 +53,7 @@ const AudioAnalyser = ({
         
     }
 
-    const frequencyTick = () => {
+    const frequencyTick = () => {  
         analyser.fftSize = 512
         let bufferLength = analyser.frequencyBinCount
         audioData = new Uint8Array(bufferLength);
@@ -77,41 +67,17 @@ const AudioAnalyser = ({
         }    
     }
 
-    useEffect(() => {
-        //counterRef.current++;
+    useEffect(()=> {
         if (currentVisualiser === "Waveform"){
-           requestAnimationFrame(waveformTick); 
+            requestAnimationFrame(waveformTick); 
         } else {
             requestAnimationFrame(frequencyTick)
         }
-        
+
         return function cleanup() {
             cancelAnimationFrame(rafId);
-        }
-
-    })
-
-    // const tick = () => {
-    //     if (currentVisualiser === "Waveform"){
-    //         analyser.fftSize = 1024
-    //         let waveformData = new Uint8Array(analyser.fftSize);
-    //         analyser.getByteTimeDomainData(waveformData);
-    //         setAudioData([...waveformData])
-    //         console.log("waveformData")
-    //     } else {
-    //         analyser.fftSize = 512
-    //         let bufferLength = analyser.frequencyBinCount
-    //         let frequencyData = new Uint8Array(bufferLength);
-    //         analyser.getByteFrequencyData(frequencyData);
-    //         setAudioData([...frequencyData])
-    //         console.log("frequencyData")
-    //         let reduceData = frequencyData.reduce((accum, currentValue) => accum += currentValue)
-    //         setReducedData(reduceData);
-            
-    //     }
-
-    //     rafId = requestAnimationFrame(tick);
-    // }
+        }       
+    }, [currentVisualiser])
 
     return(
         <>
