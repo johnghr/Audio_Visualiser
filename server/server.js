@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 })
 
 app.delete('/:id', (req, res) => {
-    console.log("owwww, stap it")
     const track = `/${req.params.id}`;
     fs.unlink(directoryPath + track, (err) => {
         if (err) throw err;
