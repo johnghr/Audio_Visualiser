@@ -38,7 +38,14 @@ const AudioPlayer = ({
     return (
         <div className="audio-player-container">
             <button onClick={toPreviousTrack}><svg className="control-icon"><use href="#prev-icon"/></svg></button>
-            <audio className="audio-player" crossOrigin="anonymous" onPlay={handlePlay} onPause={handlePause} controls src={`http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`}></audio>
+            <audio 
+                className="audio-player" 
+                crossOrigin="anonymous" 
+                onPlay={handlePlay} 
+                onPause={handlePause} 
+                controls 
+                src={`http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`}>
+            </audio>
             <button onClick={toNextTrack}><svg className="control-icon"><use href="#next-icon"/></svg></button>
         </div>
     )

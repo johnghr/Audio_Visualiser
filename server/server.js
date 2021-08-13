@@ -31,6 +31,15 @@ app.get('/', (req, res) => {
     })  
 })
 
+app.delete('/:id', (req, res) => {
+    console.log("owwww, stap it")
+    const track = `/${req.params.id}`;
+    fs.unlink(directoryPath + track, (err) => {
+        if (err) throw err;
+        console.log(`${directoryPath}${track} was deleted`)
+    })
+})
+
 // sets the destination for file on storage or sets name and assigns to default location
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
