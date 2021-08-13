@@ -60,8 +60,8 @@ const AudioAnalyser = ({
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
         console.log("frequencyData")
-        let reduceData = audioData.reduce((accum, currentValue) => accum += currentValue)
-        reducedFrequencyData = reduceData
+        reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
+        
         if(visualisers[visualiserIndex] !== "Waveform"){
            rafId = requestAnimationFrame(frequencyTick); 
         }
