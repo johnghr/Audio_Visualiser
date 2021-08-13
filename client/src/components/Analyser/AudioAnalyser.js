@@ -5,15 +5,17 @@ import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
 const AudioAnalyser = ({ 
     mode, 
-    input, 
-    currentVisualiser, 
+    input,
+    visualisers, 
+    visualiserIndex, 
     background, 
     audioContext 
 }) => {
 
     const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
     const [waveformData, setWaveformData] = useState(new Uint8Array(0));
-    const [reducedFrequencyData, setReducedFrequencyData] = useState(0);
+    const reducedFrequencyDataRef = useRef(0)
+    let reducedFrequencyData = reducedFrequencyDataRef.current
     
     let sourceRef = useRef(null);
     let source = sourceRef.current;
@@ -45,7 +47,7 @@ const AudioAnalyser = ({
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
         console.log("waveformData")
-        if(currentVisualiser === "Waveform"){
+        if(visualisers[visualiserIndex] === "Waveform"){
           rafId = requestAnimationFrame(waveformTick);  
         }
         
@@ -59,15 +61,15 @@ const AudioAnalyser = ({
         setFrequencyData([...audioData])
         console.log("frequencyData")
         let reduceData = audioData.reduce((accum, currentValue) => accum += currentValue)
-        setReducedFrequencyData(reduceData);
-        if(currentVisualiser !== "Waveform"){
+        reducedFrequencyData = reduceData
+        if(visualisers[visualiserIndex] !== "Waveform"){
            rafId = requestAnimationFrame(frequencyTick); 
         }
         
     }
 
     useEffect(() => {
-        if (currentVisualiser === "Waveform"){
+        if (visualisers[visualiserIndex] === "Waveform"){
            requestAnimationFrame(waveformTick); 
         } else {
             requestAnimationFrame(frequencyTick)
@@ -104,26 +106,26 @@ const AudioAnalyser = ({
 
     return(
         <>
-            {currentVisualiser === "Waveform" &&
+            {visualisers[visualiserIndex] === "Waveform" &&
             <WaveformVisualiser 
                 waveformData={waveformData} 
                 background={background}
                 analyser={analyser}
             />}
 
-            {currentVisualiser === "Frequency" &&
+            {visualisers[visualiserIndex] === "Frequency" &&
             <FrequencyVisualiser
                 frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
             />}  
             
-            {currentVisualiser === "Experimental" &&
+            {visualisers[visualiserIndex] === "Experimental" &&
             <ExperimentalVisualiser 
                 frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
-                reducedData={reducedFrequencyData}
+                reducedFrequencyData={reducedFrequencyData}
             />}
         </>  
     )
