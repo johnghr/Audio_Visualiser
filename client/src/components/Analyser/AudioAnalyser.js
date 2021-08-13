@@ -49,8 +49,7 @@ const AudioAnalyser = ({
         console.log("waveformData")
         if(visualisers[visualiserIndex] === "Waveform"){
           rafId = requestAnimationFrame(waveformTick);  
-        }
-        
+        } 
     }
 
     const frequencyTick = () => {
@@ -80,7 +79,7 @@ const AudioAnalyser = ({
             cancelAnimationFrame(rafId);
         }
 
-    })
+    }, [currentVisualiser])
 
     // const tick = () => {
     //     if (currentVisualiser === "Waveform"){
