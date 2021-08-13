@@ -78,7 +78,7 @@ const AudioAnalyser = ({
             cancelAnimationFrame(rafId);
         }
 
-    })
+    }, [currentVisualiser])
 
     // const tick = () => {
     //     if (currentVisualiser === "Waveform"){
