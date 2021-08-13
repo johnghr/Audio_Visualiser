@@ -80,28 +80,6 @@ const AudioAnalyser = ({
 
     }, [currentVisualiser])
 
-    // const tick = () => {
-    //     if (currentVisualiser === "Waveform"){
-    //         analyser.fftSize = 1024
-    //         let waveformData = new Uint8Array(analyser.fftSize);
-    //         analyser.getByteTimeDomainData(waveformData);
-    //         setAudioData([...waveformData])
-    //         console.log("waveformData")
-    //     } else {
-    //         analyser.fftSize = 512
-    //         let bufferLength = analyser.frequencyBinCount
-    //         let frequencyData = new Uint8Array(bufferLength);
-    //         analyser.getByteFrequencyData(frequencyData);
-    //         setAudioData([...frequencyData])
-    //         console.log("frequencyData")
-    //         let reduceData = frequencyData.reduce((accum, currentValue) => accum += currentValue)
-    //         setReducedData(reduceData);
-            
-    //     }
-
-    //     rafId = requestAnimationFrame(tick);
-    // }
-
     return(
         <>
             {currentVisualiser === "Waveform" &&
