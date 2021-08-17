@@ -24,7 +24,25 @@ const AudioAnalyser = ({
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    let rafId;  
+    let rafIdRef = useRef(null);  
+
+    const freqCounter = useRef(0);
+    const wavCounter = useRef(0);
+
+    let intervalId;
+
+    useEffect(() =>{
+        intervalId = setInterval(() => {
+            console.log('freq ticks in last 2 seconds', freqCounter.current);
+            console.log('wav ticks in last 2 seconds', wavCounter.current);
+            freqCounter.current = 0;
+            wavCounter.current = 0;
+        }, 2000)
+
+        return function cleanup() {
+            clearInterval(intervalId)
+        }
+    },[])
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -37,24 +55,23 @@ const AudioAnalyser = ({
 
         return function cleanup() {
             source.disconnect(analyser)
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafIdRef.current);
         }
 
     }, [mode, input])
 
     const waveformTick = () => {
-        analyser.fftSize = 1024
+        wavCounter.current++;
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        if(currentVisualiser === "Waveform"){
-          rafId = requestAnimationFrame(waveformTick);  
+        if(currentVisualiser === "Waveform") {
+            rafIdRef.current = requestAnimationFrame(waveformTick);        
         }
-        
     }
 
     const frequencyTick = () => {  
-        analyser.fftSize = 512
+        freqCounter.current++;
         let bufferLength = analyser.frequencyBinCount
         audioData = new Uint8Array(bufferLength);
         analyser.getByteFrequencyData(audioData);
@@ -62,20 +79,22 @@ const AudioAnalyser = ({
         setFrequencyData([...audioData])
         let reduceData = audioData.reduce((accum, currentValue) => accum += currentValue)
         reducedFrequencyDataRef.current = reduceData
-        if(currentVisualiser !== "Waveform"){
-           rafId = requestAnimationFrame(frequencyTick); 
-        }    
+        if(currentVisualiser === "Frequency") {
+            rafIdRef.current = requestAnimationFrame(frequencyTick);      
+        }
     }
 
     useEffect(()=> {
         if (currentVisualiser === "Waveform"){
-            requestAnimationFrame(waveformTick); 
+            analyser.fftSize = 1024
+            rafIdRef.current = requestAnimationFrame(waveformTick); 
         } else {
-            requestAnimationFrame(frequencyTick)
+            analyser.fftSize = 512
+            rafIdRef.current = requestAnimationFrame(frequencyTick)
         }
 
         return function cleanup() {
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafIdRef.current);
         }       
     }, [currentVisualiser])
 
