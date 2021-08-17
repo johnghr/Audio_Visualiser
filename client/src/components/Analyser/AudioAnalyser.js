@@ -21,7 +21,8 @@ const AudioAnalyser = ({
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    let rafId;  
+    const rafIdRef = useRef(null);
+    let rafId = rafIdRef.current;  
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -41,6 +42,7 @@ const AudioAnalyser = ({
     }, [mode, input])
 
     const waveformTick = () => {
+        console.log("waveform says tick")
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
@@ -50,6 +52,7 @@ const AudioAnalyser = ({
     }
 
     const frequencyTick = () => {
+        console.log("frequency says tock")
         audioData = new Uint8Array(analyser.fftSize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
