@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 })
 
 app.delete('/:id', (req, res) => {
-    const track = `/${req.params.id}`;
+    const track = `${req.params.id}`;
     fs.unlink(directoryPath + track, (err) => {
         if (err) throw err;
         console.log(`${directoryPath}${track} was deleted`)

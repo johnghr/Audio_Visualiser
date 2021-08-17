@@ -20,7 +20,9 @@ const MediaPlayer = ({
   const [visualiserIndex, setVisualiserIndex] = useState(0);
   // const [currentVisualiser, setCurrentVisualiser] = useState(visualisers[visualiserIndex]);
   
-  console.log(visualisers[visualiserIndex])
+  let currentVisualiser = visualisers[visualiserIndex]
+
+  console.log(currentVisualiser)
 
   async function getMicrophone() {
     let micAudio = await navigator.mediaDevices.getUserMedia(
@@ -62,10 +64,8 @@ const MediaPlayer = ({
   const toggleVisualiser = () => {
       if (visualiserIndex < visualisers.length -1){
           setVisualiserIndex(visualiserIndex + 1);
-          // setCurrentVisualiser(visualisers[visualiserIndex + 1]);
       } else {
           setVisualiserIndex(0);
-          // setCurrentVisualiser(visualisers[0]);
       }
 
   }
@@ -99,8 +99,7 @@ const MediaPlayer = ({
         <AudioAnalyser 
           input={analyserState.input} 
           mode={analyserState.mode} 
-          visualisers={visualisers}
-          visualiserIndex={visualiserIndex}
+          currentVisualiser={currentVisualiser}
           background={background}
           audioContext={audioContext}
         />}

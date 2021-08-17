@@ -6,14 +6,14 @@ import React, {useRef, useEffect} from 'react';
 const ExperimentalVisualiser = ({
     audioData, 
     background,
-    reducedData
+    reducedFrequencyData
 }) => {
 
     const canvasRef = useRef();
     ;
 
     useEffect(() => {
-        let reducedDataToString = reducedData.toString()
+        let reducedDataToString = reducedFrequencyData.toString()
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;
@@ -53,7 +53,7 @@ const ExperimentalVisualiser = ({
 
         animate()
 
-    }, [reducedData])
+    }, [reducedFrequencyData])
 
     return(
         <canvas 

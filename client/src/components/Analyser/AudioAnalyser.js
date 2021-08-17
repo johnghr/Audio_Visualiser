@@ -6,8 +6,7 @@ import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 const AudioAnalyser = ({ 
     mode, 
     input,
-    visualisers, 
-    visualiserIndex, 
+    currentVisualiser,
     background, 
     audioContext 
 }) => {
@@ -21,6 +20,8 @@ const AudioAnalyser = ({
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
+    const analyserFftSizeRef = useRef(0);
+    let analyserFftsize = analyserFftSizeRef.current
     let audioData;
     let rafId;  
 
@@ -42,34 +43,33 @@ const AudioAnalyser = ({
     }, [mode, input])
 
     const waveformTick = () => {
-        analyser.fftSize = 1024
-        audioData = new Uint8Array(analyser.fftSize);
+        analyser.fftSize = 2048
+        analyserFftsize = analyser.fftSize
+        audioData = new Uint8Array(analyserFftsize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        console.log("waveformData")
-        if(visualisers[visualiserIndex] === "Waveform"){
+        if(currentVisualiser === "Waveform"){
           rafId = requestAnimationFrame(waveformTick);  
         } 
     }
 
     const frequencyTick = () => {
         analyser.fftSize = 512
-        let bufferLength = analyser.frequencyBinCount
-        audioData = new Uint8Array(bufferLength);
+        analyserFftsize = analyser.fftSize
+        audioData = new Uint8Array(analyserFftsize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
-        console.log("frequencyData")
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
         
-        if(visualisers[visualiserIndex] !== "Waveform"){
+        if(currentVisualiser !== "Waveform"){
            rafId = requestAnimationFrame(frequencyTick); 
-        }
-        
+        }  
     }
+    
 
     useEffect(() => {
-        if (visualisers[visualiserIndex] === "Waveform"){
-           requestAnimationFrame(waveformTick); 
+        if (currentVisualiser === "Waveform"){
+            requestAnimationFrame(waveformTick); 
         } else {
             requestAnimationFrame(frequencyTick)
         }
@@ -79,25 +79,25 @@ const AudioAnalyser = ({
             cancelAnimationFrame(rafId);
         }
 
-    }, [visualiserIndex])
+    }, [currentVisualiser])
 
     return(
         <>
-            {visualisers[visualiserIndex] === "Waveform" &&
+            {currentVisualiser === "Waveform" &&
             <WaveformVisualiser 
                 waveformData={waveformData} 
                 background={background}
                 analyser={analyser}
             />}
 
-            {visualisers[visualiserIndex] === "Frequency" &&
+            {currentVisualiser === "Frequency" &&
             <FrequencyVisualiser
                 frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
             />}  
             
-            {visualisers[visualiserIndex] === "Experimental" &&
+            {currentVisualiser === "Experimental" &&
             <ExperimentalVisualiser 
                 frequencyData={frequencyData} 
                 analyser={analyser}
