@@ -20,8 +20,6 @@ const AudioAnalyser = ({
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
-    const analyserFftSizeRef = useRef(0);
-    let analyserFftsize = analyserFftSizeRef.current
     let audioData;
     let rafId;  
 
@@ -43,9 +41,7 @@ const AudioAnalyser = ({
     }, [mode, input])
 
     const waveformTick = () => {
-        analyser.fftSize = 2048
-        analyserFftsize = analyser.fftSize
-        audioData = new Uint8Array(analyserFftsize);
+        audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
         if(currentVisualiser === "Waveform"){
@@ -54,9 +50,7 @@ const AudioAnalyser = ({
     }
 
     const frequencyTick = () => {
-        analyser.fftSize = 512
-        analyserFftsize = analyser.fftSize
-        audioData = new Uint8Array(analyserFftsize / 2);
+        audioData = new Uint8Array(analyser.fftSize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
@@ -69,9 +63,11 @@ const AudioAnalyser = ({
 
     useEffect(() => {
         if (currentVisualiser === "Waveform"){
+            analyser.fftSize = 2048;
             requestAnimationFrame(waveformTick); 
         } else {
-            requestAnimationFrame(frequencyTick)
+            analyser.fftSize = 512;
+            requestAnimationFrame(frequencyTick);
         }
         
         return function cleanup() {
@@ -99,7 +95,6 @@ const AudioAnalyser = ({
             
             {currentVisualiser === "Experimental" &&
             <ExperimentalVisualiser 
-                frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
                 reducedFrequencyData={reducedFrequencyData}

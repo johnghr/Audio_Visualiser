@@ -4,7 +4,6 @@ import React, {useRef, useEffect} from 'react';
 //  const testWaveForm = testWaveFormRef.current;
 
 const ExperimentalVisualiser = ({
-    audioData, 
     background,
     reducedFrequencyData
 }) => {
