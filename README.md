@@ -24,3 +24,5 @@ The front-end interface of the application is made using React (utilising state 
   * npm install react-scripts -g
   * npm install express -g 
   * npm isntall -D nodemon -g
+5. Enter npm run server:dev to start the server
+
