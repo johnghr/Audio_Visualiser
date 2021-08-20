@@ -22,7 +22,7 @@ const AudioAnalyser = ({
     const analyser = analyserRef.current;
     let audioData;
     const rafIdRef = useRef(null);
-    let rafId = rafIdRef.current;  
+     
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -36,7 +36,7 @@ const AudioAnalyser = ({
         return function cleanup() {
             console.log("analyser disconnected")
             source.disconnect(analyser)
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafIdRef);
         }
 
     }, [mode, input])
@@ -47,7 +47,7 @@ const AudioAnalyser = ({
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
         if(currentVisualiser === "Waveform"){
-          rafId = requestAnimationFrame(waveformTick);  
+            rafIdRef.current = requestAnimationFrame(waveformTick);  
         } 
     }
 
@@ -59,7 +59,7 @@ const AudioAnalyser = ({
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
         
         if(currentVisualiser !== "Waveform"){
-           rafId = requestAnimationFrame(frequencyTick); 
+            rafIdRef.current = requestAnimationFrame(frequencyTick); 
         }  
     }
     
@@ -75,7 +75,7 @@ const AudioAnalyser = ({
         
         return function cleanup() {
             console.log("clean up di mess pls")
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafIdRef.current);
         }
 
     }, [currentVisualiser])

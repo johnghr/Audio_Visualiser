@@ -3,8 +3,7 @@ const baseUrl = 'http://localhost:5000/upload';
 
 const UploadForm = ({
     setTrackUploads, 
-    trackUploads,
-    setTrackIndex
+    trackUploads
 }) => {
 
     const formRef = useRef(null);
@@ -14,6 +13,7 @@ const UploadForm = ({
          event.preventDefault();
          // create a new instance of FormData while passing in the user file input
          const formData = new FormData(formRef.current);
+         console.log(formData)
          // configuration for post request - * must exclude Content-Type *
          const config = {
              method: 'POST',

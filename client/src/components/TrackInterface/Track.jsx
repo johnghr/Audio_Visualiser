@@ -2,13 +2,13 @@ import React from 'react';
 
 const Track = ({track, selectedTrackIndex, setSelectedTrackIndex, index}) => {
 
-    const baseUrl = 'http://localhost:5000/uploads/'
+    const baseUrl = `http://localhost:5000/${track}`
     // set selected track index to be the index of the clicked track list item
     const handleClick = (event) => setSelectedTrackIndex(index)
     const handleDelete = (event) => deleteTrack(track)
 
-    const deleteTrack = (id) => {
-        return fetch(baseUrl + id, {
+    const deleteTrack = () => {
+        return fetch(baseUrl, {
             method: 'Delete'    
         });
     };
