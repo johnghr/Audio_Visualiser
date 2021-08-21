@@ -28,13 +28,26 @@ function App() {
 
   }, [])
 
+  const deleteTrack = (track) => {
+    const trackToDelete = track
+    const updatedTrackList = trackUploads.filter(trackUpload => trackUpload !== trackToDelete)
+    return fetch(baseUrl + track, {
+        method: 'Delete'    
+    }).then(setTrackUploads(updatedTrackList))
+    
+    
+  };
+
+  
+
   return (
     
     <div className="app-container">
       
       <div className="sidebar">
        
-        <TrackList 
+        <TrackList
+          deleteTrack={deleteTrack} 
           setSelectedTrackIndex={setSelectedTrackIndex} 
           trackUploads={trackUploads}
           selectedTrackIndex={selectedTrackIndex}

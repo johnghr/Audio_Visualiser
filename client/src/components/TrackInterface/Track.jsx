@@ -1,17 +1,18 @@
 import React from 'react';
+import TrackList from './TrackList';
 
-const Track = ({track, selectedTrackIndex, setSelectedTrackIndex, index}) => {
+const Track = ({
+    track, 
+    selectedTrackIndex,
+    setSelectedTrackIndex,
+    index,
+    deleteTrack
+}) => {
 
-    const baseUrl = `http://localhost:5000/${track}`
+  
     // set selected track index to be the index of the clicked track list item
-    const handleClick = (event) => setSelectedTrackIndex(index)
-    const handleDelete = (event) => deleteTrack(track)
-
-    const deleteTrack = () => {
-        return fetch(baseUrl, {
-            method: 'Delete'    
-        });
-    };
+    const handleClick = () => setSelectedTrackIndex(index)
+    const handleDelete = () => deleteTrack(track)
     
     return(
        <div className="track-item-container">
