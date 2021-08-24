@@ -22,11 +22,11 @@ const Track = ({
             >
                 {track}
                 <button 
-                    className="delete-button"
                     onClick={handleDelete}
                 >
-                    Delete
+                    <svg className="delete-button"><use href="#delete-icon"/></svg>
                 </button>
+            
             </li>
             
         </div> 
