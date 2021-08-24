@@ -26,7 +26,7 @@ const FrequencyVisualiser = ({
 
         const render = () => {
             if(background === "Clear"){
-                context.fillStyle = '#00aeb0';   
+                context.fillStyle = '#67b9a9';   
             } else {
                 context.fillStyle = '#000000'
             }

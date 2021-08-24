@@ -1,5 +1,5 @@
 html {
-	background-color: #67b9a9;
+	background-color: #682957;
 }
 
 button {
@@ -28,13 +28,11 @@ button {
 .canvas-container {
   display: flex;
   justify-content: center;
-  height: 75%;
+  /* height: 75%; */
 }
 
 .canvas {
-  width: 75%;
-  height: 100%;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .record-player {
@@ -111,37 +109,37 @@ button {
 }
 
 .file-upload-label:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
 }
 
 #mic-toggle {
-  border-radius: px;
-  background-color: #ffe26f;
+  border-radius: 2px;
+  background-color: #f0b54d;
   margin: 2px;
 }
 
 #mic-toggle:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
 }
 
 #background-toggle {
   border-radius: 2px;
-  background-color: #ffe26f;
+  background-color: #f0b54d;
   margin: 2px;
 }
 
 #background-toggle:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
 }
 
 #visualiser-toggle {
   border-radius: 2px;
-  background-color: #ffe26f;
+  background-color: #f0b54d;
   margin: 2px;
 }
 
 #visualiser-toggle:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
 }
 
 .track-list {
@@ -149,6 +147,7 @@ button {
   max-height: 600px;
   overflow: auto;
   border: solid;
+  background: #f0b54d;
 }
 
 .track-list li {
@@ -161,7 +160,7 @@ button {
 }
 
 .track-list li.playing {
-  background-color: #ffe26f;
+  background-color: #e85627;
 }
 
 .track-item-container {

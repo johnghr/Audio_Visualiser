@@ -21,7 +21,7 @@ const ExperimentalVisualiser = ({
         if(background === "Black"){
             context.fillRect(0, 0,width, height)
         } else {
-            context.fillStyle = '#000000'
+            context.fillStyle = '#67b9a9'
         }
         
         let number = 0;

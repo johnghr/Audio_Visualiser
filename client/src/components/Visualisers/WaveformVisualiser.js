@@ -25,7 +25,7 @@ const WaveformVisualiser = ({
         let sliceWidth = width / waveformData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Clear"){
-            context.fillStyle = '#00aeb0';   
+            context.fillStyle = '#67b9a9';   
         } else {
             context.fillStyle = '#000000'
         }
