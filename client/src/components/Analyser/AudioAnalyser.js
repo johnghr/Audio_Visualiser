@@ -1,73 +1,108 @@
 import React, {useEffect, useState, useRef} from 'react';
 import WaveformVisualiser from '../Visualisers/WaveformVisualiser';
+import ExperimentalVisualiser from '../Visualisers/ExperimentalVisualiser';
 import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 
-const AudioAnalyser = ({ mode, input, visualiserType, background, audioContext }) => {
+const AudioAnalyser = ({ 
+    mode, 
+    input,
+    currentVisualiser,
+    background, 
+    audioContext 
+}) => {
 
-    const [audioData, setAudioData] = useState(new Uint8Array(0));
+    const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
+    const [waveformData, setWaveformData] = useState(new Uint8Array(0));
+    const reducedFrequencyDataRef = useRef(0)
+    let reducedFrequencyData = reducedFrequencyDataRef.current
     
-    const sourceRef = useRef(null);
+    let sourceRef = useRef(null);
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
+    let audioData;
+    const rafIdRef = useRef(null);
+     
 
-    useEffect( () => {
-        // empty request animation frame Id
-        let rafId; 
-         
-        // Creates a data Array which is half the length of the fftSize;
-        // which takes in unsigned 8 byte integers  
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-        // connects the audio stream to the analyser node using the relevant method depending on input
+    useEffect(() => {    
         if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);    
         } else {
-            // creating audioStream for mic input
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
         }
-        
-        
-        const tick = () => {
-            // copies wave form data into the dataArray which is passed in as the argument   
-            analyser.getByteTimeDomainData(dataArray)
-            // sets audioData to be the value of a copy of dataArray - 
-            // * spread operator required to force a re-render *
-            setAudioData([...dataArray])
-            // requests a re-render while calling tick in a recursive loop
-            rafId = requestAnimationFrame(tick);
-        }
-    
-        rafId = requestAnimationFrame(tick);
 
         return function cleanup() {
-            if(mode === "track"){
-                source.disconnect(analyser);
-            } else {
-                source.disconnect()
-            }
-            cancelAnimationFrame(rafId);
+            console.log("analyser disconnected")
+            source.disconnect(analyser)
+            cancelAnimationFrame(rafIdRef);
         }
 
     }, [mode, input])
 
-    return(
-        // render either WaveformVisualiser or FrequencyVisualiser depending on state of visualiserType 
-        <>
-            {visualiserType === "Waveform" ? 
-            <WaveformVisualiser 
-                audioData={audioData} 
-                background={background}
-                analyser={analyser}
-            /> :
-            <FrequencyVisualiser 
-                audioData={audioData} 
-                analyser={analyser}
-                background={background}
-            /> }
-        </>
+    const waveformTick = () => {
+        console.log("waveform says tick")
+        audioData = new Uint8Array(analyser.fftSize);
+        analyser.getByteTimeDomainData(audioData);
+        setWaveformData([...audioData])
+        if(currentVisualiser === "Waveform"){
+            rafIdRef.current = requestAnimationFrame(waveformTick);  
+        } 
+    }
+
+    const frequencyTick = () => {
+        console.log("frequency says tock")
+        audioData = new Uint8Array(analyser.fftSize / 2);
+        analyser.getByteFrequencyData(audioData);
+        setFrequencyData([...audioData])
+        reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
         
+        if(currentVisualiser !== "Waveform"){
+            rafIdRef.current = requestAnimationFrame(frequencyTick); 
+        }  
+    }
+    
+
+    useEffect(() => {
+        if (currentVisualiser === "Waveform"){
+            analyser.fftSize = 2048;
+            requestAnimationFrame(waveformTick); 
+        } else {
+            analyser.fftSize = 512;
+            requestAnimationFrame(frequencyTick);
+        }
+        
+        return function cleanup() {
+            console.log("clean up di mess pls")
+            cancelAnimationFrame(rafIdRef.current);
+        }
+
+    }, [currentVisualiser])
+
+    return(
+        <>
+            {currentVisualiser === "Waveform" &&
+            <WaveformVisualiser 
+                waveformData={waveformData} 
+                background={background}
+                analyser={analyser}
+            />}
+
+            {currentVisualiser === "Frequency" &&
+            <FrequencyVisualiser
+                frequencyData={frequencyData} 
+                analyser={analyser}
+                background={background}
+            />}  
+            
+            {currentVisualiser === "Experimental" &&
+            <ExperimentalVisualiser 
+                analyser={analyser}
+                background={background}
+                reducedFrequencyData={reducedFrequencyData}
+            />}
+        </>  
     )
 
 }

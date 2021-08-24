@@ -13,8 +13,8 @@ const fs = require('fs');
 const path = require('path');
 
 // joins the current directory to the upload directory in a path
-const directoryPath = path.join(__dirname, 'uploads')
-
+const directoryPath = path.join(__dirname, '\\uploads')
+console.log("directory name",__dirname)
 
 app.get('/', (req, res) => {
     fs.readdir(directoryPath, function (err, files) {
@@ -31,13 +31,21 @@ app.get('/', (req, res) => {
     })  
 })
 
+app.delete('/:id', (req, res) => {
+    console.log("request parameters",req.params)
+    fs.unlink(`${directoryPath}\\${req.params.id}`, (err) => {
+        if (err) throw err;
+        console.log(`${directoryPath} was deleted`)
+    })
+})
+
 // sets the destination for file on storage or sets name and assigns to default location
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+        cb(null, file.originalname.replace(/\s+/g, ''))
     }
 })
 

@@ -2,9 +2,8 @@ import React, {useRef, useEffect} from 'react';
 
 
 const WaveformVisualiser = ({
-    audioData, 
+    waveformData, 
     background,
-    analyser
 }) => {
 
     // creates a useRef for the canvas
@@ -23,9 +22,7 @@ const WaveformVisualiser = ({
         // each audio sample is represented by a sliceWidth - the width of the 
         // canvas divided by the length of the dataArray (1024 samples)
         
-        analyser.fftSize = 2048
-
-        let sliceWidth = width / audioData.length;
+        let sliceWidth = width / waveformData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
         if(background === "Clear"){
             context.fillStyle = '#00aeb0';   
@@ -47,7 +44,7 @@ const WaveformVisualiser = ({
             context.beginPath();
             context.moveTo(0, height / 2);
 
-            for(const item of audioData) {
+            for(const item of waveformData) {
                 const y = (item / 255.0) * height;
                 context.lineTo(x, y);
                 x += sliceWidth;
@@ -65,7 +62,7 @@ const WaveformVisualiser = ({
             context.fillRect(0, 0,width, height)
         }
        
-    }, [audioData, background])
+    }, [waveformData, background])
 
     return(
         

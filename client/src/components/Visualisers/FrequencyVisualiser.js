@@ -3,7 +3,11 @@ import React, { useRef, useEffect } from 'react';
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const FrequencyVisualiser = ({ audioData, analyser, background }) => {
+const FrequencyVisualiser = ({ 
+    frequencyData, 
+    analyser, 
+    background 
+}) => {
 
     const canvasRef = useRef();
 
@@ -13,13 +17,10 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
         let height = canvas.height;
         let width = canvas.width;
         let context = canvas.getContext('2d');
-        let randomColour = "#" + ((1 << 24) * Math.random() | 0).toString(16)
+        // let randomColour = "#" + ((1 << 24) * Math.random() | 0).toString(16)
 
-        // a quarter of the fft size default
-        analyser.fftSize = 256;
         //bufferLength equals half the fftSize i.e. 128
         let bufferLength = analyser.frequencyBinCount;
-        // let dataArray = new Uint8Array(bufferLength);
 
         context.clearRect(0, 0, width, height);
 
@@ -38,9 +39,12 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
 
             for (var i = 0; i < bufferLength; i++) {
                 // the height of a bar equals the current audio sample value halved
-                barHeight = audioData[i] / 0.3;
-                
-                context.fillStyle = randomColour;
+                barHeight = frequencyData[i] * 2.75;
+                const red = i * barHeight/20;
+                const green = i * 4;
+                const blue = barHeight/2;
+                context.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')';
+                // context.fillStyle = 'red';
                 context.fillRect(x, height - barHeight / 2, barWidth, barHeight)
 
                 x += barWidth + 1;
@@ -49,7 +53,11 @@ const FrequencyVisualiser = ({ audioData, analyser, background }) => {
 
         render()
 
-    }, [audioData]);
+        return function cleanup(){
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+    });
 
     return (
         <canvas
