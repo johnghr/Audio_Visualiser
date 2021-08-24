@@ -1,5 +1,5 @@
 html {
-	background-color: #00aeb0;
+	background-color: #67b9a9;
 }
 
 button {
@@ -8,13 +8,10 @@ button {
   cursor: pointer;
 }
 
-.App {
-  width: 100%;
-}
-
 .app-container {
   display: flex;
   flex-direction: row-reverse;
+  width: 90%;
 }
 
 .toggle-controls {
@@ -25,6 +22,7 @@ button {
   display: flex;
   flex-direction: column;
   width: 50%;
+  justify-content: center;
 }
 
 .canvas-container {
@@ -33,14 +31,50 @@ button {
   height: 75%;
 }
 
-.track-sidebar {
-  width: 25%;
-}
-
 .canvas {
-  width: 100%;
+  width: 75%;
   height: 100%;
   padding: 10px;
+}
+
+.record-player {
+  padding: 20px;
+}
+.record-player-top {
+  border-bottom: 200px solid #2b5983;
+  border-left: 90px solid transparent;
+  border-right: 90px solid transparent;
+  height: 0px;
+}
+
+.record-disc {
+  width: 110%;
+  height: 162px;
+  background: black;
+  border-radius: 50%/ 50%;
+  position: relative;
+  top: 20px;
+  right: 32px;
+}
+
+.inner-disc {
+  width: 50%;
+  height: 37%;
+  background: white;
+  border-radius: 50%/ 50%;
+  position: relative;
+  top: 33%;
+  left: 23%;
+}
+
+.record-player-bottom {
+  background: #b92056;
+}
+
+.audio-player-container{
+  display: flex;
+  justify-content: center;
+  padding: 9px;
 }
 
 .audio-controls {
@@ -50,17 +84,13 @@ button {
   margin: auto ;
 }
 
-
-.audio-player-container{
-  margin: 25px;
-  display: flex;
-  justify-content: center;
+.track-sidebar {
+  width: 25%;
 }
 
 .control-icon {
   height: 33px;
-  width: 33px;
-  
+  width: 33px;  
 }
 
 .control-icon:hover {

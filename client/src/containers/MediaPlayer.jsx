@@ -27,25 +27,37 @@ const MediaPlayer = ({
   
   return (
       <>
-        
-        {analyserState.input &&
-        
-        <AudioAnalyser 
+
+         {analyserState.input === null ? 
+         
+         <div className="canvas-container"></div> :
+         
+         <AudioAnalyser 
           input={analyserState.input} 
           mode={analyserState.mode} 
           currentVisualiser={currentVisualiser}
           background={background}
           audioContext={audioContext}
-        />}
-    
-        <AudioPlayer 
-          selectedTrackIndex={selectedTrackIndex}
-          setSelectedTrackIndex={setSelectedTrackIndex}
-          trackUploads={trackUploads} 
-          setTrackUploads={setTrackUploads}
-          onChangeTrack={onChangeTrack}
-          setAnalyserState={setAnalyserState}
-        />
+        />}      
+        
+        <div className="record-player">
+          <div className="record-player-top">
+              <div className="record-disc">
+                  <div className="inner-disc"></div>
+              </div>
+          </div>
+          <div className="record-player-bottom">
+            <AudioPlayer 
+              selectedTrackIndex={selectedTrackIndex}
+              setSelectedTrackIndex={setSelectedTrackIndex}
+              trackUploads={trackUploads} 
+              setTrackUploads={setTrackUploads}
+              onChangeTrack={onChangeTrack}
+              setAnalyserState={setAnalyserState}
+            />
+          </div>
+        </div>
+        
       </>
   )
 }
