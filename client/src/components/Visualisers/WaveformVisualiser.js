@@ -6,38 +6,29 @@ const WaveformVisualiser = ({
     background,
 }) => {
 
-    // creates a useRef for the canvas
     const canvasRef = useRef();
 
     useEffect(() => {
         
-        // sets canvas to be the current property of canvasRef
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;
-        // sets the canvas context to be 2d
         let context = canvas.getContext('2d');
-        // horizontal axis
         let x = 0;
-        // each audio sample is represented by a sliceWidth - the width of the 
-        // canvas divided by the length of the dataArray (1024 samples)
-        
+
         let sliceWidth = width / waveformData.length;
         let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
-        if(background === "Clear"){
-            context.fillStyle = '#67b9a9';   
-        } else {
-            context.fillStyle = '#000000'
-        }
+        
+        context.clearRect(0, 0, width, height)
 
         const renderWaveform = () => {
-            
-            if(background === "Black"){
-                context.fillRect(0, 0,width, height)
+            if(background === "Clear"){
+                context.fillStyle = '#67b9a9';   
             } else {
                 context.fillStyle = '#000000'
             }
-            
+
+            context.fillRect(0, 0, width, height);
             context.lineWidth = 2;
             context.strokeStyle = randomColour;
             

@@ -43,7 +43,9 @@ const MediaPlayer = ({
         <div className="record-player">
           <div className="record-player-top">
               <div className="record-disc">
-                  <div className="inner-disc"></div>
+                  <div className="outer-disc">
+                    <div className="inner-disc"></div>
+                  </div>
               </div>
           </div>
           <div className="record-player-bottom">
