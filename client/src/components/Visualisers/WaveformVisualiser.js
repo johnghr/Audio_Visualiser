@@ -4,8 +4,11 @@ import React, {useRef, useEffect} from 'react';
 const WaveformVisualiser = ({
     waveformData, 
     background,
+    rafId
 }) => {
 
+
+    console.log("rendering frequency canvas")
     const canvasRef = useRef();
 
     useEffect(() => {
@@ -49,7 +52,7 @@ const WaveformVisualiser = ({
         renderWaveform()
         
         return function cleanup() {
-            context.fillStyle = "#00aeb0"
+            context.fillStyle = "##67b9a9"
             context.fillRect(0, 0,width, height)
         }
        

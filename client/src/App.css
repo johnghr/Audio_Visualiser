@@ -11,7 +11,7 @@ button {
 .app-container {
   display: flex;
   flex-direction: row-reverse;
-  width: 90%;
+  width: 100%;
 }
 
 .toggle-controls {
@@ -27,8 +27,9 @@ button {
 
 .canvas-container {
   display: flex;
-  justify-content: center;
-  /* height: 75%; */
+  /* justify-content: center; */
+  height: 70%;
+  min-height: 620px;
 }
 
 .canvas {

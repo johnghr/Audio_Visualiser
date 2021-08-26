@@ -5,29 +5,31 @@ import React, {useRef, useEffect} from 'react';
 
 const ExperimentalVisualiser = ({
     background,
-    reducedFrequencyData
+    reducedFrequencyData,
+    rafId
 }) => {
 
     const canvasRef = useRef();
-    ;
+    
+    console.log("rendering experimental Canvas")
 
     useEffect(() => {
         let reducedDataToString = reducedFrequencyData.toString()
         let canvas = canvasRef.current;
         let height = canvas.height;
         let width = canvas.width;
-        let context = canvas.getContext('2d');
-        // let randomColour = "#" + ((1<<24)*Math.random() | 0).toString(16)
+        let context = canvas.getContext('2d');     
+        let number = 0;
+        let scale =  10;
+
         if(background === "Black"){
             context.fillRect(0, 0,width, height)
         } else {
             context.fillStyle = '#67b9a9'
         }
-        
-        let number = 0;
-        let scale =  10;
 
         function drawFlower(){
+
             let angle = number * 1;
             let radius = scale * Math.sqrt(number);
             let positionX = radius * Math.sin(angle) + width / 2;
@@ -52,7 +54,12 @@ const ExperimentalVisualiser = ({
 
         animate()
 
-    }, [reducedFrequencyData])
+        return function cleanup(){
+            context.fillStyle = "##67b9a9"
+            context.fillRect(0, 0,width, height)
+        }
+
+    }, [reducedFrequencyData, background])
 
     return(
         <canvas 

@@ -16,13 +16,15 @@ const AudioAnalyser = ({
     const reducedFrequencyDataRef = useRef(0)
     let reducedFrequencyData = reducedFrequencyDataRef.current
     
-    let sourceRef = useRef(null);
+    let sourceRef = useRef();
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    const rafIdRef = useRef(null);
-     
+    const waveformRafIdRef = useRef();
+    let waveformRafId = waveformRafIdRef.current;
+    const frequencyRafIdRef = useRef();
+    let frequencyRafId = frequencyRafIdRef.current
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -36,7 +38,7 @@ const AudioAnalyser = ({
         return function cleanup() {
             console.log("analyser disconnected")
             source.disconnect(analyser)
-            cancelAnimationFrame(rafIdRef);
+            // cancelAnimationFrame(rafId);
         }
 
     }, [mode, input])
@@ -47,7 +49,7 @@ const AudioAnalyser = ({
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
         if(currentVisualiser === "Waveform"){
-            rafIdRef.current = requestAnimationFrame(waveformTick);  
+            waveformRafId = requestAnimationFrame(waveformTick);  
         } 
     }
 
@@ -59,7 +61,7 @@ const AudioAnalyser = ({
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
         
         if(currentVisualiser !== "Waveform"){
-            rafIdRef.current = requestAnimationFrame(frequencyTick); 
+            frequencyRafId = requestAnimationFrame(frequencyTick); 
         }  
     }
     
@@ -67,23 +69,29 @@ const AudioAnalyser = ({
     useEffect(() => {
         if (currentVisualiser === "Waveform"){
             analyser.fftSize = 2048;
-            requestAnimationFrame(waveformTick); 
+            requestAnimationFrame(waveformTick);
         } else {
             analyser.fftSize = 512;
             requestAnimationFrame(frequencyTick);
         }
-        
-        return function cleanup() {
-            console.log("clean up di mess pls")
-            cancelAnimationFrame(rafIdRef.current);
-        }
 
+    }, [currentVisualiser])
+
+    useEffect(() => {
+        console.log("clean up di mess pls 2")
+        if (currentVisualiser === "Waveform"){
+            cancelAnimationFrame(waveformRafId)
+        } else {
+            cancelAnimationFrame(frequencyRafId)
+        }
+        
     }, [currentVisualiser])
 
     return(
         <div className="canvas-container">
             {currentVisualiser === "Waveform" &&
             <WaveformVisualiser 
+                rafId={waveformRafId}
                 waveformData={waveformData} 
                 background={background}
                 analyser={analyser}
@@ -91,13 +99,15 @@ const AudioAnalyser = ({
 
             {currentVisualiser === "Frequency" &&
             <FrequencyVisualiser
+                rafId={frequencyRafId}
                 frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
             />}  
             
             {currentVisualiser === "Experimental" &&
-            <ExperimentalVisualiser 
+            <ExperimentalVisualiser
+                rafId={frequencyRafId} 
                 analyser={analyser}
                 background={background}
                 reducedFrequencyData={reducedFrequencyData}

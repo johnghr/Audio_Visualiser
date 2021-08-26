@@ -1,5 +1,4 @@
 import React from 'react';
-import TrackList from './TrackList';
 
 const Track = ({
     track, 
