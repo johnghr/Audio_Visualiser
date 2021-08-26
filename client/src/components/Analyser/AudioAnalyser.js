@@ -10,7 +10,6 @@ const AudioAnalyser = ({
     background, 
     audioContext 
 }) => {
-
     const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
     const [waveformData, setWaveformData] = useState(new Uint8Array(0));
     const reducedFrequencyDataRef = useRef(0)
@@ -22,7 +21,9 @@ const AudioAnalyser = ({
     const analyser = analyserRef.current;
     let audioData;
     const rafIdRef = useRef(null);
-     
+
+    //We shouldn't really need to store this in a ref but the value of currentVisualiser seems to get stale in the raf callbacks if we don't
+    const currentVisualiserRef = useRef(currentVisualiser);
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -34,7 +35,6 @@ const AudioAnalyser = ({
         }
 
         return function cleanup() {
-            console.log("analyser disconnected")
             source.disconnect(analyser)
             cancelAnimationFrame(rafIdRef);
         }
@@ -42,42 +42,39 @@ const AudioAnalyser = ({
     }, [mode, input])
 
     const waveformTick = () => {
-        console.log("waveform says tick")
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        if(currentVisualiser === "Waveform"){
-            rafIdRef.current = requestAnimationFrame(waveformTick);  
+
+        if(currentVisualiserRef.current === "Waveform"){
+             rafIdRef.current = requestAnimationFrame(waveformTick);  
         } 
     }
 
     const frequencyTick = () => {
-        console.log("frequency says tock")
         audioData = new Uint8Array(analyser.fftSize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
-        
-        if(currentVisualiser !== "Waveform"){
+        if(currentVisualiserRef.current !== "Waveform"){
             rafIdRef.current = requestAnimationFrame(frequencyTick); 
         }  
     }
     
 
     useEffect(() => {
+        currentVisualiserRef.current = currentVisualiser;
         if (currentVisualiser === "Waveform"){
             analyser.fftSize = 2048;
-            requestAnimationFrame(waveformTick); 
+            rafIdRef.current = requestAnimationFrame(waveformTick); 
         } else {
             analyser.fftSize = 512;
-            requestAnimationFrame(frequencyTick);
+            rafIdRef.current = requestAnimationFrame(frequencyTick);
         }
         
         return function cleanup() {
-            console.log("clean up di mess pls")
             cancelAnimationFrame(rafIdRef.current);
         }
-
     }, [currentVisualiser])
 
     return(
