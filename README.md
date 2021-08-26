@@ -1,5 +1,5 @@
 # Audio Visualiser
----
+
 This web app allows audio data to be visualised in the form of either a frequency or waveform graph. You can input audio via microphone or alternatively upload tracks which will be stored in the application locally using your devices file storage. 
 The front-end interface of the application is made using React (utilising state hooks), Web Audio API and Canvas. The back-end consists of a lightweight server made using Node, Express and Multer.
 
