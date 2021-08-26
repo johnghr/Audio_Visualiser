@@ -21,10 +21,10 @@ const AudioAnalyser = ({
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    const waveformRafIdRef = useRef();
-    let waveformRafId = waveformRafIdRef.current;
-    const frequencyRafIdRef = useRef();
-    let frequencyRafId = frequencyRafIdRef.current
+    const rafIdRef = useRef(null);
+
+    let currentVisualiserRef = useRef(currentVisualiser)
+     
 
     useEffect(() => {    
         if(mode === "track"){ 
@@ -48,8 +48,8 @@ const AudioAnalyser = ({
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        if(currentVisualiser === "Waveform"){
-            waveformRafId = requestAnimationFrame(waveformTick);  
+        if(currentVisualiserRef.current === "Waveform"){
+            rafIdRef.current = requestAnimationFrame(waveformTick);  
         } 
     }
 
@@ -60,13 +60,14 @@ const AudioAnalyser = ({
         setFrequencyData([...audioData])
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
         
-        if(currentVisualiser !== "Waveform"){
-            frequencyRafId = requestAnimationFrame(frequencyTick); 
+        if(currentVisualiserRef.current !== "Waveform"){
+            rafIdRef.current = requestAnimationFrame(frequencyTick); 
         }  
     }
     
 
     useEffect(() => {
+        currentVisualiserRef.current = currentVisualiser
         if (currentVisualiser === "Waveform"){
             analyser.fftSize = 2048;
             requestAnimationFrame(waveformTick);
