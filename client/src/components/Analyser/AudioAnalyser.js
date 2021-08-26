@@ -22,6 +22,8 @@ const AudioAnalyser = ({
     const analyser = analyserRef.current;
     let audioData;
     const rafIdRef = useRef(null);
+
+    let currentVisualiserRef = useRef(currentVisualiser)
      
 
     useEffect(() => {    
@@ -65,6 +67,8 @@ const AudioAnalyser = ({
     
 
     useEffect(() => {
+        currentVisualiserRef.current = currentVisualiser
+
         if (currentVisualiser === "Waveform"){
             analyser.fftSize = 2048;
             requestAnimationFrame(waveformTick); 
