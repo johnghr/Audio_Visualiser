@@ -10,8 +10,6 @@ const ExperimentalVisualiser = ({
 }) => {
 
     const canvasRef = useRef();
-    
-    console.log("rendering experimental Canvas")
 
     useEffect(() => {
         let reducedDataToString = reducedFrequencyData.toString()

@@ -7,8 +7,6 @@ const WaveformVisualiser = ({
     rafId
 }) => {
 
-
-    console.log("rendering frequency canvas")
     const canvasRef = useRef();
 
     useEffect(() => {

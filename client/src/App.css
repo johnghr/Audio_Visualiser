@@ -115,7 +115,7 @@ button {
 .file-upload-label {
   border: 1px solid grey;
   padding: 5px;
-  background-color: #ffe26f;
+  background-color: #f0b54d;
   border-radius: 5px;
   color: #323030;
   cursor: pointer;
@@ -126,6 +126,7 @@ button {
 }
 
 #mic-toggle {
+  border: solid 2px black;
   border-radius: 2px;
   background-color: #f0b54d;
   margin: 2px;
@@ -136,6 +137,7 @@ button {
 }
 
 #background-toggle {
+  border: solid 2px black;
   border-radius: 2px;
   background-color: #f0b54d;
   margin: 2px;
@@ -146,6 +148,7 @@ button {
 }
 
 #visualiser-toggle {
+  border: solid 2px black;
   border-radius: 2px;
   background-color: #f0b54d;
   margin: 2px;
@@ -157,7 +160,7 @@ button {
 
 .track-list {
   padding: 0px;
-  max-height: 600px;
+  max-height: 800px;
   overflow: auto;
   border: solid;
   background: #f0b54d;
@@ -189,3 +192,4 @@ button {
 .delete-button:hover {
   background-color: #ffe26f;
 } 
+

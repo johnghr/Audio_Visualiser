@@ -21,7 +21,7 @@ const AudioAnalyser = ({
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    const rafIdRef = useRef(null);
+    const rafIdRef = useRef(0);
 
     let currentVisualiserRef = useRef(currentVisualiser)
      
@@ -38,7 +38,7 @@ const AudioAnalyser = ({
         return function cleanup() {
             console.log("analyser disconnected")
             source.disconnect(analyser)
-            // cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafIdRef.current);
         }
 
     }, [mode, input])
@@ -81,9 +81,9 @@ const AudioAnalyser = ({
     useEffect(() => {
         console.log("clean up di mess pls 2")
         if (currentVisualiser === "Waveform"){
-            cancelAnimationFrame(waveformRafId)
+            cancelAnimationFrame(rafIdRef.current)
         } else {
-            cancelAnimationFrame(frequencyRafId)
+            cancelAnimationFrame(rafIdRef.current)
         }
         
     }, [currentVisualiser])
@@ -92,7 +92,6 @@ const AudioAnalyser = ({
         <div className="canvas-container">
             {currentVisualiser === "Waveform" &&
             <WaveformVisualiser 
-                rafId={waveformRafId}
                 waveformData={waveformData} 
                 background={background}
                 analyser={analyser}
@@ -100,7 +99,6 @@ const AudioAnalyser = ({
 
             {currentVisualiser === "Frequency" &&
             <FrequencyVisualiser
-                rafId={frequencyRafId}
                 frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
@@ -108,7 +106,6 @@ const AudioAnalyser = ({
             
             {currentVisualiser === "Experimental" &&
             <ExperimentalVisualiser
-                rafId={frequencyRafId} 
                 analyser={analyser}
                 background={background}
                 reducedFrequencyData={reducedFrequencyData}

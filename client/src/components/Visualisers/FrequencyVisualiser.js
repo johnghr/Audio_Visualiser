@@ -10,8 +10,6 @@ const FrequencyVisualiser = ({
     rafId 
 }) => {
 
-    console.log("rendering frequency canvas")
-
     const canvasRef = useRef();
 
     useEffect(() => {
