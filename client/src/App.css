@@ -190,6 +190,14 @@ button {
 }
 
 .delete-button:hover {
-  background-color: #ffe26f;
+  background-color: #e85627;
 } 
 
+.edit-button {
+  height: 22px;
+  width: 22px;
+}
+
+.edit-button:hover {
+  background-color: #e85627;
+}

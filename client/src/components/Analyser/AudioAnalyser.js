@@ -16,12 +16,12 @@ const AudioAnalyser = ({
     const reducedFrequencyDataRef = useRef(0)
     let reducedFrequencyData = reducedFrequencyDataRef.current
     
-    let sourceRef = useRef();
+    let sourceRef = useRef(null);
     let source = sourceRef.current;
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    const rafIdRef = useRef(0);
+    const rafIdRef = useRef(null);
 
     let currentVisualiserRef = useRef(currentVisualiser)
      
@@ -30,9 +30,11 @@ const AudioAnalyser = ({
         if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);    
-        } else {
+        } else if (mode === "microphone") {
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
+        } else {
+            return
         }
 
         return function cleanup() {
@@ -76,16 +78,15 @@ const AudioAnalyser = ({
             requestAnimationFrame(frequencyTick);
         }
 
-    }, [currentVisualiser])
-
-    useEffect(() => {
-        console.log("clean up di mess pls 2")
-        if (currentVisualiser === "Waveform"){
-            cancelAnimationFrame(rafIdRef.current)
-        } else {
-            cancelAnimationFrame(rafIdRef.current)
+        return function cleanup() {
+            console.log("clean up di mess pls 2")
+            if (currentVisualiser === "Waveform"){
+                cancelAnimationFrame(rafIdRef.current)
+            } else {
+                cancelAnimationFrame(rafIdRef.current)
+            }
         }
-        
+
     }, [currentVisualiser])
 
     return(

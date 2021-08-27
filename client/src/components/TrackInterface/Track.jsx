@@ -20,10 +20,17 @@ const Track = ({
                 onClick={handleClick}
             >
                 {track}
+
                 <button 
                     onClick={handleDelete}
                 >
                     <svg className="delete-button"><use href="#delete-icon"/></svg>
+                </button>
+
+                <button
+                    // onClick={handleEdit}
+                >
+                    <svg className="edit-button"><use href="#edit-icon"/></svg>
                 </button>
             
             </li>
