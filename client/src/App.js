@@ -28,7 +28,7 @@ function App() {
     const trackToDelete = track
     const updatedTrackList = trackUploads.filter(trackUpload => trackUpload !== trackToDelete)
     return fetch(baseUrl + track, {
-        method: 'Delete'    
+        method: 'DELETE'    
     }).then(setTrackUploads(updatedTrackList))
   };
 

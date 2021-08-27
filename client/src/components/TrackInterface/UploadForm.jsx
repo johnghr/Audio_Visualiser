@@ -37,13 +37,7 @@ const UploadForm = ({
            <form ref={formRef} encType="multipart/form-data">
                 <label className="file-upload-label" htmlFor="file-upload-input">
                     Add Track +
-                    <input 
-                        className="file-upload-input" 
-                        id="file-upload-input" 
-                        onChange={onChooseFile} 
-                        type="file" 
-                        name="track" 
-                    />
+                    <input className="file-upload-input" id="file-upload-input" onChange={onChooseFile} type="file" name="track"/>
                 </label>
                 
             </form> 

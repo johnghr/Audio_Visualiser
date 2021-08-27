@@ -201,3 +201,12 @@ button {
 .edit-button:hover {
   background-color: #e85627;
 }
+
+.confirm-button {
+  height: 20px;
+  width: 20px;
+}
+
+.confirm-button:hover {
+  background-color: #e85627;
+}
