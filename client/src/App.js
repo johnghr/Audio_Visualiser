@@ -1,10 +1,11 @@
 import MediaPlayer from './containers/MediaPlayer';
 import React, {useEffect, useState, useRef} from 'react';
-import './App.css';
+import TrackService from './services/TrackService';
 import UploadForm from './components/TrackInterface/UploadForm'
-import TrackList from './components/TrackInterface/TrackList'
+import TrackList from './components/TrackInterface/TrackList';
+import './App.css';
 
-const baseUrl = 'http://localhost:5000/';
+
 
 function App() {
 
@@ -15,22 +16,33 @@ function App() {
   const [analyserState, setAnalyserState] = useState(initialAnalyserState);
   const resetAnalyser = () => setAnalyserState(initialAnalyserState);
 
-  const [trackUploads, setTrackUploads] = useState([])
-  const [selectedTrackIndex, setSelectedTrackIndex] = useState(0)
+  const [trackUploads, setTrackUploads] = useState([]);
+  const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
   
   useEffect(() => {
-    fetch(baseUrl)
-      .then(res => res.json())
-      .then(data => setTrackUploads(data))
+    TrackService.getTracks().then(trackUploads => setTrackUploads(trackUploads));
   },[])
 
+  const [updatedTrack, setUpdatedTrack] = useState({
+    "title" : "",
+    "index" : 0
+  })
+
+  const updateTrack = (trackTitle, updatedTrack) => {
+    console.log("trackTitle", trackTitle)
+    console.log("updated track state",updatedTrack)
+    TrackService.updateTrack(trackTitle, updatedTrack);
+    const updatedTrackUploads = [...trackUploads];
+    console.log(updatedTrackUploads);
+    updatedTrackUploads[updatedTrack.index] = updatedTrack.title;
+    setTrackUploads(updatedTrackUploads);
+  }
+
   const deleteTrack = (track) => {
-    const trackToDelete = track
-    const updatedTrackList = trackUploads.filter(trackUpload => trackUpload !== trackToDelete)
-    return fetch(baseUrl + track, {
-        method: 'DELETE'    
-    }).then(setTrackUploads(updatedTrackList))
-  };
+    const trackToDelete = track;
+    const updatedTrackList = trackUploads.filter(trackUpload => trackUpload !== trackToDelete);
+    TrackService.deleteTrack(trackToDelete).then(setTrackUploads(updatedTrackList));
+  }
 
   const [background, setBackground] = useState("Clear");
   const visualisers = ["Waveform", "Frequency", "Experimental"];
@@ -87,9 +99,13 @@ function App() {
        
         <TrackList
           deleteTrack={deleteTrack} 
-          setSelectedTrackIndex={setSelectedTrackIndex} 
+          setSelectedTrackIndex={setSelectedTrackIndex}
+          setTrackUploads={setTrackUploads} 
           trackUploads={trackUploads}
           selectedTrackIndex={selectedTrackIndex}
+          updateTrack={updateTrack}
+          setUpdatedTrack={setUpdatedTrack}
+          updatedTrack={updatedTrack}
         />
 
         <UploadForm 

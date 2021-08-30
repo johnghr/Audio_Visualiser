@@ -5,17 +5,24 @@ const TrackList = ({
     trackUploads, 
     selectedTrackIndex, 
     setSelectedTrackIndex,
-    deleteTrack
+    deleteTrack,
+    updateTrack,
+    setUpdatedTrack,
+    updatedTrack
 }) => {
 
     // map trackUploads into individual tracks while assigning an index to each track
-    const trackList = trackUploads.map((track, index) => {
-        return <Track   track={track} 
+    const trackList = trackUploads.map((trackTitle, index) => {
+        return <Track   trackTitle={trackTitle} 
                         key={index} 
                         index={index} 
                         selectedTrackIndex={selectedTrackIndex} 
                         setSelectedTrackIndex={setSelectedTrackIndex}
                         deleteTrack={deleteTrack}
+                        updateTrack={updateTrack}
+                        setUpdatedTrack={setUpdatedTrack}
+                        updatedTrack={updatedTrack}
+
                     ></Track>
     })
 

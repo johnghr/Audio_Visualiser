@@ -57,7 +57,7 @@ const ExperimentalVisualiser = ({
             context.fillRect(0, 0,width, height)
         }
 
-    }, [background])
+    }, [background, reducedFrequencyData])
 
     return(
         <canvas 

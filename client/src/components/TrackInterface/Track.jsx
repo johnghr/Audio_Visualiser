@@ -1,33 +1,34 @@
 import React, {useState} from 'react';
+import TrackService from '../../services/TrackService';
 
 const Track = ({
-    track, 
+    trackTitle, 
     selectedTrackIndex,
     setSelectedTrackIndex,
     index,
-    deleteTrack
+    deleteTrack,
+    updateTrack
 }) => {
 
-    const baseUrl = 'http://localhost:5000/';
     const [isEditing, setIsEditing] = useState(false)
-    const [editedTrackTitle, setEditedTrackTitle] = useState("")
-    // set selected track index to be the index of the clicked track list item
+    const [updatedTrack, setUpdatedTrack] = useState("")
+
     const handleClick = () => setSelectedTrackIndex(index)
-    const handleDelete = () => deleteTrack(track)
-    const handleEdit = () => editTrack(track)
+    const handleDelete = () => deleteTrack(trackTitle)
+    const handleEdit = () => editTrack(trackTitle)
 
     const editTrack = () => setIsEditing(true)
         
-
-    const handleSubmitEdit = () => {
+    const handleUpdateTrack = (event) => {
+        event.preventDefault()
         setIsEditing(false)
-        console.log(editedTrackTitle)
-        return fetch(baseUrl + track + `/${editedTrackTitle}`, {
-            method: 'PUT'
-        })
+        updateTrack(trackTitle, updatedTrack)
     }
 
-    const handleChange = event => setEditedTrackTitle(event.target.value)
+    const handleChange = event => setUpdatedTrack({
+        "title" : event.target.value,
+        "index" : index
+    })
     
     return(
     
@@ -38,7 +39,7 @@ const Track = ({
                 className={selectedTrackIndex === index ? "playing" : ""} 
                 onClick={handleClick}
             >
-                {track}
+                {trackTitle}
             </li>
 
             <button onClick={handleDelete}>
@@ -53,7 +54,7 @@ const Track = ({
             <>
                 <form className="edit-form">
                     <label htmlFor="edit-track-input">
-                        <svg onClick={handleSubmitEdit} className="confirm-button"><use href="#confirm-icon"/></svg>
+                        <svg onClick={handleUpdateTrack} className="confirm-button"><use href="#confirm-icon"/></svg>
                         <input onChange={handleChange} type="text" id="edit-track-input" name="edit-track-input"></input>
                     </label>
                 </form>

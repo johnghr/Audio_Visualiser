@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React from 'react';
 import AudioAnalyser from '../components/Analyser/AudioAnalyser';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import '../App.css';
@@ -24,7 +24,6 @@ const MediaPlayer = ({
       })
   }
 
-  
   return (
       <>
 

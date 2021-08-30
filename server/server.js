@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 const cors = require('cors');
 app.use(cors());
@@ -35,11 +36,11 @@ app.get('/', (req, res) => {
     })  
 })
 
-app.put('/:id/:newTitle', (req, res) => {
-    console.log("the body thou hath asked for",req.params.newTitle)
-    fs.rename(`${directoryPath}\\${req.params.id}`, `${directoryPath}\\${req.params.newTitle}`, () => {
-        console.log(`${directoryPath}\\${req.params.id} has been renamed ${directoryPath}\\${req.params.newTitle}`)
-    })
+app.put('/:id', (req, res) => {
+    console.log("incoming request body:",req.body)
+    fs.rename(`${directoryPath}\\${req.params.id}`, `${directoryPath}\\${req.body.title}`, () => {
+        console.log(`${directoryPath}\\${req.params.id} has been renamed ${directoryPath}\\${req.body.title}`)
+    })    
 })
 
 app.delete('/:id', (req, res) => {
