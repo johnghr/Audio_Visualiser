@@ -9,12 +9,18 @@ import './App.css';
 
 function App() {
 
+  // Initializes Audio Context and stores it in the current property of useRef
+
   const audioContextRef = useRef(new (window.AudioContext || window.webkitAudioContext)());
   const audioContext = audioContextRef.current;
+
+  // State for managing the input for the visualiser analyser
 
   const initialAnalyserState = {input: null, mode: 'off'};
   const [analyserState, setAnalyserState] = useState(initialAnalyserState);
   const resetAnalyser = () => setAnalyserState(initialAnalyserState);
+
+  // State and functions for managing the track interface services
 
   const [trackUploads, setTrackUploads] = useState([]);
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
@@ -29,8 +35,6 @@ function App() {
   })
 
   const updateTrack = (trackTitle, updatedTrack) => {
-    console.log("trackTitle", trackTitle)
-    console.log("updated track state",updatedTrack)
     TrackService.updateTrack(trackTitle, updatedTrack);
     const updatedTrackUploads = [...trackUploads];
     console.log(updatedTrackUploads);
@@ -43,6 +47,8 @@ function App() {
     const updatedTrackList = trackUploads.filter(trackUpload => trackUpload !== trackToDelete);
     TrackService.deleteTrack(trackToDelete).then(setTrackUploads(updatedTrackList));
   }
+
+  // State and functions for managing the toggle buttons - user mic, current visualiser setting and background
 
   const [background, setBackground] = useState("Clear");
   const visualisers = ["Waveform", "Frequency", "Experimental"];

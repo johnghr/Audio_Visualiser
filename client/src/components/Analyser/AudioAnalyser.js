@@ -25,7 +25,6 @@ const AudioAnalyser = ({
 
     let currentVisualiserRef = useRef(currentVisualiser)
      
-
     useEffect(() => {    
         if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
@@ -46,7 +45,6 @@ const AudioAnalyser = ({
     }, [mode, input])
 
     const waveformTick = () => {
-        console.log("waveform says tick")
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
@@ -56,18 +54,15 @@ const AudioAnalyser = ({
     }
 
     const frequencyTick = () => {
-        console.log("frequency says tock")
         audioData = new Uint8Array(analyser.fftSize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
-        
         if(currentVisualiserRef.current !== "Waveform"){
             rafIdRef.current = requestAnimationFrame(frequencyTick); 
         }  
     }
     
-
     useEffect(() => {
         currentVisualiserRef.current = currentVisualiser
         if (currentVisualiser === "Waveform"){
@@ -79,7 +74,6 @@ const AudioAnalyser = ({
         }
 
         return function cleanup() {
-            console.log("clean up di mess pls 2")
             if (currentVisualiser === "Waveform"){
                 cancelAnimationFrame(rafIdRef.current)
             } else {

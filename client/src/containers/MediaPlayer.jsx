@@ -53,9 +53,7 @@ const MediaPlayer = ({
                 selectedTrackIndex={selectedTrackIndex}
                 setSelectedTrackIndex={setSelectedTrackIndex}
                 trackUploads={trackUploads} 
-                setTrackUploads={setTrackUploads}
                 onChangeTrack={onChangeTrack}
-                setAnalyserState={setAnalyserState}
               />
             </div>
           </div>
