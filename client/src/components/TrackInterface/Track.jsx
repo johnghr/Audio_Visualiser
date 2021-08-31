@@ -1,34 +1,69 @@
-import React from 'react';
+import React, {useState} from 'react';
+import TrackService from '../../services/TrackService';
 
-const Track = ({track, selectedTrackIndex, setSelectedTrackIndex, index}) => {
+const Track = ({
+    trackTitle, 
+    selectedTrackIndex,
+    setSelectedTrackIndex,
+    index,
+    deleteTrack,
+    updateTrack,
+    setUpdatedTrack,
+    updatedTrack
+}) => {
 
-    const baseUrl = 'http://localhost:5000/uploads/'
-    // set selected track index to be the index of the clicked track list item
-    const handleClick = (event) => setSelectedTrackIndex(index)
-    const handleDelete = (event) => deleteTrack(track)
+    const [isEditing, setIsEditing] = useState(false)
 
-    const deleteTrack = (id) => {
-        return fetch(baseUrl + id, {
-            method: 'Delete'    
-        });
-    };
+    const handleClick = () => setSelectedTrackIndex(index)
+    const handleDelete = () => deleteTrack(trackTitle)
+    const handleEdit = () => editTrack(trackTitle)
+
+    const editTrack = () => setIsEditing(true)
+        
+    const handleUpdateTrack = (event) => {
+        event.preventDefault()
+        setIsEditing(false)
+        updateTrack(trackTitle, updatedTrack)
+    }
+
+    const handleChange = event => setUpdatedTrack({
+        "title" : event.target.value,
+        "index" : index
+    })
     
     return(
-       <div className="track-item-container">
+    
+        <div className="track-item-container">
+        {isEditing === false ?        
+            
             <li 
-                className={selectedTrackIndex === index ? "playing" : ""} 
+                className={`track-list-item ${selectedTrackIndex === index ? "playing" : ""}`} 
                 onClick={handleClick}
             >
-                {track}
-                <button 
-                    className="delete-button"
-                    onClick={handleDelete}
-                >
-                    Delete
-                </button>
+                {trackTitle}
+                <div>
+                   <button onClick={handleDelete}>
+                        <svg className="delete-button"><use href="#delete-icon"/></svg>
+                    </button>  
+                    
+                    <button  onClick={handleEdit}>
+                        <svg className="edit-button"><use href="#edit-icon"/></svg>
+                    </button> 
+                </div>
+                
             </li>
-            
-        </div> 
+        :
+            <>
+                <form className="edit-form">
+                    <label htmlFor="edit-track-input">
+                        <svg onClick={handleUpdateTrack} className="confirm-button"><use href="#confirm-icon"/></svg>
+                        <input onChange={handleChange} type="text" id="edit-track-input" name="edit-track-input"></input>
+                    </label>
+                </form>
+            </>
+        }
+        </div>
+          
     ) 
 
 }

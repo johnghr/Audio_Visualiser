@@ -6,8 +6,7 @@ import FrequencyVisualiser from '../Visualisers/FrequencyVisualiser';
 const AudioAnalyser = ({ 
     mode, 
     input,
-    visualisers, 
-    visualiserIndex, 
+    currentVisualiser,
     background, 
     audioContext 
 }) => {
@@ -22,89 +21,91 @@ const AudioAnalyser = ({
     const analyserRef = useRef(audioContext.createAnalyser())
     const analyser = analyserRef.current;
     let audioData;
-    let rafId;  
+    const rafIdRef = useRef(null);
 
+    let currentVisualiserRef = useRef(currentVisualiser)
+     
     useEffect(() => {    
         if(mode === "track"){ 
             source = audioContext.createMediaElementSource(input);
             source.connect(analyser).connect(audioContext.destination);    
-        } else {
+        } else if (mode === "microphone") {
             source = audioContext.createMediaStreamSource(input);
             source.connect(analyser);
+        } else {
+            return
         }
 
         return function cleanup() {
             console.log("analyser disconnected")
             source.disconnect(analyser)
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafIdRef.current);
         }
 
     }, [mode, input])
 
     const waveformTick = () => {
-        analyser.fftSize = 1024
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        // console.log("waveformData")
-        if(visualisers[visualiserIndex] === "Waveform"){
-          rafId = requestAnimationFrame(waveformTick);  
+        if(currentVisualiserRef.current === "Waveform"){
+            rafIdRef.current = requestAnimationFrame(waveformTick);  
         } 
     }
 
     const frequencyTick = () => {
-        analyser.fftSize = 512
-        let bufferLength = analyser.frequencyBinCount
-        audioData = new Uint8Array(bufferLength);
+        audioData = new Uint8Array(analyser.fftSize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
-        // console.log("frequencyData")
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
-        
-        if(visualisers[visualiserIndex] !== "Waveform"){
-           rafId = requestAnimationFrame(frequencyTick); 
-        }
-        
+        if(currentVisualiserRef.current !== "Waveform"){
+            rafIdRef.current = requestAnimationFrame(frequencyTick); 
+        }  
     }
-
+    
     useEffect(() => {
-        if (visualisers[visualiserIndex] === "Waveform"){
-           requestAnimationFrame(waveformTick); 
+        currentVisualiserRef.current = currentVisualiser
+        if (currentVisualiser === "Waveform"){
+            analyser.fftSize = 2048;
+            requestAnimationFrame(waveformTick);
         } else {
-            requestAnimationFrame(frequencyTick)
-        }
-        
-        return function cleanup() {
-            console.log("clean up di mess pls")
-            cancelAnimationFrame(rafId);
+            analyser.fftSize = 512;
+            requestAnimationFrame(frequencyTick);
         }
 
-    }, [visualiserIndex])
+        return function cleanup() {
+            if (currentVisualiser === "Waveform"){
+                cancelAnimationFrame(rafIdRef.current)
+            } else {
+                cancelAnimationFrame(rafIdRef.current)
+            }
+        }
+
+    }, [currentVisualiser])
 
     return(
-        <>
-            {visualisers[visualiserIndex] === "Waveform" &&
+        <div className="canvas-container">
+            {currentVisualiser === "Waveform" &&
             <WaveformVisualiser 
                 waveformData={waveformData} 
                 background={background}
                 analyser={analyser}
             />}
 
-            {visualisers[visualiserIndex] === "Frequency" &&
+            {currentVisualiser === "Frequency" &&
             <FrequencyVisualiser
                 frequencyData={frequencyData} 
                 analyser={analyser}
                 background={background}
             />}  
             
-            {visualisers[visualiserIndex] === "Experimental" &&
-            <ExperimentalVisualiser 
-                frequencyData={frequencyData} 
+            {currentVisualiser === "Experimental" &&
+            <ExperimentalVisualiser
                 analyser={analyser}
                 background={background}
                 reducedFrequencyData={reducedFrequencyData}
             />}
-        </>  
+        </div>  
     )
 
 }

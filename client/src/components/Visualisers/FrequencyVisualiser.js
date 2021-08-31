@@ -6,7 +6,8 @@ import React, { useRef, useEffect } from 'react';
 const FrequencyVisualiser = ({ 
     frequencyData, 
     analyser, 
-    background 
+    background,
+    rafId 
 }) => {
 
     const canvasRef = useRef();
@@ -26,7 +27,7 @@ const FrequencyVisualiser = ({
 
         const render = () => {
             if(background === "Clear"){
-                context.fillStyle = '#00aeb0';   
+                context.fillStyle = '#67b9a9';   
             } else {
                 context.fillStyle = '#000000'
             }
@@ -54,7 +55,8 @@ const FrequencyVisualiser = ({
         render()
 
         return function cleanup(){
-            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle = "##67b9a90"
+            context.fillRect(0, 0,width, height)
         }
 
     });

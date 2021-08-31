@@ -1,5 +1,13 @@
 html {
-	background-color: #00aeb0;
+	background-color: #682957;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
 }
 
 button {
@@ -8,12 +16,108 @@ button {
   cursor: pointer;
 }
 
-.App {
-  width: 100%;
-}
-
 .app-container {
   display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  padding: 0px 10px;
+}
+
+.app-container>* {
+  height: 100vh;
+  padding: 10px 0px;
+}
+
+.toggle-controls {
+  width: 25%;
+}
+
+.media-player {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.canvas-container {
+  display: flex;
+  min-height: 550px;
+}
+
+.canvas {
+  padding: 10px;
+  width: 100%;
+  max-height: 550px;
+}
+
+/* box to make sure the record player keeps a consistent aspect ratio */
+.record-player-container  {
+  width:100%;
+  padding-top: 42%; /*get padding from the aspect ratio in this case 300/720 */
+  position: relative;
+  max-width: 720px;
+  max-height: 300px;
+}
+
+.record-player {
+  width:100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+
+.record-player-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  background-color: #2b5983;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); /*use clip path to turn the top of the record player into a trapezoid*/
+}
+
+.record-disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  height: 75%;
+  background: black;
+  border-radius: 50%/ 50%;
+  box-shadow: 5px 10px 18px black;
+}
+
+.outer-disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 37%;
+  background: #e85627;
+  border-radius: 50%/ 50%;
+}
+
+.inner-disc {
+  width: 10%;
+  height: 20%;
+  background: black;
+  border-radius: 50%/ 50%;
+}
+
+.record-player-bottom {
+  background: #b92056;
+  height: 20%;
+}
+
+.audio-player-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .audio-controls {
@@ -23,37 +127,17 @@ button {
   margin: auto ;
 }
 
-.canvas {
-  display: block;
-}
-
-.frequency-canvas {
-  display: block;
-  margin-left: 33%;
-}
-
-.audio-player-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
+.track-sidebar {
+  width: 25%;
 }
 
 .control-icon {
   height: 33px;
-  width: 33px;
-  
+  width: 33px;  
 }
 
 .control-icon:hover {
   color: #ffe26f;
-}
-
-.visualiser-container {
-  height: 550px;
-  display: flex;
-  justify-content: center;
-
 }
 
 .file-upload-input {
@@ -63,55 +147,59 @@ button {
 .file-upload-label {
   border: 1px solid grey;
   padding: 5px;
-  background-color: #ffe26f;
+  background-color: #f0b54d;
   border-radius: 5px;
   color: #323030;
   cursor: pointer;
 }
 
 .file-upload-label:hover {
-  background-color: #f6eabb;
-}
-
-.toggle-controls {
-  display: flex;
-  justify-content: flex-end;
+  background-color: #e85627;
 }
 
 #mic-toggle {
-  border-radius: px;
-  background-color: #ffe26f;
+  border: solid 2px black;
+  border-radius: 2px;
+  background-color: #f0b54d;
   margin: 2px;
 }
 
 #mic-toggle:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
 }
 
 #background-toggle {
+  border: solid 2px black;
   border-radius: 2px;
-  background-color: #ffe26f;
+  background-color: #f0b54d;
   margin: 2px;
 }
 
 #background-toggle:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
 }
 
 #visualiser-toggle {
+  border: solid 2px black;
   border-radius: 2px;
-  background-color: #ffe26f;
+  background-color: #f0b54d;
   margin: 2px;
 }
 
 #visualiser-toggle:hover {
-  background-color: #f6eabb;
+  background-color: #e85627;
+}
+
+.toggle-controls>button {
+  padding: 5px 22px;
 }
 
 .track-list {
   padding: 0px;
-  max-height: 600px;
+  max-height: 800px;
   overflow: auto;
+  border: solid;
+  background: #f0b54d;
 }
 
 .track-list li {
@@ -120,18 +208,50 @@ button {
   border-top: 1px solid black;
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 .track-list li.playing {
-  background-color: #ffe26f;
+  background-color: #e85627;
 }
 
 .track-item-container {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
 }
 
-.sidebar {
-  width: 30%;
+.delete-button {
+  height: 20px;
+  width: 20px;
+}
 
+.delete-button:hover {
+  background-color: #e85627;
+} 
+
+.edit-button {
+  height: 22px;
+  width: 22px;
+}
+
+.edit-button:hover {
+  background-color: #e85627;
+}
+
+.confirm-button {
+  height: 20px;
+  width: 20px;
+}
+
+.confirm-button:hover {
+  background-color: #e85627;
+}
+
+.toggle-controls>button {
+  padding: 8px 12px;
+}
+
+.track-list-item {
+  display: flex;
+  justify-content: space-between;
 }
