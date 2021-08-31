@@ -2,6 +2,14 @@ html {
 	background-color: #682957;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
 button {
   background: none;
   border: none;
@@ -12,6 +20,12 @@ button {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
+  padding: 0px 10px;
+}
+
+.app-container>* {
+  height: 100vh;
+  padding: 10px 0px;
 }
 
 .toggle-controls {
@@ -22,50 +36,70 @@ button {
   display: flex;
   flex-direction: column;
   width: 50%;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 10px;
 }
 
 .canvas-container {
   display: flex;
   /* justify-content: center; */
-  height: 70%;
-  min-height: 620px;
+  min-height: 550px;
 }
 
 .canvas {
   padding: 10px;
   width: 100%;
+  max-height: 550px;
+}
+
+/* box to make sure the record player keeps a consistent aspect ratio */
+.record-player-container  {
+  width:100%;
+  padding-top: 42%; /*get padding from the aspect ratio in this case 300/720 */
+  position: relative;
+  max-width: 720px;
+  max-height: 300px;
 }
 
 .record-player {
-  padding: 20px;
+  width:100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
 }
+
 .record-player-top {
-  border-bottom: 200px solid #2b5983;
-  border-left: 90px solid transparent;
-  border-right: 90px solid transparent;
-  height: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  background-color: #2b5983;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); /*use clip path to turn the top of the record player into a trapezoid*/
 }
 
 .record-disc {
-  width: 110%;
-  height: 162px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  height: 75%;
   background: black;
   border-radius: 50%/ 50%;
-  position: relative;
-  top: 20px;
-  right: 8px;
   box-shadow: 5px 10px 18px black;
 }
 
 .outer-disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50%;
   height: 37%;
   background: #e85627;
   border-radius: 50%/ 50%;
-  position: relative;
-  top: 28%;
-  left: 24%;
 }
 
 .inner-disc {
@@ -73,19 +107,18 @@ button {
   height: 20%;
   background: black;
   border-radius: 50%/ 50%;
-  position: relative;
-  top: 39%;
-  left: 44%;
 }
 
 .record-player-bottom {
   background: #b92056;
+  height: 20%;
 }
 
 .audio-player-container{
   display: flex;
   justify-content: center;
-  padding: 9px;
+  align-items: center;
+  height: 100%;
 }
 
 .audio-controls {
@@ -158,6 +191,10 @@ button {
   background-color: #e85627;
 }
 
+.toggle-controls>button {
+  padding: 5px 22px;
+}
+
 .track-list {
   padding: 0px;
   max-height: 800px;
@@ -181,7 +218,7 @@ button {
 
 .track-item-container {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
 }
 
 .delete-button {

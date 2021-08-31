@@ -132,7 +132,7 @@ function App() {
       <div className="toggle-controls">
       
         <button id="mic-toggle" onClick={toggleMicrophone}>
-          {analyserState.mode === 'microphone' ? 'Stop microphone' : 'Get microphone'}
+          {analyserState.mode === 'microphone' ? 'Stop microphone' : 'Use microphone'}
         </button>
 
         <button id="visualiser-toggle" onClick={toggleVisualiser}>
