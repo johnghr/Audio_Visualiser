@@ -247,3 +247,12 @@ button {
 .confirm-button:hover {
   background-color: #e85627;
 }
+
+.toggle-controls>button {
+  padding: 8px 12px;
+}
+
+.track-list-item {
+  display: flex;
+  justify-content: space-between;
+}

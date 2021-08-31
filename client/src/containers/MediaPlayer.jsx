@@ -39,25 +39,23 @@ const MediaPlayer = ({
           audioContext={audioContext}
         />}      
         
-        <div className="record-player-container">
-          <div className="record-player">
-            <div className="record-player-top">
-                <div className="record-disc">
-                    <div className="outer-disc">
-                      <div className="inner-disc"></div>
-                    </div>
-                </div>
-            </div>
-              <div className="record-player-bottom">
-                <AudioPlayer 
-                  selectedTrackIndex={selectedTrackIndex}
-                  setSelectedTrackIndex={setSelectedTrackIndex}
-                  trackUploads={trackUploads} 
-                  setTrackUploads={setTrackUploads}
-                  onChangeTrack={onChangeTrack}
-                  setAnalyserState={setAnalyserState}
-                />
-            </div>
+        <div className="record-player">
+          <div className="record-player-top">
+              <div className="record-disc">
+                  <div className="outer-disc"> 
+                    <div className="inner-disc"></div>
+                  </div>
+              </div>
+          </div>
+          <div className="record-player-bottom">
+            <AudioPlayer 
+              selectedTrackIndex={selectedTrackIndex}
+              setSelectedTrackIndex={setSelectedTrackIndex}
+              trackUploads={trackUploads} 
+              setTrackUploads={setTrackUploads}
+              onChangeTrack={onChangeTrack}
+              setAnalyserState={setAnalyserState}
+            />
           </div>
         </div>
         
