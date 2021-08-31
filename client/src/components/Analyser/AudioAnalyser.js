@@ -46,7 +46,7 @@ const AudioAnalyser = ({
         audioData = new Uint8Array(analyser.fftSize);
         analyser.getByteTimeDomainData(audioData);
         setWaveformData([...audioData])
-        console.log("waveformData")
+        // console.log("waveformData")
         if(visualisers[visualiserIndex] === "Waveform"){
           rafId = requestAnimationFrame(waveformTick);  
         } 
@@ -58,7 +58,7 @@ const AudioAnalyser = ({
         audioData = new Uint8Array(bufferLength);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
-        console.log("frequencyData")
+        // console.log("frequencyData")
         reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
         
         if(visualisers[visualiserIndex] !== "Waveform"){
