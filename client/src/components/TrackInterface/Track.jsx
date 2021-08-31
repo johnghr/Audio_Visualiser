@@ -7,11 +7,12 @@ const Track = ({
     setSelectedTrackIndex,
     index,
     deleteTrack,
-    updateTrack
+    updateTrack,
+    setUpdatedTrack,
+    updatedTrack
 }) => {
 
     const [isEditing, setIsEditing] = useState(false)
-    const [updatedTrack, setUpdatedTrack] = useState("")
 
     const handleClick = () => setSelectedTrackIndex(index)
     const handleDelete = () => deleteTrack(trackTitle)
@@ -34,22 +35,23 @@ const Track = ({
     
         <div className="track-item-container">
         {isEditing === false ?        
-            <>
+            
             <li 
-                className={selectedTrackIndex === index ? "playing" : ""} 
+                className={`track-list-item ${selectedTrackIndex === index ? "playing" : ""}`} 
                 onClick={handleClick}
             >
                 {trackTitle}
+                <div>
+                   <button onClick={handleDelete}>
+                    <svg className="delete-button"><use href="#delete-icon"/></svg>
+                </button>  
+                
+                <button  onClick={handleEdit}>
+                    <svg className="edit-button"><use href="#edit-icon"/></svg>
+                </button> 
+                </div>
+                
             </li>
-
-            <button onClick={handleDelete}>
-                <svg className="delete-button"><use href="#delete-icon"/></svg>
-            </button>  
-            
-            <button  onClick={handleEdit}>
-                <svg className="edit-button"><use href="#edit-icon"/></svg>
-            </button>
-            </>
         :
             <>
                 <form className="edit-form">

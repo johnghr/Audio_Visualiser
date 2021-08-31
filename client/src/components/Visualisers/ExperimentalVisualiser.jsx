@@ -5,8 +5,7 @@ import React, {useRef, useEffect} from 'react';
 
 const ExperimentalVisualiser = ({
     background,
-    reducedFrequencyData,
-    rafId
+    reducedFrequencyData
 }) => {
 
     const canvasRef = useRef();
@@ -57,7 +56,7 @@ const ExperimentalVisualiser = ({
             context.fillRect(0, 0,width, height)
         }
 
-    }, [background, reducedFrequencyData])
+    }, [background])
 
     return(
         <canvas 
