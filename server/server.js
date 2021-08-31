@@ -9,7 +9,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
-const directoryPath = path.join(__dirname, '\\uploads')
+const directoryPath = path.join(__dirname, '/uploads')
 console.log("directory name",__dirname)
 
 const fileStorageEngine = multer.diskStorage({
@@ -38,14 +38,14 @@ app.get('/', (req, res) => {
 
 app.put('/:id', (req, res) => {
     console.log("incoming request body:",req.body)
-    fs.rename(`${directoryPath}\\${req.params.id}`, `${directoryPath}\\${req.body.title}`, () => {
-        console.log(`${directoryPath}\\${req.params.id} has been renamed ${directoryPath}\\${req.body.title}`)
+    fs.rename(`${directoryPath}/${req.params.id}`, `${directoryPath}/${req.body.title}`, () => {
+        console.log(`${directoryPath}/${req.params.id} has been renamed ${directoryPath}\\${req.body.title}`)
     })    
 })
 
 app.delete('/:id', (req, res) => {
     console.log("request parameters",req.params)
-    fs.unlink(`${directoryPath}\\${req.params.id}`, (err) => {
+    fs.unlink(`${directoryPath}/${req.params.id}`, (err) => {
         if (err) throw err;
         console.log(`${directoryPath} was deleted`)
     })
