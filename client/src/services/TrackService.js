@@ -16,7 +16,6 @@ const TrackService = {
     },
 
     updateTrack(trackTitle, updatedTrack) {
-        console.log("yi best pal jason",JSON.stringify(updatedTrack))
         return fetch(baseUrl + trackTitle, {
             method: 'PUT',
             headers: {

@@ -57,20 +57,35 @@ const AudioAnalyser = ({
         audioData = new Uint8Array(analyser.fftSize / 2);
         analyser.getByteFrequencyData(audioData);
         setFrequencyData([...audioData])
-        reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
-        if(currentVisualiserRef.current !== "Waveform"){
+        if(currentVisualiserRef.current === "Frequency"){
             rafIdRef.current = requestAnimationFrame(frequencyTick); 
         }  
     }
     
+    const experimentalTick = () => {
+        audioData = new Uint8Array(analyser.fftSize / 2);
+        analyser.getByteFrequencyData(audioData);
+        reducedFrequencyDataRef.current = audioData.reduce((accum, currentValue) => accum += currentValue)
+        if(currentVisualiserRef.current === "Experimental"){
+            rafIdRef.current = requestAnimationFrame(experimentalTick); 
+        }
+    }
+
     useEffect(() => {
         currentVisualiserRef.current = currentVisualiser
         if (currentVisualiser === "Waveform"){
             analyser.fftSize = 2048;
             requestAnimationFrame(waveformTick);
-        } else {
+        } 
+        
+        if  (currentVisualiser === "Frequency"){
             analyser.fftSize = 512;
             requestAnimationFrame(frequencyTick);
+        }
+
+        if (currentVisualiser === "Experimental"){
+            analyser.fftSize = 512
+            requestAnimationFrame(experimentalTick)
         }
 
         return function cleanup() {

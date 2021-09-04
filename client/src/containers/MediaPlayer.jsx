@@ -10,7 +10,6 @@ const MediaPlayer = ({
   setSelectedTrackIndex, 
   audioContext,
   trackUploads,
-  setTrackUploads,
   setAnalyserState,
   analyserState
 }) => {

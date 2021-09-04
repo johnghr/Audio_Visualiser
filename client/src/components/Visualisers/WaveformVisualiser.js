@@ -3,8 +3,7 @@ import React, {useRef, useEffect} from 'react';
 
 const WaveformVisualiser = ({
     waveformData, 
-    background,
-    rafId
+    background
 }) => {
 
     const canvasRef = useRef();
