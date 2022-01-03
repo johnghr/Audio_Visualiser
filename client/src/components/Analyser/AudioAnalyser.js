@@ -67,10 +67,10 @@ const AudioAnalyser = ({
     }
 
     return function cleanup() {
-      console.log("cancelling animation fram");
+      console.log("cancelling animation frame");
       cancelAnimationFrame(rafIdRef.current);
     };
-  });
+  }, [currentVisualiser]);
 
   return (
     <div className="canvas-container">
