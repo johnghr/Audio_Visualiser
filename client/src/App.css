@@ -1,5 +1,5 @@
 html {
-	background-color: #682957;
+  background-color: #682957;
 }
 
 * {
@@ -23,7 +23,7 @@ button {
   padding: 0px 10px;
 }
 
-.app-container>* {
+.app-container > * {
   height: 100vh;
   padding: 10px 0px;
 }
@@ -43,7 +43,7 @@ button {
 
 .canvas-container {
   display: flex;
-  min-height: 550px;
+  min-height: 475px;
 }
 
 .canvas {
@@ -53,8 +53,8 @@ button {
 }
 
 /* box to make sure the record player keeps a consistent aspect ratio */
-.record-player-container  {
-  width:100%;
+.record-player-container {
+  width: 100%;
   padding-top: 42%; /*get padding from the aspect ratio in this case 300/720 */
   position: relative;
   max-width: 720px;
@@ -62,7 +62,7 @@ button {
 }
 
 .record-player {
-  width:100%;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -75,9 +75,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: 40%;
   background-color: #2b5983;
-  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); /*use clip path to turn the top of the record player into a trapezoid*/
+  clip-path: polygon(
+    20% 0%,
+    80% 0%,
+    100% 100%,
+    0% 100%
+  ); /*use clip path to turn the top of the record player into a trapezoid*/
 }
 
 .record-disc {
@@ -113,7 +118,7 @@ button {
   height: 20%;
 }
 
-.audio-player-container{
+.audio-player-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,8 +128,8 @@ button {
 .audio-controls {
   display: flex;
   justify-content: space-between;
-  width:  75%;
-  margin: auto ;
+  width: 75%;
+  margin: auto;
 }
 
 .track-sidebar {
@@ -133,7 +138,7 @@ button {
 
 .control-icon {
   height: 33px;
-  width: 33px;  
+  width: 33px;
 }
 
 .control-icon:hover {
@@ -141,7 +146,7 @@ button {
 }
 
 .file-upload-input {
-  display:none;
+  display: none;
 }
 
 .file-upload-label {
@@ -190,13 +195,13 @@ button {
   background-color: #e85627;
 }
 
-.toggle-controls>button {
+.toggle-controls > button {
   padding: 5px 22px;
 }
 
 .track-list {
   padding: 0px;
-  max-height: 800px;
+  max-height: 80%;
   overflow: auto;
   border: solid;
   background: #f0b54d;
@@ -227,7 +232,7 @@ button {
 
 .delete-button:hover {
   background-color: #e85627;
-} 
+}
 
 .edit-button {
   height: 22px;
@@ -247,7 +252,7 @@ button {
   background-color: #e85627;
 }
 
-.toggle-controls>button {
+.toggle-controls > button {
   padding: 8px 12px;
 }
 
