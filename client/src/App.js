@@ -28,6 +28,8 @@ function App() {
     TrackService.getTracks().then((trackUploads) =>
       setTrackUploads(trackUploads)
     );
+    console.log("getting tracks:", trackUploads);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [updatedTrack, setUpdatedTrack] = useState({

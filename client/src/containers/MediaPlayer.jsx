@@ -1,6 +1,6 @@
 import React from "react";
 import AudioAnalyser from "../components/Analyser/AudioAnalyser";
-import AudioPlayer from "../components/AudioPlayer/AudioPlayer";
+import AudioPlayer from "../components/AudioPlayer/AudioPlayerOld";
 import "../App.css";
 
 const MediaPlayer = ({
@@ -14,6 +14,7 @@ const MediaPlayer = ({
   analyserState,
 }) => {
   const onChangeTrack = (track) => {
+    console.log("track:", track);
     setAnalyserState({
       input: track,
       mode: "track",
@@ -44,11 +45,17 @@ const MediaPlayer = ({
             </div>
           </div>
           <div className="record-player-bottom">
-            <AudioPlayer
+            {/* <AudioPlayer
               selectedTrackIndex={selectedTrackIndex}
               setSelectedTrackIndex={setSelectedTrackIndex}
               trackUploads={trackUploads}
               onChangeTrack={onChangeTrack}
+            /> */}
+            <AudioPlayer
+              onChangeTrack={onChangeTrack}
+              trackUploads={trackUploads}
+              selectedTrackIndex={selectedTrackIndex}
+              setSelectedTrackIndex={setSelectedTrackIndex}
             />
           </div>
         </div>
