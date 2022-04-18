@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Track = ({
+export const Track = ({
   trackTitle,
   selectedTrackIndex,
   setSelectedTrackIndex,
@@ -74,5 +74,3 @@ const Track = ({
     </div>
   );
 };
-
-export default Track;

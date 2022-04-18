@@ -1,6 +1,6 @@
-import Track from "./Track";
+import { Track } from "./Track";
 
-const TrackList = ({
+export const TrackList = ({
   trackUploads,
   selectedTrackIndex,
   setSelectedTrackIndex,
@@ -28,5 +28,3 @@ const TrackList = ({
 
   return <ul className="track-list">{trackList}</ul>;
 };
-
-export default TrackList;

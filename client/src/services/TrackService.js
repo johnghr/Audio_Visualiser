@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:5000/";
 
-const TrackService = {
+export const TrackService = {
   getTracks() {
     return fetch(baseUrl).then((res) => res.json());
   },
@@ -28,5 +28,3 @@ const TrackService = {
     });
   },
 };
-
-export default TrackService;

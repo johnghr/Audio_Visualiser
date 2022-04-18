@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from "react";
-import AudioControls from "./AudioControls";
+import { AudioControls } from "./AudioControls";
 
-const AudioPlayer = ({
+export const AudioPlayer = ({
   trackUploads,
   onChangeTrack,
   selectedTrackIndex,
@@ -127,5 +127,3 @@ const AudioPlayer = ({
     </div>
   );
 };
-
-export default AudioPlayer;

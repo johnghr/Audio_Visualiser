@@ -1,12 +1,12 @@
 import MediaPlayer from "./containers/MediaPlayer";
 import { useEffect, useState, useRef } from "react";
 import TrackService from "./services/TrackService";
-import UploadForm from "./components/TrackInterface/UploadForm";
-import TrackList from "./components/TrackInterface/TrackList";
+import { UploadForm } from "./components/TrackInterface/UploadForm";
+import { TrackList } from "./components/TrackInterface/TrackList";
 import "./App.css";
-import ToggleConrols from "./components/ToggleControls/ToggleControls";
+import { ToggleConrols } from "./components/ToggleControls/ToggleControls";
 
-function App() {
+export const App = () => {
   // Initializes Audio Context and stores it in the current property of useRef
 
   const audioContextRef = useRef(
@@ -75,7 +75,7 @@ function App() {
     setBackground(background === "Clear" ? "Black" : "Clear");
   };
 
-  async function getMicrophone() {
+  const getMicrophone = async () => {
     let micAudio = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: false,
@@ -84,14 +84,14 @@ function App() {
       input: micAudio,
       mode: "microphone",
     });
-  }
+  };
 
-  function stopMicrophone() {
+  const stopMicrophone = () => {
     analyserState.input.getTracks().forEach((track) => track.stop());
     resetAnalyser();
-  }
+  };
 
-  function toggleMicrophone() {
+  const toggleMicrophone = () => {
     if (analyserState.mode === "microphone") {
       stopMicrophone();
     } else {
@@ -101,7 +101,7 @@ function App() {
       }
       getMicrophone();
     }
-  }
+  };
 
   return (
     <div className="app-container">
@@ -150,6 +150,4 @@ function App() {
       </div>
     </div>
   );
-}
-
-export default App;
+};

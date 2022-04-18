@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-const WaveformVisualiser = ({ waveformData, background }) => {
+export const WaveformVisualiser = ({ waveformData, background }) => {
   const canvasRef = useRef();
 
   useEffect(() => {
@@ -49,5 +49,3 @@ const WaveformVisualiser = ({ waveformData, background }) => {
 
   return <canvas className="canvas" width="550" height="550" ref={canvasRef} />;
 };
-
-export default WaveformVisualiser;

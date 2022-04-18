@@ -1,4 +1,4 @@
-const AudioPlayer = ({
+export const AudioPlayer = ({
   selectedTrackIndex,
   setSelectedTrackIndex,
   onChangeTrack,
@@ -47,5 +47,3 @@ const AudioPlayer = ({
     </div>
   );
 };
-
-export default AudioPlayer;

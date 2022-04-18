@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 //let testWaveFormRef = useRef(Array.from({length: 1024}, () => Math.floor(Math.random() * 255)));
 //  const testWaveForm = testWaveFormRef.current;
 
-const FrequencyVisualiser = ({
+export const FrequencyVisualiser = ({
   frequencyData,
   analyser,
   background,
@@ -58,5 +58,3 @@ const FrequencyVisualiser = ({
 
   return <canvas className="canvas" width="550" height="550" ref={canvasRef} />;
 };
-
-export default FrequencyVisualiser;

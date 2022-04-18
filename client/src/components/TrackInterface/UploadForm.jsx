@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import TrackService from "../../services/TrackService";
 
-const UploadForm = ({ setTrackUploads, trackUploads }) => {
+export const UploadForm = ({ setTrackUploads, trackUploads }) => {
   const formRef = useRef(null);
 
   const onChooseFile = (event) => {
@@ -29,5 +29,3 @@ const UploadForm = ({ setTrackUploads, trackUploads }) => {
     </div>
   );
 };
-
-export default UploadForm;

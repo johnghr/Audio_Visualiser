@@ -1,4 +1,4 @@
-const ToggleConrols = ({
+export const ToggleConrols = ({
   background,
   mode,
   toggleBackground,
@@ -23,5 +23,3 @@ const ToggleConrols = ({
     </>
   );
 };
-
-export default ToggleConrols;

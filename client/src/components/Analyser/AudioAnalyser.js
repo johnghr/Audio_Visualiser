@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
-import WaveformVisualiser from "../Visualisers/WaveformVisualiser";
-import FrequencyVisualiser from "../Visualisers/FrequencyVisualiser";
+import { WaveformVisualiser } from "../Visualisers/WaveformVisualiser";
+import { FrequencyVisualiser } from "../Visualisers/FrequencyVisualiser";
 
-const AudioAnalyser = ({
+export const AudioAnalyser = ({
   mode,
   input,
   currentVisualiser,
@@ -93,5 +93,3 @@ const AudioAnalyser = ({
     </div>
   );
 };
-
-export default AudioAnalyser;

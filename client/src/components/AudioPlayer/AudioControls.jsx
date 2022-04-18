@@ -3,7 +3,7 @@ import { Pause } from "../Icons//Pause.jsx";
 import { Next } from "../Icons/Next.jsx";
 import { Previous } from "../Icons//Previous.jsx";
 
-const AudioControls = ({
+export const AudioControls = ({
   isPlaying,
   onPlayPauseClick,
   onPrevClick,
@@ -47,5 +47,3 @@ const AudioControls = ({
     </button>
   </div>
 );
-
-export default AudioControls;
