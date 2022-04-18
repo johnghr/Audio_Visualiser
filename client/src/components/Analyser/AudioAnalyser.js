@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import WaveformVisualiser from "../Visualisers/WaveformVisualiser";
 import FrequencyVisualiser from "../Visualisers/FrequencyVisualiser";
 

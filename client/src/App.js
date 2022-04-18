@@ -1,5 +1,5 @@
 import MediaPlayer from "./containers/MediaPlayer";
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import TrackService from "./services/TrackService";
 import UploadForm from "./components/TrackInterface/UploadForm";
 import TrackList from "./components/TrackInterface/TrackList";
@@ -138,19 +138,6 @@ function App() {
       </div>
 
       <div className="toggle-controls">
-        {/* <button id="mic-toggle" onClick={toggleMicrophone}>
-          {analyserState.mode === "microphone"
-            ? "Stop microphone"
-            : "Use microphone"}
-        </button>
-
-        <button id="visualiser-toggle" onClick={toggleVisualiser}>
-          {visualisers[visualiserIndex]}
-        </button>
-
-        <button id="background-toggle" onClick={toggleBackground}>
-          {background === "Clear" ? "Black" : "Clear"}
-        </button> */}
         <ToggleConrols
           background={background}
           mode={analyserState.mode}

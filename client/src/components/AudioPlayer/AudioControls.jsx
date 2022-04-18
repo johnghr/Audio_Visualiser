@@ -1,4 +1,3 @@
-import React from "react";
 import { Play } from "../Icons//Play";
 import { Pause } from "../Icons//Pause.jsx";
 import { Next } from "../Icons/Next.jsx";
