@@ -4,6 +4,7 @@ import TrackService from "./services/TrackService";
 import UploadForm from "./components/TrackInterface/UploadForm";
 import TrackList from "./components/TrackInterface/TrackList";
 import "./App.css";
+import ToggleConrols from "./components/ToggleControls/ToggleControls";
 
 function App() {
   // Initializes Audio Context and stores it in the current property of useRef
@@ -137,7 +138,7 @@ function App() {
       </div>
 
       <div className="toggle-controls">
-        <button id="mic-toggle" onClick={toggleMicrophone}>
+        {/* <button id="mic-toggle" onClick={toggleMicrophone}>
           {analyserState.mode === "microphone"
             ? "Stop microphone"
             : "Use microphone"}
@@ -149,7 +150,16 @@ function App() {
 
         <button id="background-toggle" onClick={toggleBackground}>
           {background === "Clear" ? "Black" : "Clear"}
-        </button>
+        </button> */}
+        <ToggleConrols
+          background={background}
+          mode={analyserState.mode}
+          toggleBackground={toggleBackground}
+          toggleMicrophone={toggleMicrophone}
+          toggleVisualiser={toggleVisualiser}
+          visualisers={visualisers}
+          visualiserIndex={visualiserIndex}
+        />
       </div>
     </div>
   );

@@ -162,36 +162,36 @@ button {
   background-color: #e85627;
 }
 
-#mic-toggle {
+.toggle-button {
   border: solid 2px black;
   border-radius: 2px;
   background-color: #f0b54d;
   margin: 2px;
 }
 
-#mic-toggle:hover {
+.toggle-button:hover {
   background-color: #e85627;
 }
 
-#background-toggle {
+.toggle-button {
   border: solid 2px black;
   border-radius: 2px;
   background-color: #f0b54d;
   margin: 2px;
 }
 
-#background-toggle:hover {
+.toggle-button:hover {
   background-color: #e85627;
 }
 
-#visualiser-toggle {
+.toggle-button {
   border: solid 2px black;
   border-radius: 2px;
   background-color: #f0b54d;
   margin: 2px;
 }
 
-#visualiser-toggle:hover {
+.toggle-button:hover {
   background-color: #e85627;
 }
 
