@@ -10,7 +10,6 @@ const fs = require("fs");
 const path = require("path");
 
 const directoryPath = path.join(__dirname, "/uploads");
-console.log("directory name", __dirname);
 
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -24,7 +23,6 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({ storage: fileStorageEngine });
 
 app.get("/", (req, res) => {
-  console.log("reading");
   fs.readdir(directoryPath, function (err, files) {
     try {
       let fileNames = [];
@@ -38,7 +36,6 @@ app.get("/", (req, res) => {
 });
 
 app.put("/:id", (req, res) => {
-  console.log("incoming request body:", req.body);
   fs.rename(
     `${directoryPath}/${req.params.id}`,
     `${directoryPath}/${req.body.title}`,
@@ -59,7 +56,6 @@ app.delete("/:id", (req, res) => {
 });
 
 app.post("/upload", upload.single("track"), (req, res) => {
-  console.log("incoming file", req.file);
   res.json(req.file.filename);
 });
 

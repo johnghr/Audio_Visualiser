@@ -11,9 +11,10 @@ export const MediaPlayer = ({
   trackUploads,
   setAnalyserState,
   analyserState,
+  fullscreen,
+  setFullscreen,
 }) => {
   const onChangeTrack = (track) => {
-    console.log("track:", track);
     setAnalyserState({
       input: track,
       mode: "track",
@@ -22,17 +23,17 @@ export const MediaPlayer = ({
 
   return (
     <>
-      {analyserState.input === null ? (
-        <div className="canvas-container"></div>
-      ) : (
+      <div className="canvas-container">
         <AudioAnalyser
           input={analyserState.input}
           mode={analyserState.mode}
           currentVisualiser={currentVisualiser}
           background={background}
           audioContext={audioContext}
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
         />
-      )}
+      </div>
 
       <div className="record-player-container">
         <div className="record-player">
@@ -44,12 +45,6 @@ export const MediaPlayer = ({
             </div>
           </div>
           <div className="record-player-bottom">
-            {/* <AudioPlayer
-              selectedTrackIndex={selectedTrackIndex}
-              setSelectedTrackIndex={setSelectedTrackIndex}
-              trackUploads={trackUploads}
-              onChangeTrack={onChangeTrack}
-            /> */}
             <AudioPlayer
               onChangeTrack={onChangeTrack}
               trackUploads={trackUploads}

@@ -21,7 +21,6 @@ export const AudioPlayer = ({
   };
 
   const handlePlay = (event) => {
-    console.log("event", event.target);
     onChangeTrack(event.target);
   };
 

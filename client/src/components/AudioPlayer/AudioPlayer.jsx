@@ -22,16 +22,18 @@ export const AudioPlayer = ({
 
   useEffect(() => {
     if (isPlaying) {
-      console.log("playing");
       audioRef.current.src = `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`;
       onChangeTrack(audioRef.current);
       audioRef.current.play();
       startTimer();
     } else {
-      console.log("paused");
       clearInterval(intervalRef.current);
       audioRef.current.pause();
     }
+
+    return () => {
+      console.log("bless this mess");
+    };
   }, [isPlaying]);
 
   useEffect(() => {
@@ -44,21 +46,23 @@ export const AudioPlayer = ({
   }, []);
 
   useEffect(() => {
-    // audioRef.current.pause();
-    // setTrackProgress(audioRef.current.currentTime);
-    audioRef.current.pause();
-
-    audioRef.current.src = `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`;
+    audioRef.current = new Audio(
+      `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`
+    );
     onChangeTrack(audioRef.current);
     setTrackProgress(audioRef.current.currentTime);
     if (isReady.current) {
-      setIsPlaying(true);
       audioRef.current.play();
-
+      setIsPlaying(true);
       startTimer();
     } else {
       isReady.current = true;
     }
+
+    return () => {
+      console.log("somebody tidy this goddamn mess");
+      audioRef.current.pause();
+    };
   }, [selectedTrackIndex]);
 
   const startTimer = () => {
@@ -78,14 +82,12 @@ export const AudioPlayer = ({
     selectedTrackIndex - 1 < 0
       ? setSelectedTrackIndex(trackUploads.length - 1)
       : setSelectedTrackIndex(selectedTrackIndex - 1);
-    console.log("trackIndex on prev:", selectedTrackIndex);
   };
 
   const toNextTrack = () => {
     selectedTrackIndex < trackUploads.length - 1
       ? setSelectedTrackIndex(selectedTrackIndex + 1)
       : setSelectedTrackIndex(0);
-    console.log("trackIndex on next:", selectedTrackIndex);
   };
 
   const onScrub = (value) => {

@@ -6,6 +6,8 @@ export const ToggleConrols = ({
   toggleVisualiser,
   visualisers,
   visualiserIndex,
+  setFullscreen,
+  fullscreen,
 }) => {
   return (
     <>
@@ -19,6 +21,15 @@ export const ToggleConrols = ({
 
       <button className="toggle-button" onClick={toggleBackground}>
         {background === "Clear" ? "Black" : "Clear"}
+      </button>
+
+      <button
+        className="toggle-button"
+        onClick={() => {
+          setFullscreen(!fullscreen);
+        }}
+      >
+        Fullscreen
       </button>
     </>
   );

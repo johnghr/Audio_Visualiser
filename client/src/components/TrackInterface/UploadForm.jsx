@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import TrackService from "../../services/TrackService";
+import { TrackService } from "../../services/TrackService";
 
 export const UploadForm = ({ setTrackUploads, trackUploads }) => {
   const formRef = useRef(null);
@@ -15,7 +15,11 @@ export const UploadForm = ({ setTrackUploads, trackUploads }) => {
   return (
     <div>
       <form ref={formRef} encType="multipart/form-data">
-        <label className="file-upload-label" htmlFor="file-upload-input">
+        <label
+          id="add-track-button"
+          className="toggle-button"
+          htmlFor="file-upload-input"
+        >
           Add Track +
           <input
             className="file-upload-input"

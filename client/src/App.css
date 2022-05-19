@@ -52,6 +52,11 @@ button {
   max-height: 550px;
 }
 
+.canvas .fullscreen {
+  min-height: 100vh;
+  min-width: 100vh;
+}
+
 /* box to make sure the record player keeps a consistent aspect ratio */
 .record-player-container {
   width: 100%;
@@ -162,11 +167,8 @@ button {
   background-color: #e85627;
 }
 
-.toggle-button {
-  border: solid 2px black;
-  border-radius: 2px;
-  background-color: #f0b54d;
-  margin: 2px;
+#add-track-button {
+  padding: 0.5rem;
 }
 
 .toggle-button:hover {
@@ -175,20 +177,13 @@ button {
 
 .toggle-button {
   border: solid 2px black;
-  border-radius: 2px;
+  border-radius: 0.25rem;
   background-color: #f0b54d;
   margin: 2px;
 }
 
 .toggle-button:hover {
   background-color: #e85627;
-}
-
-.toggle-button {
-  border: solid 2px black;
-  border-radius: 2px;
-  background-color: #f0b54d;
-  margin: 2px;
 }
 
 .toggle-button:hover {
@@ -259,4 +254,9 @@ button {
 .track-list-item {
   display: flex;
   justify-content: space-between;
+}
+
+canvas:fullscreen {
+  min-width: 100vh;
+  min-height: 100vh;
 }

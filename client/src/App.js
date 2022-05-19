@@ -1,6 +1,6 @@
-import MediaPlayer from "./containers/MediaPlayer";
+import { MediaPlayer } from "./containers/MediaPlayer";
 import { useEffect, useState, useRef } from "react";
-import TrackService from "./services/TrackService";
+import { TrackService } from "./services/TrackService";
 import { UploadForm } from "./components/TrackInterface/UploadForm";
 import { TrackList } from "./components/TrackInterface/TrackList";
 import "./App.css";
@@ -25,11 +25,14 @@ export const App = () => {
   const [trackUploads, setTrackUploads] = useState([]);
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
 
+  // Ref for fullscreen
+
+  const [fullscreen, setFullscreen] = useState(false);
+
   useEffect(() => {
     TrackService.getTracks().then((trackUploads) =>
       setTrackUploads(trackUploads)
     );
-    console.log("getting tracks:", trackUploads);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,7 +44,6 @@ export const App = () => {
   const updateTrack = (trackTitle, updatedTrack) => {
     TrackService.updateTrack(trackTitle, updatedTrack);
     const updatedTrackUploads = [...trackUploads];
-    console.log(updatedTrackUploads);
     updatedTrackUploads[updatedTrack.index] = updatedTrack.title;
     setTrackUploads(updatedTrackUploads);
   };
@@ -134,7 +136,9 @@ export const App = () => {
           audioContext={audioContext}
           trackUploads={trackUploads}
           setTrackUploads={setTrackUploads}
-        ></MediaPlayer>
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
+        />
       </div>
 
       <div className="toggle-controls">
@@ -146,6 +150,8 @@ export const App = () => {
           toggleVisualiser={toggleVisualiser}
           visualisers={visualisers}
           visualiserIndex={visualiserIndex}
+          setFullscreen={setFullscreen}
+          fullscreen={fullscreen}
         />
       </div>
     </div>

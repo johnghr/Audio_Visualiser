@@ -9,6 +9,8 @@ export const AudioAnalyser = ({
   currentVisualiser,
   background,
   audioContext,
+  fullscreen,
+  setFullscreen,
 }) => {
   const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
   const [waveformData, setWaveformData] = useState(new Uint8Array(0));
@@ -30,12 +32,11 @@ export const AudioAnalyser = ({
       source.current.connect(analyser);
     }
 
-    return function cleanup() {
-      console.log("disconnectiong analyser");
-      source.current.disconnect(analyser);
-      cancelAnimationFrame(rafIdRef.current);
-    };
-  }, [source]);
+    // return function cleanup() {
+    //   source.current.disconnect(analyser);
+    //   cancelAnimationFrame(rafIdRef.current);
+    // };
+  }, [input]);
 
   const waveformTick = () => {
     audioData = new Uint8Array(analyser.fftSize);
@@ -77,6 +78,8 @@ export const AudioAnalyser = ({
     <div className="canvas-container">
       {currentVisualiser === "Waveform" && (
         <WaveformVisualiser
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
           waveformData={waveformData}
           background={background}
           analyser={analyser}
@@ -85,6 +88,7 @@ export const AudioAnalyser = ({
 
       {currentVisualiser === "Frequency" && (
         <FrequencyVisualiser
+          fullscreen={fullscreen}
           frequencyData={frequencyData}
           analyser={analyser}
           background={background}

@@ -1,10 +1,18 @@
 import { useRef, useEffect } from "react";
 
-export const WaveformVisualiser = ({ waveformData, background }) => {
+export const WaveformVisualiser = ({
+  waveformData,
+  background,
+  fullscreen,
+  setFullscreen,
+}) => {
   const canvasRef = useRef();
 
   useEffect(() => {
-    let canvas = canvasRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
     let height = canvas.height;
     let width = canvas.width;
     let context = canvas.getContext("2d");
@@ -47,5 +55,21 @@ export const WaveformVisualiser = ({ waveformData, background }) => {
     };
   }, [waveformData, background]);
 
-  return <canvas className="canvas" width="550" height="550" ref={canvasRef} />;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (fullscreen) {
+      canvas.requestFullscreen();
+    }
+
+    return function cleanup() {
+      setFullscreen(false);
+    };
+  }, [fullscreen, setFullscreen]);
+
+  return (
+    <canvas
+      className={`canvas ${fullscreen ? "fullscreen" : ""}`}
+      ref={canvasRef}
+    />
+  );
 };
