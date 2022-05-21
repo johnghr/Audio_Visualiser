@@ -1,8 +1,8 @@
 const baseUrl = "http://localhost:5000/";
 
 export const TrackService = {
-  getTracks() {
-    return fetch(baseUrl).then((res) => res.json());
+  async getTracks() {
+    return await fetch(baseUrl).then((res) => res.json());
   },
 
   addTrack(formData) {

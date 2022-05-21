@@ -11,18 +11,23 @@ export const AudioPlayer = ({
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Refs
   const audioRef = useRef(new Audio());
-  audioRef.current.crossOrigin = "anonymous";
 
   const { duration } = audioRef.current;
 
   const intervalRef = useRef();
   const isReady = useRef(false);
 
+  // Set up for initial track
+  useEffect(() => {
+    audioRef.current = new Audio(
+      `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`
+    );
+    audioRef.current.crossOrigin = "anonymous";
+  }, [trackUploads]);
+
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.src = `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`;
       onChangeTrack(audioRef.current);
       audioRef.current.play();
       startTimer();
@@ -30,15 +35,9 @@ export const AudioPlayer = ({
       clearInterval(intervalRef.current);
       audioRef.current.pause();
     }
-
-    return () => {
-      console.log("bless this mess");
-    };
   }, [isPlaying]);
 
   useEffect(() => {
-    // Pause and clean up on unmount
-    console.log("clean up on aisle 3");
     return () => {
       audioRef.current.pause();
       clearInterval(intervalRef.current);
@@ -46,11 +45,16 @@ export const AudioPlayer = ({
   }, []);
 
   useEffect(() => {
+    audioRef.current.pause();
+
     audioRef.current = new Audio(
       `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`
     );
+    audioRef.current.crossOrigin = "anonymous";
+
     onChangeTrack(audioRef.current);
     setTrackProgress(audioRef.current.currentTime);
+
     if (isReady.current) {
       audioRef.current.play();
       setIsPlaying(true);
@@ -58,15 +62,9 @@ export const AudioPlayer = ({
     } else {
       isReady.current = true;
     }
-
-    return () => {
-      console.log("somebody tidy this goddamn mess");
-      audioRef.current.pause();
-    };
   }, [selectedTrackIndex]);
 
   const startTimer = () => {
-    // Clear any timers already running
     clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
@@ -91,7 +89,6 @@ export const AudioPlayer = ({
   };
 
   const onScrub = (value) => {
-    // Clear any timers already running
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = value;
     setTrackProgress(audioRef.current.currentTime);
