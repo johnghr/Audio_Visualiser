@@ -7,18 +7,21 @@ export const FrequencyVisualiser = ({
   frequencyData,
   analyser,
   background,
-  rafId,
+  fullscreen,
+  setFullscreen,
 }) => {
   const canvasRef = useRef();
 
   useEffect(() => {
-    let canvas = canvasRef.current;
-    let height = canvas.height;
-    let width = canvas.width;
-    let context = canvas.getContext("2d");
+    const canvas = canvasRef.current;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const height = canvas.height;
+    const width = canvas.width;
+    const context = canvas.getContext("2d");
 
     //bufferLength equals half the fftSize i.e. 128
-    let bufferLength = analyser.frequencyBinCount;
+    const bufferLength = analyser.frequencyBinCount;
 
     context.clearRect(0, 0, width, height);
 
@@ -31,7 +34,7 @@ export const FrequencyVisualiser = ({
 
       context.fillRect(0, 0, width, height);
 
-      let barWidth = (width / bufferLength) * 2.5;
+      const barWidth = (width / bufferLength) * 2.5;
       let barHeight;
       let x = 0;
 
@@ -56,5 +59,21 @@ export const FrequencyVisualiser = ({
     };
   });
 
-  return <canvas className="canvas" width="550" height="550" ref={canvasRef} />;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (fullscreen) {
+      canvas.requestFullscreen();
+    }
+
+    return function cleanup() {
+      setFullscreen(false);
+    };
+  }, [fullscreen, setFullscreen]);
+
+  return (
+    <canvas
+      className={`canvas ${fullscreen ? "fullscreen" : ""}`}
+      ref={canvasRef}
+    />
+  );
 };

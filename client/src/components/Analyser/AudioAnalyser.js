@@ -89,6 +89,7 @@ export const AudioAnalyser = ({
       {currentVisualiser === "Frequency" && (
         <FrequencyVisualiser
           fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
           frequencyData={frequencyData}
           analyser={analyser}
           background={background}
