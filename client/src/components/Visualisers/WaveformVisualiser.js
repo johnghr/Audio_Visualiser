@@ -5,6 +5,7 @@ export const WaveformVisualiser = ({
   background,
   fullscreen,
   setFullscreen,
+  mode,
 }) => {
   const canvasRef = useRef();
 
@@ -47,13 +48,24 @@ export const WaveformVisualiser = ({
       context.stroke();
     };
 
-    renderWaveform();
+    if (mode !== "off") {
+      console.log("we got there", mode);
+      renderWaveform();
+    } else {
+      if (background === "Clear") {
+        context.fillStyle = "#67b9a9";
+        context.fillRect(0, 0, width, height);
+      } else {
+        context.fillStyle = "#000000";
+        context.fillRect(0, 0, width, height);
+      }
+    }
 
     return function cleanup() {
       context.fillStyle = "##67b9a9";
       context.fillRect(0, 0, width, height);
     };
-  }, [waveformData, background]);
+  }, [waveformData, background, mode]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

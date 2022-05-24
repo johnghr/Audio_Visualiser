@@ -15,10 +15,16 @@ export const MediaPlayer = ({
   setFullscreen,
 }) => {
   const onChangeTrack = (track) => {
-    setAnalyserState({
-      input: track,
-      mode: "track",
-    });
+    console.log(track.src);
+    if (track.src !== "http://localhost:5000/uploads/undefined") {
+      console.log("setting track");
+      setAnalyserState({
+        input: track,
+        mode: "track",
+      });
+    } else {
+      console.log("not setting track");
+    }
   };
 
   return (

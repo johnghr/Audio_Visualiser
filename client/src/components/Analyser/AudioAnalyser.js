@@ -78,6 +78,7 @@ export const AudioAnalyser = ({
     <div className="canvas-container">
       {currentVisualiser === "Waveform" && (
         <WaveformVisualiser
+          mode={mode}
           fullscreen={fullscreen}
           setFullscreen={setFullscreen}
           waveformData={waveformData}
