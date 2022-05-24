@@ -1,6 +1,8 @@
 import { useState } from "react";
+import EditForm from "./EditForm/EditForm";
+import styles from "./Track.module.css";
 
-export const Track = ({
+const Track = ({
   trackTitle,
   selectedTrackIndex,
   setSelectedTrackIndex,
@@ -31,46 +33,37 @@ export const Track = ({
     });
 
   return (
-    <div className="track-item-container">
+    <div className={styles.Track}>
       {isEditing === false ? (
         <li
-          className={`track-list-item ${
-            selectedTrackIndex === index ? "playing" : ""
+          className={`${styles.Track__ListItem} ${
+            selectedTrackIndex === index ? styles.Playing : ""
           }`}
           onClick={handleClick}
         >
           {trackTitle}
           <div>
             <button onClick={handleDelete}>
-              <svg className="delete-button">
+              <svg className={styles.Track__DeleteButton}>
                 <use href="#delete-icon" />
               </svg>
             </button>
 
             <button onClick={handleEdit}>
-              <svg className="edit-button">
+              <svg className={styles.Track__EditButton}>
                 <use href="#edit-icon" />
               </svg>
             </button>
           </div>
         </li>
       ) : (
-        <>
-          <form className="edit-form">
-            <label htmlFor="edit-track-input">
-              <svg onClick={handleUpdateTrack} className="confirm-button">
-                <use href="#confirm-icon" />
-              </svg>
-              <input
-                onChange={handleChange}
-                type="text"
-                id="edit-track-input"
-                name="edit-track-input"
-              ></input>
-            </label>
-          </form>
-        </>
+        <EditForm
+          handleChange={handleChange}
+          handleUpdateTrack={handleUpdateTrack}
+        />
       )}
     </div>
   );
 };
+
+export default Track;

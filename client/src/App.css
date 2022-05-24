@@ -194,59 +194,6 @@ button {
   padding: 5px 22px;
 }
 
-.track-list {
-  padding: 0px;
-  max-height: 80%;
-  overflow: auto;
-  border: solid;
-  background: #f0b54d;
-}
-
-.track-list li {
-  list-style: none;
-  padding: 10px 5px;
-  border-top: 1px solid black;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.track-list li.playing {
-  background-color: #e85627;
-}
-
-.track-item-container {
-  display: flex;
-  /* flex-direction: row; */
-}
-
-.delete-button {
-  height: 20px;
-  width: 20px;
-}
-
-.delete-button:hover {
-  background-color: #e85627;
-}
-
-.edit-button {
-  height: 22px;
-  width: 22px;
-}
-
-.edit-button:hover {
-  background-color: #e85627;
-}
-
-.confirm-button {
-  height: 20px;
-  width: 20px;
-}
-
-.confirm-button:hover {
-  background-color: #e85627;
-}
-
 .toggle-controls > button {
   padding: 8px 12px;
 }

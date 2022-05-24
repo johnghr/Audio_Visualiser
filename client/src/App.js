@@ -2,7 +2,7 @@ import { MediaPlayer } from "./containers/MediaPlayer";
 import { useEffect, useState, useRef } from "react";
 import { TrackService } from "./services/TrackService";
 import { UploadForm } from "./components/TrackInterface/UploadForm";
-import { TrackList } from "./components/TrackInterface/TrackList";
+import TrackList from "./components/TrackInterface/TrackList";
 import "./App.css";
 import { ToggleConrols } from "./components/ToggleControls/ToggleControls";
 

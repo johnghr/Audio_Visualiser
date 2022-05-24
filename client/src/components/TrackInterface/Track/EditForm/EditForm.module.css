@@ -1,0 +1,18 @@
+.EditForm {
+  display: flex;
+  padding: 10px 5px;
+  border-top: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.EditForm__ConfirmButton {
+  justify-content: end;
+  height: 20px;
+  width: 20px;
+}
+
+.EditForm__ConfirmButton:hover {
+  background-color: #e85627;
+}

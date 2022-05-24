@@ -1,6 +1,7 @@
-import { Track } from "./Track";
+import Track from "../Track";
+import styles from "./TrackList.module.css";
 
-export const TrackList = ({
+const TrackList = ({
   trackUploads,
   selectedTrackIndex,
   setSelectedTrackIndex,
@@ -22,9 +23,11 @@ export const TrackList = ({
         updateTrack={updateTrack}
         setUpdatedTrack={setUpdatedTrack}
         updatedTrack={updatedTrack}
-      ></Track>
+      />
     );
   });
 
-  return <ul className="track-list">{trackList}</ul>;
+  return <ul className={styles.TrackList}>{trackList}</ul>;
 };
+
+export default TrackList;
