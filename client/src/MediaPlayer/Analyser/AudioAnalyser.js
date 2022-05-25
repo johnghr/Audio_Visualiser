@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
-import { WaveformVisualiser } from "../../Visualisers/WaveformVisualiser";
-import { FrequencyVisualiser } from "../../Visualisers/FrequencyVisualiser";
-
+import Visualiser from "../../Visualiser";
 const AudioAnalyser = ({
   mode,
   input,
@@ -32,10 +30,12 @@ const AudioAnalyser = ({
       source.current.connect(analyser);
     }
 
-    // return function cleanup() {
-    //   source.current.disconnect(analyser);
-    //   cancelAnimationFrame(rafIdRef.current);
-    // };
+    return function cleanup() {
+      if (source.current !== null) {
+        source.current.disconnect(analyser);
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
   }, [input]);
 
   const waveformTick = () => {
@@ -69,34 +69,21 @@ const AudioAnalyser = ({
     }
 
     return function cleanup() {
-      console.log("cancelling animation frame");
       cancelAnimationFrame(rafIdRef.current);
     };
   }, [currentVisualiser]);
 
   return (
-    <>
-      {currentVisualiser === "Waveform" && (
-        <WaveformVisualiser
-          mode={mode}
-          fullscreen={fullscreen}
-          setFullscreen={setFullscreen}
-          waveformData={waveformData}
-          background={background}
-          analyser={analyser}
-        />
-      )}
-
-      {currentVisualiser === "Frequency" && (
-        <FrequencyVisualiser
-          fullscreen={fullscreen}
-          setFullscreen={setFullscreen}
-          frequencyData={frequencyData}
-          analyser={analyser}
-          background={background}
-        />
-      )}
-    </>
+    <Visualiser
+      analyser={analyser}
+      mode={mode}
+      fullscreen={fullscreen}
+      setFullscreen={setFullscreen}
+      waveformData={waveformData}
+      frequencyData={frequencyData}
+      background={background}
+      currentVisualiser={currentVisualiser}
+    />
   );
 };
 
