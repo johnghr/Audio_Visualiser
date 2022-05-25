@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { TrackService } from "../../services/TrackService";
 import buttonStyles from "../../ToggleControls/ToggleControls.module.css";
+import styles from "./UploadForm.module.css";
 
 const UploadForm = ({ setTrackUploads, trackUploads }) => {
   const formRef = useRef(null);
@@ -22,7 +23,7 @@ const UploadForm = ({ setTrackUploads, trackUploads }) => {
         >
           Add Track +
           <input
-            className="file-upload-input"
+            className={styles.UploadForm__Input}
             id="file-upload-input"
             onChange={onChooseFile}
             type="file"

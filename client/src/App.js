@@ -128,21 +128,19 @@ export const App = () => {
         />
       </div>
 
-      <div className="media-player">
-        <MediaPlayer
-          analyserState={analyserState}
-          setAnalyserState={setAnalyserState}
-          background={background}
-          currentVisualiser={currentVisualiser}
-          selectedTrackIndex={selectedTrackIndex}
-          setSelectedTrackIndex={setSelectedTrackIndex}
-          audioContext={audioContext}
-          trackUploads={trackUploads}
-          setTrackUploads={setTrackUploads}
-          fullscreen={fullscreen}
-          setFullscreen={setFullscreen}
-        />
-      </div>
+      <MediaPlayer
+        analyserState={analyserState}
+        setAnalyserState={setAnalyserState}
+        background={background}
+        currentVisualiser={currentVisualiser}
+        selectedTrackIndex={selectedTrackIndex}
+        setSelectedTrackIndex={setSelectedTrackIndex}
+        audioContext={audioContext}
+        trackUploads={trackUploads}
+        setTrackUploads={setTrackUploads}
+        fullscreen={fullscreen}
+        setFullscreen={setFullscreen}
+      />
 
       <ToggleConrols
         background={background}

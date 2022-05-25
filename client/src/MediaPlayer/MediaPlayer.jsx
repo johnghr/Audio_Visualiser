@@ -1,6 +1,6 @@
 import AudioAnalyser from "./Analyser";
 import AudioPlayer from "./AudioPlayer";
-import "../App.css";
+import styles from "./MediaPlayer.module.css";
 
 const MediaPlayer = ({
   currentVisualiser,
@@ -15,21 +15,17 @@ const MediaPlayer = ({
   setFullscreen,
 }) => {
   const onChangeTrack = (track) => {
-    console.log(track.src);
     if (track.src !== "http://localhost:5000/uploads/undefined") {
-      console.log("setting track");
       setAnalyserState({
         input: track,
         mode: "track",
       });
-    } else {
-      console.log("not setting track");
     }
   };
 
   return (
-    <>
-      <div className="canvas-container">
+    <div className={styles.MediaPlayer}>
+      <div className={styles.Canvas__Container}>
         <AudioAnalyser
           input={analyserState.input}
           mode={analyserState.mode}
@@ -41,16 +37,16 @@ const MediaPlayer = ({
         />
       </div>
 
-      <div className="record-player-container">
-        <div className="record-player">
-          <div className="record-player-top">
-            <div className="record-disc">
-              <div className="outer-disc">
-                <div className="inner-disc"></div>
+      <div className={styles.RecordPlayer__Contaier}>
+        <div className={styles.RecordPlayer}>
+          <div className={styles.RecordPlayer__Top}>
+            <div className={styles.RecordDisc}>
+              <div className={styles.RecordDisc__Outer}>
+                <div className={styles.RecordDisc__Inner} />
               </div>
             </div>
           </div>
-          <div className="record-player-bottom">
+          <div className={styles.RecordPlayer__Bottom}>
             <AudioPlayer
               onChangeTrack={onChangeTrack}
               trackUploads={trackUploads}
@@ -60,7 +56,7 @@ const MediaPlayer = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

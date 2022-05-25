@@ -75,7 +75,7 @@ const AudioAnalyser = ({
   }, [currentVisualiser]);
 
   return (
-    <div className="canvas-container">
+    <>
       {currentVisualiser === "Waveform" && (
         <WaveformVisualiser
           mode={mode}
@@ -96,7 +96,7 @@ const AudioAnalyser = ({
           background={background}
         />
       )}
-    </div>
+    </>
   );
 };
 

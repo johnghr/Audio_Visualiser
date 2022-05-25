@@ -12,3 +12,7 @@
 .Button:hover {
   background-color: #e85627;
 }
+
+.UploadForm__Input {
+  display: none;
+}

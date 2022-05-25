@@ -1,0 +1,79 @@
+.MediaPlayer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 10px;
+}
+
+.RecordPlayer__Contaier {
+  width: 100%;
+  padding-top: 42%;
+  position: relative;
+  max-width: 720px;
+  max-height: 300px;
+}
+
+.RecordPlayer {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+
+.RecordPlayer__Top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40%;
+  background-color: #2b5983;
+  clip-path: polygon(
+    20% 0%,
+    80% 0%,
+    100% 100%,
+    0% 100%
+  ); /*use clip path to turn the top of the record player into a trapezoid*/
+}
+
+.RecordPlayer__Bottom {
+  background: #b92056;
+  height: 20%;
+}
+
+.RecordDisc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  height: 75%;
+  background: black;
+  border-radius: 50%/ 50%;
+  box-shadow: 5px 10px 18px black;
+}
+
+.RecordDisc__Outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 37%;
+  background: #e85627;
+  border-radius: 50%/ 50%;
+}
+
+.RecordDisc__Inner {
+  width: 10%;
+  height: 20%;
+  background: black;
+  border-radius: 50%/ 50%;
+}
+
+.Canvas__Container {
+  margin-top: 5rem;
+  display: flex;
+  min-height: 475px;
+}

@@ -3,16 +3,18 @@ import { Pause } from "../../components/Icons/Pause.jsx";
 import { Next } from "../../components/Icons/Next.jsx";
 import { Previous } from "../../components/Icons/Previous.jsx";
 
+import styles from "./AudioControls.module.css";
+
 const AudioControls = ({
   isPlaying,
   onPlayPauseClick,
   onPrevClick,
   onNextClick,
 }) => (
-  <div className="audio-controls">
+  <div className={styles.AudioControls}>
     <button
       type="button"
-      className="control-icon"
+      className={styles.AudioControls__Icon}
       aria-label="Previous"
       onClick={onPrevClick}
     >
@@ -21,7 +23,7 @@ const AudioControls = ({
     {isPlaying ? (
       <button
         type="button"
-        className="control-icon"
+        className={styles.AudioControls__Icon}
         onClick={() => onPlayPauseClick(false)}
         aria-label="Pause"
       >
@@ -30,7 +32,7 @@ const AudioControls = ({
     ) : (
       <button
         type="button"
-        className="control-icon"
+        className={styles.AudioControls__Icon}
         onClick={() => onPlayPauseClick(true)}
         aria-label="Play"
       >
@@ -39,7 +41,7 @@ const AudioControls = ({
     )}
     <button
       type="button"
-      className="control-icon"
+      className={styles.AudioControls__Icon}
       aria-label="Next"
       onClick={onNextClick}
     >

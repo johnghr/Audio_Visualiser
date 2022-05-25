@@ -102,27 +102,24 @@ const AudioPlayer = ({
   };
 
   return (
-    <div className="audio-player">
-      <div className="track-info">
-        <AudioControls
-          isPlaying={isPlaying}
-          onPrevClick={toPrevTrack}
-          onNextClick={toNextTrack}
-          onPlayPauseClick={setIsPlaying}
-        />
-        <input
-          type="range"
-          value={trackProgress}
-          step="1"
-          min="0"
-          max={duration ? duration : `${duration}`}
-          className="progress"
-          onChange={(e) => onScrub(e.target.value)}
-          onMouseUp={onScrubEnd}
-          onKeyUp={onScrubEnd}
-        />
-      </div>
-    </div>
+    <>
+      <AudioControls
+        isPlaying={isPlaying}
+        onPrevClick={toPrevTrack}
+        onNextClick={toNextTrack}
+        onPlayPauseClick={setIsPlaying}
+      />
+      <input
+        type="range"
+        value={trackProgress}
+        step="1"
+        min="0"
+        max={duration ? duration : `${duration}`}
+        onChange={(e) => onScrub(e.target.value)}
+        onMouseUp={onScrubEnd}
+        onKeyUp={onScrubEnd}
+      />
+    </>
   );
 };
 

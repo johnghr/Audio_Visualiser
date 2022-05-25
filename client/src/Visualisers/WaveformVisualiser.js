@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import styles from "./Canvas.module.css";
 
 export const WaveformVisualiser = ({
   waveformData,
@@ -80,7 +81,9 @@ export const WaveformVisualiser = ({
 
   return (
     <canvas
-      className={`canvas ${fullscreen ? "fullscreen" : ""}`}
+      className={`${styles.Canvas} ${
+        fullscreen ? styles.Canvas__Fullscreen : ""
+      }`}
       ref={canvasRef}
     />
   );
