@@ -1,4 +1,5 @@
 .TrackList {
+  margin-top: 0.5rem;
   padding: 0px;
   max-height: 80%;
   overflow: auto;

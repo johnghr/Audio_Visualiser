@@ -1,0 +1,21 @@
+.ToggleControls {
+  width: 25%;
+  margin-top: 0.5rem;
+}
+
+.Button__AddTrack {
+  padding: 0.5rem;
+}
+
+.Button {
+  border: solid 2px black;
+  border-radius: 0.25rem;
+  background-color: #f0b54d;
+  margin-right: 0.5rem;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+
+.Button:hover {
+  background-color: #e85627;
+}

@@ -1,10 +1,13 @@
-import { MediaPlayer } from "./containers/MediaPlayer";
 import { useEffect, useState, useRef } from "react";
 import { TrackService } from "./services/TrackService";
-import { UploadForm } from "./components/TrackInterface/UploadForm";
-import TrackList from "./components/TrackInterface/TrackList";
+import styles from "./App.module.css";
+
+import UploadForm from "./TrackInterface/UploadForm";
+import TrackList from "./TrackInterface/TrackList";
+import MediaPlayer from "./MediaPlayer";
+
 import "./App.css";
-import { ToggleConrols } from "./components/ToggleControls/ToggleControls";
+import { ToggleConrols } from "./ToggleControls/ToggleControls";
 
 export const App = () => {
   // Initializes Audio Context and stores it in the current property of useRef
@@ -60,7 +63,7 @@ export const App = () => {
 
   // State and functions for managing the toggle buttons - user mic, current visualiser setting and background
 
-  const [background, setBackground] = useState("Clear");
+  const [background, setBackground] = useState("Black");
   const visualisers = ["Waveform", "Frequency"];
   const [visualiserIndex, setVisualiserIndex] = useState(0);
   let currentVisualiser = visualisers[visualiserIndex];
@@ -106,8 +109,8 @@ export const App = () => {
   };
 
   return (
-    <div className="app-container">
-      <div className="track-sidebar">
+    <div className={styles.AppContainer}>
+      <div className={styles.TrackInterface}>
         <TrackList
           deleteTrack={deleteTrack}
           setSelectedTrackIndex={setSelectedTrackIndex}
@@ -141,19 +144,17 @@ export const App = () => {
         />
       </div>
 
-      <div className="toggle-controls">
-        <ToggleConrols
-          background={background}
-          mode={analyserState.mode}
-          toggleBackground={toggleBackground}
-          toggleMicrophone={toggleMicrophone}
-          toggleVisualiser={toggleVisualiser}
-          visualisers={visualisers}
-          visualiserIndex={visualiserIndex}
-          setFullscreen={setFullscreen}
-          fullscreen={fullscreen}
-        />
-      </div>
+      <ToggleConrols
+        background={background}
+        mode={analyserState.mode}
+        toggleBackground={toggleBackground}
+        toggleMicrophone={toggleMicrophone}
+        toggleVisualiser={toggleVisualiser}
+        visualisers={visualisers}
+        visualiserIndex={visualiserIndex}
+        setFullscreen={setFullscreen}
+        fullscreen={fullscreen}
+      />
     </div>
   );
 };

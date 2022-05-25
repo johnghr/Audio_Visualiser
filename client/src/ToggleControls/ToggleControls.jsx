@@ -1,3 +1,5 @@
+import styles from "./ToggleControls.module.css";
+
 export const ToggleConrols = ({
   background,
   mode,
@@ -10,27 +12,27 @@ export const ToggleConrols = ({
   fullscreen,
 }) => {
   return (
-    <>
-      <button className="toggle-button" onClick={toggleMicrophone}>
+    <div className={styles.ToggleControls}>
+      <button className={styles.Button} onClick={toggleMicrophone}>
         {mode === "microphone" ? "Stop microphone" : "Use microphone"}
       </button>
 
-      <button className="toggle-button" onClick={toggleVisualiser}>
+      <button className={styles.Button} onClick={toggleVisualiser}>
         {visualisers[visualiserIndex]}
       </button>
 
-      <button className="toggle-button" onClick={toggleBackground}>
+      <button className={styles.Button} onClick={toggleBackground}>
         {background === "Clear" ? "Black" : "Clear"}
       </button>
 
       <button
-        className="toggle-button"
+        className={styles.Button}
         onClick={() => {
           setFullscreen(!fullscreen);
         }}
       >
         Fullscreen
       </button>
-    </>
+    </div>
   );
 };

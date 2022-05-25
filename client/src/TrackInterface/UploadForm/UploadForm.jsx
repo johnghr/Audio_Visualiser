@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { TrackService } from "../../services/TrackService";
+import buttonStyles from "../../ToggleControls/ToggleControls.module.css";
 
-export const UploadForm = ({ setTrackUploads, trackUploads }) => {
+const UploadForm = ({ setTrackUploads, trackUploads }) => {
   const formRef = useRef(null);
 
   const onChooseFile = (event) => {
@@ -16,8 +17,7 @@ export const UploadForm = ({ setTrackUploads, trackUploads }) => {
     <div>
       <form ref={formRef} encType="multipart/form-data">
         <label
-          id="add-track-button"
-          className="toggle-button"
+          className={`${buttonStyles.Button} ${buttonStyles.Button__AddTrack}`}
           htmlFor="file-upload-input"
         >
           Add Track +
@@ -33,3 +33,5 @@ export const UploadForm = ({ setTrackUploads, trackUploads }) => {
     </div>
   );
 };
+
+export default UploadForm;

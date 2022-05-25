@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
-import { WaveformVisualiser } from "../Visualisers/WaveformVisualiser";
-import { FrequencyVisualiser } from "../Visualisers/FrequencyVisualiser";
+import { WaveformVisualiser } from "../../Visualisers/WaveformVisualiser";
+import { FrequencyVisualiser } from "../../Visualisers/FrequencyVisualiser";
 
-export const AudioAnalyser = ({
+const AudioAnalyser = ({
   mode,
   input,
   currentVisualiser,
@@ -15,13 +15,13 @@ export const AudioAnalyser = ({
   const [frequencyData, setFrequencyData] = useState(new Uint8Array(0));
   const [waveformData, setWaveformData] = useState(new Uint8Array(0));
 
-  let source = useRef(null);
+  const source = useRef(null);
   const analyserRef = useRef(audioContext.createAnalyser());
   const analyser = analyserRef.current;
   let audioData;
   const rafIdRef = useRef(null);
 
-  let currentVisualiserRef = useRef(null);
+  const currentVisualiserRef = useRef(null);
 
   useEffect(() => {
     if (mode === "track") {
@@ -99,3 +99,5 @@ export const AudioAnalyser = ({
     </div>
   );
 };
+
+export default AudioAnalyser;

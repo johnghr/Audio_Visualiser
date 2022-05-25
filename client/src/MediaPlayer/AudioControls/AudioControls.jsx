@@ -1,9 +1,9 @@
-import { Play } from "../Icons//Play";
-import { Pause } from "../Icons//Pause.jsx";
-import { Next } from "../Icons/Next.jsx";
-import { Previous } from "../Icons//Previous.jsx";
+import { Play } from "../../components/Icons/Play";
+import { Pause } from "../../components/Icons/Pause.jsx";
+import { Next } from "../../components/Icons/Next.jsx";
+import { Previous } from "../../components/Icons/Previous.jsx";
 
-export const AudioControls = ({
+const AudioControls = ({
   isPlaying,
   onPlayPauseClick,
   onPrevClick,
@@ -47,3 +47,5 @@ export const AudioControls = ({
     </button>
   </div>
 );
+
+export default AudioControls;

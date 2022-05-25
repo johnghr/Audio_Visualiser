@@ -1,8 +1,8 @@
-import { AudioAnalyser } from "../components/Analyser/AudioAnalyser";
-import { AudioPlayer } from "../components/AudioPlayer/AudioPlayer";
+import AudioAnalyser from "./Analyser";
+import AudioPlayer from "./AudioPlayer";
 import "../App.css";
 
-export const MediaPlayer = ({
+const MediaPlayer = ({
   currentVisualiser,
   background,
   selectedTrackIndex,
@@ -63,3 +63,5 @@ export const MediaPlayer = ({
     </>
   );
 };
+
+export default MediaPlayer;

@@ -1,5 +1,6 @@
 html {
   background-color: #682957;
+  font-weight: 600;
 }
 
 * {
@@ -14,22 +15,6 @@ button {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-  padding: 0px 10px;
-}
-
-.app-container > * {
-  height: 100vh;
-  padding: 10px 0px;
-}
-
-.toggle-controls {
-  width: 25%;
 }
 
 .media-player {
@@ -137,10 +122,6 @@ button {
   margin: auto;
 }
 
-.track-sidebar {
-  width: 25%;
-}
-
 .control-icon {
   height: 33px;
   width: 33px;
@@ -165,42 +146,6 @@ button {
 
 .file-upload-label:hover {
   background-color: #e85627;
-}
-
-#add-track-button {
-  padding: 0.5rem;
-}
-
-.toggle-button:hover {
-  background-color: #e85627;
-}
-
-.toggle-button {
-  border: solid 2px black;
-  border-radius: 0.25rem;
-  background-color: #f0b54d;
-  margin: 2px;
-}
-
-.toggle-button:hover {
-  background-color: #e85627;
-}
-
-.toggle-button:hover {
-  background-color: #e85627;
-}
-
-.toggle-controls > button {
-  padding: 5px 22px;
-}
-
-.toggle-controls > button {
-  padding: 8px 12px;
-}
-
-.track-list-item {
-  display: flex;
-  justify-content: space-between;
 }
 
 canvas:fullscreen {
