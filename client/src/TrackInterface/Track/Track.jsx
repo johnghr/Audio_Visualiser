@@ -1,6 +1,8 @@
 import { useState } from "react";
 import EditForm from "./EditForm/EditForm";
 import styles from "./Track.module.css";
+import Delete from "../../components/Icons/Delete";
+import Edit from "../../components/Icons/Edit";
 
 const Track = ({
   trackTitle,
@@ -15,7 +17,10 @@ const Track = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const handleClick = () => setSelectedTrackIndex(index);
-  const handleDelete = () => deleteTrack(trackTitle);
+  const handleDelete = () => {
+    console.log("deleting", trackTitle);
+    deleteTrack(trackTitle);
+  };
   const handleEdit = () => editTrack(trackTitle);
 
   const editTrack = () => setIsEditing(true);
@@ -33,7 +38,7 @@ const Track = ({
     });
 
   return (
-    <div className={styles.Track}>
+    <div className={styles.Track__Container}>
       {isEditing === false ? (
         <li
           className={`${styles.Track__ListItem} ${
@@ -42,19 +47,6 @@ const Track = ({
           onClick={handleClick}
         >
           {trackTitle}
-          <div>
-            <button onClick={handleDelete}>
-              <svg className={styles.Track__DeleteButton}>
-                <use href="#delete-icon" />
-              </svg>
-            </button>
-
-            <button onClick={handleEdit}>
-              <svg className={styles.Track__EditButton}>
-                <use href="#edit-icon" />
-              </svg>
-            </button>
-          </div>
         </li>
       ) : (
         <EditForm
@@ -62,6 +54,15 @@ const Track = ({
           handleUpdateTrack={handleUpdateTrack}
         />
       )}
+
+      <div className={styles.Actions__Container}>
+        <button className={styles.Actions__Edit} onClick={handleEdit}>
+          <Edit className={styles.Actions__Icon} />
+        </button>
+        <button className={styles.Actions__Delete} onClick={handleDelete}>
+          <Delete className={styles.Actions__Icon} />
+        </button>
+      </div>
     </div>
   );
 };

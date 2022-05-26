@@ -1,6 +1,11 @@
 .ToggleControls {
-  width: 23%;
-  margin-top: 0.5rem;
+  width: 21%;
+}
+
+@media only screen and (min-width: 1900px) {
+  .ToggleControls {
+    width: 23%;
+  }
 }
 
 .Button__AddTrack {
@@ -18,4 +23,8 @@
 
 .Button:hover {
   background-color: #e85627;
+}
+
+#Fullscreen {
+  margin-top: 0.5rem;
 }

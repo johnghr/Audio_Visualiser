@@ -7,8 +7,13 @@
   margin: 0.25rem;
   margin-right: 0.25rem;
 }
-
 .TrackInterface {
-  width: 27%;
+  width: 30%;
   margin-right: 0.5rem;
+}
+
+@media only screen and (min-width: 1900px) {
+  .TrackInterface {
+    width: 27%;
+  }
 }
