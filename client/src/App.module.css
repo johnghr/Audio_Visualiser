@@ -4,8 +4,11 @@
   width: 100%;
   padding: 0px 10px;
   height: 100vh;
+  margin: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .TrackInterface {
-  width: 25%;
+  width: 27%;
+  margin-right: 0.5rem;
 }
