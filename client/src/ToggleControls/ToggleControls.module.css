@@ -2,14 +2,14 @@
   width: 21%;
 }
 
+.ToggleControls:fullscreen {
+  position: absolute;
+}
+
 @media only screen and (min-width: 1900px) {
   .ToggleControls {
     width: 23%;
   }
-}
-
-.Button__AddTrack {
-  padding: 0.5rem;
 }
 
 .Button {

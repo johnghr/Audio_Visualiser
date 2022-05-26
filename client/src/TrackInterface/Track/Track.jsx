@@ -4,7 +4,7 @@ import styles from "./Track.module.css";
 import Delete from "../../components/Icons/Delete";
 import Edit from "../../components/Icons/Edit";
 import Confirm from "../../components/Icons/Confirm";
-import Cancel from "../../components/Icons/Cancek";
+import Cancel from "../../components/Icons/Cancel";
 
 const Track = ({
   trackTitle,

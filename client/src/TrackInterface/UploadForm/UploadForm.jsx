@@ -1,6 +1,7 @@
 import { useRef } from "react";
+import Add from "../../components/Icons/Add";
 import { TrackService } from "../../services/TrackService";
-import buttonStyles from "../../ToggleControls/ToggleControls.module.css";
+import actionStyles from "../Track/Track.module.css";
 import styles from "./UploadForm.module.css";
 
 const UploadForm = ({ setTrackUploads, trackUploads }) => {
@@ -15,23 +16,25 @@ const UploadForm = ({ setTrackUploads, trackUploads }) => {
   };
 
   return (
-    <div>
-      <form ref={formRef} encType="multipart/form-data">
-        <label
-          className={`${buttonStyles.Button} ${buttonStyles.Button__AddTrack}`}
-          htmlFor="file-upload-input"
-        >
-          Add Track +
-          <input
-            className={styles.UploadForm__Input}
-            id="file-upload-input"
-            onChange={onChooseFile}
-            type="file"
-            name="track"
-          />
-        </label>
-      </form>
-    </div>
+    <form
+      className={styles.UploadForm}
+      ref={formRef}
+      encType="multipart/form-data"
+    >
+      <label className={styles.Button} htmlFor="file-upload-input">
+        Add
+        <input
+          className={styles.UploadForm__Input}
+          id="file-upload-input"
+          onChange={onChooseFile}
+          type="file"
+          name="track"
+        />
+        <span className={styles.Button__Content}>
+          <Add className={actionStyles.Actions__Icon} />
+        </span>
+      </label>
+    </form>
   );
 };
 
