@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from "react";
-import Visualiser from "../../Visualiser";
+import Visualiser from "../Visualiser";
 const AudioAnalyser = ({
   mode,
   input,
@@ -31,10 +31,10 @@ const AudioAnalyser = ({
     }
 
     return function cleanup() {
-      if (source.current !== null) {
-        source.current.disconnect(analyser);
-        cancelAnimationFrame(rafIdRef.current);
-      }
+      // if (source.current !== null) {
+      //   source.current.disconnect(analyser);
+      //   cancelAnimationFrame(rafIdRef.current);
+      // }
     };
   }, [input]);
 

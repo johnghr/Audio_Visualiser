@@ -31,19 +31,18 @@ export const renderFrequency = (
 };
 
 export const renderWaveform = (background, canvas, context, waveformData) => {
+  const randomColour = "#" + (((1 << 24) * Math.random()) | 0).toString(16);
   if (background === "Clear") {
     context.fillStyle = "#67b9a9";
   } else {
-    context.fillStyle = "#000000";
+    // context.fillStyle = "#000000";
   }
 
   let x = 0;
 
   const sliceWidth = canvas.width / waveformData.length;
-  const randomColour = "#" + (((1 << 24) * Math.random()) | 0).toString(16);
 
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
+  //   context.clearRect(0, 0, canvas.width, canvas.height);
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.lineWidth = 2;
   context.strokeStyle = randomColour;

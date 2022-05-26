@@ -1,4 +1,4 @@
-import AudioAnalyser from "./Analyser";
+import AudioAnalyser from "../Analyser";
 import AudioPlayer from "./AudioPlayer";
 import styles from "./MediaPlayer.module.css";
 

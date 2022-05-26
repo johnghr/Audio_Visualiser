@@ -33,11 +33,6 @@ const Visualiser = ({
         context.fillRect(0, 0, canvas.width, canvas.height);
       }
     }
-
-    return function cleanup() {
-      context.fillStyle = "##67b9a9";
-      context.fillRect(0, 0, canvas.width, canvas.height);
-    };
   }, [
     waveformData,
     frequencyData,
