@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from "react";
+import styles from "./AudioPlayer.module.css";
 import AudioControls from "../AudioControls";
+
 const AudioPlayer = ({
   trackUploads,
   onChangeTrack,
@@ -110,6 +112,7 @@ const AudioPlayer = ({
         onPlayPauseClick={setIsPlaying}
       />
       <input
+        className={styles.TrackProgress}
         type="range"
         value={trackProgress}
         step="1"
