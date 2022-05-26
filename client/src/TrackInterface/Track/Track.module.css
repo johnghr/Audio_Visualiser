@@ -22,22 +22,22 @@
   flex-direction: row;
 }
 
-.Actions__Delete {
+.Actions__Negative {
   border: 1px solid black;
   background-color: #d00a2b;
   width: 4rem;
 }
-.Actions__Delete:hover {
+.Actions__Negative:hover {
   background-color: #a5031e;
 }
 
-.Actions__Edit {
+.Actions__Positive {
   border: 1px solid black;
   background-color: #67b9a9;
   width: 4rem;
 }
 
-.Actions__Edit:hover {
+.Actions__Positive:hover {
   background-color: #4a897d;
 }
 
