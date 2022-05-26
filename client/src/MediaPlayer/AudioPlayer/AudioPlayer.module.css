@@ -1,6 +1,4 @@
-@media only screen and (min-width: 600px) {
-  .TrackProgress {
-    margin-top: 0.75rem;
-    height: 0.4rem;
-  }
+.TrackProgress {
+  margin-top: 0.75rem;
+  height: 0.5rem;
 }

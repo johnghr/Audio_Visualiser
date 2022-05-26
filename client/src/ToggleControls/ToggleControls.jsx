@@ -26,6 +26,7 @@ export const ToggleConrols = ({
       </button>
 
       <button
+        id={styles.Fullscreen}
         className={styles.Button}
         onClick={() => {
           setFullscreen(!fullscreen);
