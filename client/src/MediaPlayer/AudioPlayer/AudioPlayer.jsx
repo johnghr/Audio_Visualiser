@@ -52,6 +52,7 @@ const AudioPlayer = ({
     audioRef.current = new Audio(
       `http://localhost:5000/uploads/${trackUploads[selectedTrackIndex]}`
     );
+
     audioRef.current.crossOrigin = "anonymous";
 
     onChangeTrack(audioRef.current);
@@ -104,6 +105,12 @@ const AudioPlayer = ({
     startTimer();
   };
 
+  const handleVolume = (e) => {
+    console.log("changing volume:", e);
+    audioRef.current.volume = e.target.value;
+    console.log("volume:", audioRef.current.volume);
+  };
+
   return (
     <>
       <AudioControls
@@ -123,6 +130,7 @@ const AudioPlayer = ({
         onMouseUp={onScrubEnd}
         onKeyUp={onScrubEnd}
       />
+      <input type="range" step="0.1" min="0" max="1" onChange={handleVolume} />
     </>
   );
 };

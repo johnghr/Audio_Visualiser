@@ -9,10 +9,16 @@ html {
 
 body {
   margin: 0;
+  font-family: "Bangers", cursive;
+  font-size: larger;
+  color: #17203b;
 }
 
 button {
   background: none;
   border: none;
   cursor: pointer;
+  font-family: "Bangers", cursive;
+  font-size: large;
+  color: #17203b;
 }
