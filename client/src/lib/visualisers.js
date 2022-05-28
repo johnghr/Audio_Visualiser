@@ -51,7 +51,7 @@ export const renderWaveform = (background, canvas, context, waveformData) => {
   context.moveTo(0, canvas.height / 2);
 
   for (const item of waveformData) {
-    const y = (item / 255.0) * canvas.height;
+    const y = (item / 255) * canvas.height;
     context.lineTo(x, y);
     x += sliceWidth;
   }

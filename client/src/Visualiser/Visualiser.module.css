@@ -4,7 +4,7 @@
   max-height: 550px;
 }
 
-.Canvas__Fullscreen {
+.Fullscreen__Container {
   min-height: 100vh;
   min-width: 100vh;
 }

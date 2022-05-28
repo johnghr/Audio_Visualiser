@@ -68,6 +68,114 @@
   background: black;
   border-radius: 50%/ 50%;
   box-shadow: 5px 10px 18px black;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .RecordDisc {
+    animation: spin-record 4s infinite linear;
+  }
+}
+
+@keyframes spin-record {
+  0% {
+    width: 75%;
+    height: 75%;
+    /* transform: rotate(0deg); */
+  }
+  25% {
+    width: 74%;
+    height: 76%;
+    /* transform: rotate(0deg); */
+  }
+  50% {
+    width: 73%;
+    height: 77%;
+  }
+  75% {
+    width: 74%;
+    height: 76%;
+    /* transform: rotate(0deg); */
+  }
+  100% {
+    width: 75%;
+    height: 75%;
+    /* transform: rotate(0deg); */
+  }
+}
+
+.RecordDisc__Moon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 73%;
+  height: 75%;
+  background: rgb(233, 233, 233);
+  border-radius: 50%/ 50%;
+  position: absolute;
+}
+
+.RecordDisc__MoonInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74%;
+  height: 78%;
+  background: black;
+  border-radius: 50%/ 50%;
+  position: absolute;
+}
+
+.RecordDisc__MoonInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74%;
+  height: 78%;
+  background: black;
+  border-radius: 50%/ 50%;
+  position: absolute;
+}
+
+.RecordDisc__MoonInnerAnimated {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74%;
+  height: 78%;
+  background: black;
+  border-radius: 50%/ 50%;
+  position: absolute;
+  animation: spin-record-inner;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .RecordDisc__MoonInnerAnimated {
+    animation: spin-record-inner 4s infinite linear;
+  }
+}
+
+@keyframes spin-record-inner {
+  0% {
+    width: 77%;
+    height: 75%;
+    transform: rotate(1deg);
+  }
+  25% {
+    width: 76%;
+    height: 76%;
+    transform: rotate(3deg);
+  }
+  50% {
+    width: 75%;
+    height: 84%;
+    transform: rotate(6deg);
+  }
+  75% {
+    width: 79%;
+    height: 95%;
+    transform: rotate(6deg);
+  }
 }
 
 .RecordDisc__Outer {
@@ -78,6 +186,7 @@
   height: 37%;
   background: #e85627;
   border-radius: 50%/ 50%;
+  position: absolute;
 }
 
 .RecordDisc__Inner {

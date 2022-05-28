@@ -8,9 +8,10 @@ const AudioPlayer = ({
   onChangeTrack,
   selectedTrackIndex,
   setSelectedTrackIndex,
+  isPlaying,
+  setIsPlaying,
 }) => {
   const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const audioRef = useRef(new Audio());
 
