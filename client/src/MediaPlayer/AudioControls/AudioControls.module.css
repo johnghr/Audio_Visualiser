@@ -1,8 +1,10 @@
 .AudioControls {
   display: flex;
   justify-content: space-between;
-  width: 75%;
+  width: 30%;
   margin: auto;
+  position: absolute;
+  bottom: 110px;
 }
 
 .AudioControls__Icon {

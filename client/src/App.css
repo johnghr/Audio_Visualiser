@@ -1,6 +1,9 @@
 html {
   background-color: #682957;
   font-weight: 600;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 * {

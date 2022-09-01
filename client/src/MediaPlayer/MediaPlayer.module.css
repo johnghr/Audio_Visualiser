@@ -195,4 +195,9 @@
 .Canvas__Container {
   display: flex;
   min-height: 475px;
+  position: relative;
+}
+
+.Television {
+  position: absolute;
 }

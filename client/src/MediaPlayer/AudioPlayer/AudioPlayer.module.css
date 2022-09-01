@@ -1,4 +1,11 @@
 .TrackProgress {
   margin-top: 0.75rem;
   height: 0.5rem;
+  position: absolute;
+  bottom: 55px;
+}
+
+.VolumeControl {
+  position: absolute;
+  bottom: 85px;
 }

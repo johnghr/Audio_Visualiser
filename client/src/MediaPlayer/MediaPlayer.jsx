@@ -1,7 +1,9 @@
 import { useState } from "react";
 import AudioAnalyser from "../Analyser";
 import AudioPlayer from "./AudioPlayer";
+import { RecordPlayer } from "./RecordPlayer";
 import styles from "./MediaPlayer.module.css";
+import { Television } from "./Television";
 
 const MediaPlayer = ({
   analyserState,
@@ -29,6 +31,7 @@ const MediaPlayer = ({
   return (
     <div className={styles.MediaPlayer}>
       <div className={styles.Canvas__Container}>
+        <Television class={styles.Television} />
         <AudioAnalyser
           input={analyserState.input}
           mode={analyserState.mode}
@@ -40,36 +43,15 @@ const MediaPlayer = ({
         />
       </div>
 
-      <div className={styles.RecordPlayer__Contaier}>
-        <div className={styles.RecordPlayer}>
-          <div className={styles.RecordPlayer__Top}>
-            <div className={styles.RecordDisc}>
-              {/* <div className={styles.Moon__Container}> */}
-              <div className={styles.RecordDisc__Moon} />
-              <div
-                className={`${
-                  isPlaying
-                    ? styles.RecordDisc__MoonInnerAnimated
-                    : styles.RecordDisc__MoonInner
-                }`}
-              />
-              <div className={styles.RecordDisc__Outer}>
-                <div className={styles.RecordDisc__Inner} />
-              </div>
-            </div>
-          </div>
-          <div className={styles.RecordPlayer__Bottom}>
-            <AudioPlayer
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-              onChangeTrack={onChangeTrack}
-              trackUploads={trackUploads}
-              selectedTrackIndex={selectedTrackIndex}
-              setSelectedTrackIndex={setSelectedTrackIndex}
-            />
-          </div>
-        </div>
-      </div>
+      <RecordPlayer />
+      <AudioPlayer
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        onChangeTrack={onChangeTrack}
+        trackUploads={trackUploads}
+        selectedTrackIndex={selectedTrackIndex}
+        setSelectedTrackIndex={setSelectedTrackIndex}
+      />
     </div>
   );
 };

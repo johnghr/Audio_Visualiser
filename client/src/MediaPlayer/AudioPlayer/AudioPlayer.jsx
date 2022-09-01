@@ -130,7 +130,14 @@ const AudioPlayer = ({
         onMouseUp={onScrubEnd}
         onKeyUp={onScrubEnd}
       />
-      <input type="range" step="0.1" min="0" max="1" onChange={handleVolume} />
+      <input
+        class={styles.VolumeControl}
+        type="range"
+        step="0.1"
+        min="0"
+        max="1"
+        onChange={handleVolume}
+      />
     </>
   );
 };
