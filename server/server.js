@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const { getAudioDurationInSeconds } = require("get-audio-duration");
 app.use(express.json());
 
 const cors = require("cors");
@@ -25,10 +26,16 @@ const upload = multer({ storage: fileStorageEngine });
 app.get("/", (req, res) => {
   fs.readdir(directoryPath, function (err, files) {
     try {
-      let fileNames = [];
-      files.forEach((file) => fileNames.push(file));
-      console.log(fileNames);
-      res.status(200).send(fileNames);
+      const promises = files.map((file) =>
+        getAudioDurationInSeconds(`${directoryPath}/${file}`).then(
+          (duration) => {
+            const minutes = Math.floor(duration / 60);
+            const seconds = Math.round(duration - minutes * 60);
+            return { title: file, duration: `${minutes}:${seconds}` };
+          }
+        )
+      );
+      Promise.all(promises).then((tracks) => res.status(200).send(tracks));
     } catch (err) {
       return console.log("Unable to scan directory: " + err);
     }

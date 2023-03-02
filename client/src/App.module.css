@@ -1,11 +1,19 @@
 .AppContainer {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   width: 100%;
   padding: 0px 10px;
   height: 100vh;
   margin: 0.25rem;
   margin-right: 0.25rem;
+}
+.BottomContainer {
+  width: 100%;
+  max-height: 40%;
+}
+.TopContainer {
+  display: flex;
+  max-height: 60%;
 }
 
 .TrackInterface {
@@ -19,4 +27,15 @@
   .TrackInterface {
     width: 27%;
   }
+}
+
+.Television__Container {
+  position: relative;
+  display: flex;
+  justify-items: center;
+  width: 100%;
+  padding: 20px;
+}
+.Television {
+  z-index: 2;
 }

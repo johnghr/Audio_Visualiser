@@ -131,7 +131,7 @@ const AudioPlayer = ({
         onKeyUp={onScrubEnd}
       />
       <input
-        class={styles.VolumeControl}
+        className={styles.VolumeControl}
         type="range"
         step="0.1"
         min="0"

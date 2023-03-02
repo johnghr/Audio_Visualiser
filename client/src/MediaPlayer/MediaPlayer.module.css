@@ -1,7 +1,6 @@
 .MediaPlayer {
   display: flex;
   flex-direction: column;
-  width: 50%;
   justify-content: flex-start;
   align-items: center;
   padding: 0px 10px;
@@ -9,23 +8,9 @@
 
 .RecordPlayer__Contaier {
   margin-top: 1rem;
-  width: 100%;
-  padding-top: 42%;
-  position: relative;
+  width: 50%;
 }
 
 .RecordPlayer {
-  position: absolute;
   bottom: 2px;
-}
-
-.Canvas__Container {
-  display: flex;
-  min-height: 475px;
-  position: relative;
-}
-
-.Television {
-  position: absolute;
-  height: 95%;
 }

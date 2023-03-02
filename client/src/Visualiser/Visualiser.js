@@ -16,9 +16,21 @@ const Visualiser = ({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const element = document.querySelector("#tv-container");
+    const { width, height } = element.getBoundingClientRect();
+    canvas.width = width;
+    canvas.height = height;
     const context = canvas.getContext("2d");
+
+    const handleResize = (e) => {
+      console.log("resizing");
+      const element = document.querySelector("#tv-container");
+      const { width, height } = element.getBoundingClientRect();
+      canvas.width = width;
+      canvas.height = height;
+    };
+
+    window.addEventListener("resize", handleResize);
 
     if (mode !== "off" && currentVisualiser === "Waveform") {
       renderWaveform(background, canvas, context, waveformData);

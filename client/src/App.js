@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { TrackService } from "./services/TrackService";
 import styles from "./App.module.css";
-
+import { Television } from "./MediaPlayer/Television";
 import UploadForm from "./TrackInterface/UploadForm";
 import TrackList from "./TrackInterface/TrackList";
 import MediaPlayer from "./MediaPlayer";
+import AudioAnalyser from "./Analyser";
 
 import "./App.css";
 import { ToggleConrols } from "./ToggleControls/ToggleControls";
@@ -62,7 +63,6 @@ export const App = () => {
   };
 
   // State and functions for managing the toggle buttons - user mic, current visualiser setting and background
-
   const [background, setBackground] = useState("Black");
   const visualisers = ["Waveform", "Frequency"];
   const [visualiserIndex, setVisualiserIndex] = useState(0);
@@ -110,49 +110,62 @@ export const App = () => {
 
   return (
     <div className={styles.AppContainer}>
-      <div className={styles.TrackInterface}>
-        <TrackList
-          deleteTrack={deleteTrack}
-          setSelectedTrackIndex={setSelectedTrackIndex}
-          setTrackUploads={setTrackUploads}
-          trackUploads={trackUploads}
-          selectedTrackIndex={selectedTrackIndex}
-          updateTrack={updateTrack}
-          setUpdatedTrack={setUpdatedTrack}
-          updatedTrack={updatedTrack}
+      <div className={styles.TopContainer}>
+        <ToggleConrols
+          background={background}
+          mode={analyserState.mode}
+          toggleBackground={toggleBackground}
+          toggleMicrophone={toggleMicrophone}
+          toggleVisualiser={toggleVisualiser}
+          visualisers={visualisers}
+          visualiserIndex={visualiserIndex}
+          setFullscreen={setFullscreen}
+          fullscreen={fullscreen}
+        />
+        <Television
+          input={analyserState.input}
+          mode={analyserState.mode}
+          currentVisualiser={currentVisualiser}
+          background={background}
+          audioContext={audioContext}
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
         />
 
-        <UploadForm
-          trackUploads={trackUploads}
-          setTrackUploads={setTrackUploads}
-        />
+        <div className={styles.TrackInterface}>
+          <TrackList
+            deleteTrack={deleteTrack}
+            setSelectedTrackIndex={setSelectedTrackIndex}
+            setTrackUploads={setTrackUploads}
+            trackUploads={trackUploads}
+            selectedTrackIndex={selectedTrackIndex}
+            updateTrack={updateTrack}
+            setUpdatedTrack={setUpdatedTrack}
+            updatedTrack={updatedTrack}
+          />
+
+          <UploadForm
+            trackUploads={trackUploads}
+            setTrackUploads={setTrackUploads}
+          />
+        </div>
       </div>
 
-      <MediaPlayer
-        analyserState={analyserState}
-        setAnalyserState={setAnalyserState}
-        background={background}
-        currentVisualiser={currentVisualiser}
-        selectedTrackIndex={selectedTrackIndex}
-        setSelectedTrackIndex={setSelectedTrackIndex}
-        audioContext={audioContext}
-        trackUploads={trackUploads}
-        setTrackUploads={setTrackUploads}
-        fullscreen={fullscreen}
-        setFullscreen={setFullscreen}
-      />
-
-      <ToggleConrols
-        background={background}
-        mode={analyserState.mode}
-        toggleBackground={toggleBackground}
-        toggleMicrophone={toggleMicrophone}
-        toggleVisualiser={toggleVisualiser}
-        visualisers={visualisers}
-        visualiserIndex={visualiserIndex}
-        setFullscreen={setFullscreen}
-        fullscreen={fullscreen}
-      />
+      <div className={styles.BottomContainer}>
+        <MediaPlayer
+          analyserState={analyserState}
+          setAnalyserState={setAnalyserState}
+          background={background}
+          currentVisualiser={currentVisualiser}
+          selectedTrackIndex={selectedTrackIndex}
+          setSelectedTrackIndex={setSelectedTrackIndex}
+          audioContext={audioContext}
+          trackUploads={trackUploads}
+          setTrackUploads={setTrackUploads}
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
+        />
+      </div>
     </div>
   );
 };

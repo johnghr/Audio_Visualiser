@@ -1,7 +1,9 @@
 .Canvas {
-  padding: 36px;
-  width: 79%;
-  height: 90%;
+  position: absolute;
+  left: 6%;
+  width: 74%;
+  /* max-height: 84%; */
+  top: 11%;
 }
 
 .Fullscreen__Container {

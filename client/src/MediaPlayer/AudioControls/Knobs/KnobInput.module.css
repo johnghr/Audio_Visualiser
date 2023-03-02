@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.square {
+  height: 150px;
+  width: 150px;
+  margin: auto;
+}
+
+.circle {
+  background-color: blue;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.inner-circle {
+  background-color: black;
+  height: 14%;
+  width: 2%;
+  margin-left: 50%;
+  margin-right: 50%;
+}
